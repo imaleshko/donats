@@ -1,8 +1,8 @@
 import styles from "./Info.module.css";
-import type { GetFundraisingResponse } from "@/api/fundraisersApi.ts";
+import type { Fundraiser } from "@/api/fundraisersApi.ts";
 
 interface InfoProps {
-  fundraiser: GetFundraisingResponse;
+  fundraiser: Fundraiser;
 }
 
 const Info = ({ fundraiser }: InfoProps) => {

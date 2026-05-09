@@ -3,7 +3,7 @@ package com.donats.backend.auth;
 import com.donats.backend.auth.dto.AuthResponse;
 import com.donats.backend.auth.dto.LoginRequest;
 import com.donats.backend.auth.dto.RegisterRequest;
-import com.donats.backend.auth.dto.TokensDto;
+import com.donats.backend.auth.dto.Tokens;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        TokensDto tokens = authService.register(request);
+        Tokens tokens = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .header(HttpHeaders.SET_COOKIE, cookie(tokens).toString())
                 .body(new AuthResponse(tokens.accessToken()));
@@ -32,7 +32,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-        TokensDto tokens = authService.login(request);
+        Tokens tokens = authService.login(request);
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.SET_COOKIE, cookie(tokens).toString())
                 .body(new AuthResponse(tokens.accessToken()));
@@ -44,7 +44,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        TokensDto tokens = authService.refreshToken(refreshToken);
+        Tokens tokens = authService.refreshToken(refreshToken);
         return ResponseEntity.status(HttpStatus.OK)
                 .header(HttpHeaders.SET_COOKIE, cookie(tokens).toString())
                 .body(new AuthResponse(tokens.accessToken()));
@@ -67,7 +67,7 @@ public class AuthController {
                 .build();
     }
 
-    private ResponseCookie cookie(TokensDto tokens) {
+    private ResponseCookie cookie(Tokens tokens) {
         return ResponseCookie.from("refreshToken", tokens.refreshToken())
                 .httpOnly(true)
                 .path("/")

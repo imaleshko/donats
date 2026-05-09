@@ -17,7 +17,7 @@ export interface CreateFundraisingRequest {
   imagesUrl?: string[];
 }
 
-export interface GetFundraisingResponse {
+export interface Fundraiser {
   id: number;
   title: string;
   slug: string;
@@ -45,8 +45,8 @@ export const fundraisersApi = {
   getByUsernameAndSlug: async (
     username: string,
     slug: string,
-  ): Promise<GetFundraisingResponse> => {
-    const response = await api.get<GetFundraisingResponse>(
+  ): Promise<Fundraiser> => {
+    const response = await api.get<Fundraiser>(
       `/fundraising/${username}/${slug}`,
     );
     return response.data;

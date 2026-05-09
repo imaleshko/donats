@@ -19,7 +19,7 @@ public class FundraisingUpdateController {
     @PostMapping("/{fundraisingId}/updates")
     public ResponseEntity<Void> createUpdate(
             @PathVariable Long fundraisingId,
-            @Valid @RequestBody CreateFundraisingUpdateRequestDto request,
+            @Valid @RequestBody CreateFundraisingUpdateRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         updateService.createFundraisingUpdate(userDetails.getUsername(), fundraisingId, request);

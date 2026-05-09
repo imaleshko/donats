@@ -1,6 +1,5 @@
 package com.donats.backend.fundraising.creating;
 
-import com.donats.backend.fundraising.creating.dto.CreateFundraisingRequest;
 import com.donats.backend.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

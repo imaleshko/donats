@@ -1,6 +1,6 @@
 package com.donats.backend.account;
 
-import com.donats.backend.account.dto.UserDto;
+import com.donats.backend.account.dto.User;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.EmailAlreadyInUseException;
 import com.donats.backend.exceptions.InvalidPasswordException;
@@ -25,10 +25,10 @@ public class AccountService {
         this.imageService = imageService;
     }
 
-    public UserDto getUser(String email) {
+    public User getUser(String email) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
+        return new User(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
     }
 
     @Transactional

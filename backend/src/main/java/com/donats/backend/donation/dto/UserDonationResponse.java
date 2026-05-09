@@ -3,7 +3,7 @@ package com.donats.backend.donation.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public record UserDonationResponseDto(
+public record UserDonationResponse(
         Long id,
         String name,
         BigDecimal amount,

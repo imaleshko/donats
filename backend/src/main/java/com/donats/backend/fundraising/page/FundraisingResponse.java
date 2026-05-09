@@ -1,18 +1,16 @@
-package com.donats.backend.fundraising.page.dto;
+package com.donats.backend.fundraising.page;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record FundraisingResponseDto(
+public record FundraisingResponse(
         Long id,
         String title,
         String slug,
         String description,
         BigDecimal balance,
         BigDecimal goal,
-        LocalDate endDate,
         List<String> imageUrls,
         String authorUsername,
         String authorAvatarUrl,

@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { accountApi } from "@/api/accountApi.ts";
-import useLogout from "@/hooks/useLogout.ts";
+import useLogout from "./useLogout.ts";
 import defaultAvatar from "@/assets/defaultAvatar.png";
 
 export const Header = () => {

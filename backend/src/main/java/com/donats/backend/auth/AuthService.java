@@ -2,7 +2,7 @@ package com.donats.backend.auth;
 
 import com.donats.backend.auth.dto.LoginRequest;
 import com.donats.backend.auth.dto.RegisterRequest;
-import com.donats.backend.auth.dto.TokensDto;
+import com.donats.backend.auth.dto.Tokens;
 import com.donats.backend.entities.RefreshTokenEntity;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.InvalidTokenException;
@@ -34,7 +34,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public TokensDto register(RegisterRequest request) {
+    public Tokens register(RegisterRequest request) {
         if (userRepository.existsByEmailOrUsername(request.email(), request.username())
         ) {
             throw new UserAlreadyExistsException("Користувач з таким email або ім'ям вже існує");
@@ -49,7 +49,7 @@ public class AuthService {
         return generateTokensForUser(savedUser);
     }
 
-    public TokensDto login(LoginRequest request) {
+    public Tokens login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
@@ -60,7 +60,7 @@ public class AuthService {
         return generateTokensForUser(user);
     }
 
-    public TokensDto refreshToken(String refreshToken) {
+    public Tokens refreshToken(String refreshToken) {
         return refreshTokenService.findByToken(refreshToken)
                 .map(refreshTokenEntity -> {
                     if (refreshTokenService.isTokenExpired(refreshTokenEntity)) {
@@ -80,10 +80,10 @@ public class AuthService {
         refreshTokenService.deleteByToken(refreshToken);
     }
 
-    private TokensDto generateTokensForUser(UserEntity user) {
+    private Tokens generateTokensForUser(UserEntity user) {
         String accessToken = accessTokenService.generateAccessToken(user.getEmail());
         RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(user);
 
-        return new TokensDto(accessToken, refreshToken.getToken());
+        return new Tokens(accessToken, refreshToken.getToken());
     }
 }

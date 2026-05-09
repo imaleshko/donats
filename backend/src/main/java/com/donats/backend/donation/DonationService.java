@@ -2,16 +2,18 @@ package com.donats.backend.donation;
 
 import com.donats.backend.donation.dto.DonationInitRequest;
 import com.donats.backend.donation.dto.DonationInitResponse;
+import com.donats.backend.donation.dto.DonationView;
 import com.donats.backend.donation.exceptions.DonationCloseException;
 import com.donats.backend.donation.liqpay.LiqPayService;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.fundraising.FundraisingEntity;
 import com.donats.backend.fundraising.FundraisingRepository;
-import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
+import com.donats.backend.fundraising.page.FundraisingNotFoundException;
 import com.donats.backend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -86,5 +88,14 @@ public class DonationService {
                 donationRepository.save(donation);
             }
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<DonationView> getSuccessfulDonations(Long fundraisingId) {
+        return donationRepository
+                .findAllByFundraisingIdAndStatusOrderByCreatedAtDesc(fundraisingId, DonationStatusEnum.SUCCESS)
+                .stream()
+                .map(DonationView::from)
+                .toList();
     }
 }

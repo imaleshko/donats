@@ -3,7 +3,7 @@ package com.donats.backend.exceptions;
 import com.donats.backend.donation.exceptions.DonationCloseException;
 import com.donats.backend.donation.exceptions.DonationInitException;
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
+import com.donats.backend.fundraising.page.FundraisingNotFoundException;
 import com.donats.backend.image.ImageUploadException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;

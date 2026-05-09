@@ -1,7 +1,7 @@
 package com.donats.backend.fundraising.editing;
 
-import com.donats.backend.fundraising.editing.dto.EditFundraisingResponseDto;
-import com.donats.backend.fundraising.editing.dto.UpdateFundraisingRequestDto;
+import com.donats.backend.fundraising.editing.dto.EditFundraisingResponse;
+import com.donats.backend.fundraising.editing.dto.UpdateFundraisingRequest;
 import com.donats.backend.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +19,18 @@ public class FundraisingEditingController {
     }
 
     @GetMapping("/{slug}")
-    public ResponseEntity<EditFundraisingResponseDto> getFundraisingForEdit(
+    public ResponseEntity<EditFundraisingResponse> getFundraisingForEdit(
             @PathVariable String slug,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        EditFundraisingResponseDto response = editingService.getFundraisingForEdit(userDetails.getUsername(), slug);
+        EditFundraisingResponse response = editingService.getFundraisingForEdit(userDetails.getUsername(), slug);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{currentSlug}")
     public ResponseEntity<Void> updateFundraising(
             @PathVariable String currentSlug,
-            @Valid @RequestBody UpdateFundraisingRequestDto request,
+            @Valid @RequestBody UpdateFundraisingRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
         editingService.updateFundraising(userDetails.getUsername(), currentSlug, request);

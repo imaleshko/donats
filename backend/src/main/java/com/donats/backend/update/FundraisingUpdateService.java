@@ -4,10 +4,13 @@ import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.fundraising.FundraisingEntity;
 import com.donats.backend.fundraising.FundraisingRepository;
-import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
+import com.donats.backend.fundraising.page.FundraisingNotFoundException;
 import com.donats.backend.repositories.UserRepository;
+import com.donats.backend.update.dto.FundraisingUpdateView;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class FundraisingUpdateService {
@@ -25,7 +28,7 @@ public class FundraisingUpdateService {
     }
 
     @Transactional
-    public void createFundraisingUpdate(String email, Long fundraisingId, CreateFundraisingUpdateRequestDto request) {
+    public void createFundraisingUpdate(String email, Long fundraisingId, CreateFundraisingUpdateRequest request) {
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
 
@@ -42,5 +45,13 @@ public class FundraisingUpdateService {
         update.setFundraising(fundraising);
 
         updateRepository.save(update);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FundraisingUpdateView> getFundraisingUpdates(Long fundraisingId) {
+        return updateRepository.findAllByFundraisingIdOrderByCreatedAtDesc(fundraisingId)
+                .stream()
+                .map(FundraisingUpdateView::from)
+                .toList();
     }
 }

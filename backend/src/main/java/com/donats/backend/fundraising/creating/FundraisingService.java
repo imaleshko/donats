@@ -5,7 +5,6 @@ import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.fundraising.FundraisingEntity;
 import com.donats.backend.fundraising.FundraisingRepository;
 import com.donats.backend.fundraising.FundraisingStatus;
-import com.donats.backend.fundraising.creating.dto.CreateFundraisingRequest;
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
 import com.donats.backend.repositories.UserRepository;
 import org.jspecify.annotations.NonNull;
@@ -46,7 +45,6 @@ public class FundraisingService {
         fundraising.setSlug(request.slug());
         fundraising.setDescription(request.description());
         fundraising.setGoal(request.goal());
-        fundraising.setEndDate(request.endDate());
         fundraising.setImageUrls(request.imagesUrl() != null ? request.imagesUrl() : List.of());
 
         fundraising.setBalance(BigDecimal.ZERO);

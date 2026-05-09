@@ -2,7 +2,7 @@ package com.donats.backend.update;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record CreateFundraisingUpdateRequestDto(
+public record CreateFundraisingUpdateRequest(
         @NotBlank(message = "Назва обов'язкова")
         String title,
 

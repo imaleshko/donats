@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { donationApi, type DonationInitRequest } from "@/api/donationApi.ts";
+import { donationApi, type DonationInitRequest } from "./donationApi.ts";
 import { isAxiosError } from "axios";
 
 interface LiqPayChain {

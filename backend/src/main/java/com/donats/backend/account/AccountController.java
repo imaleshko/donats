@@ -4,7 +4,7 @@ import com.donats.backend.account.dto.*;
 import com.donats.backend.donation.DonationEntity;
 import com.donats.backend.donation.DonationRepository;
 import com.donats.backend.donation.DonationStatusEnum;
-import com.donats.backend.donation.dto.UserDonationResponseDto;
+import com.donats.backend.donation.dto.UserDonationResponse;
 import com.donats.backend.entities.UserEntity;
 import com.donats.backend.fundraising.FundraisingEntity;
 import com.donats.backend.fundraising.FundraisingRepository;
@@ -36,8 +36,8 @@ public class AccountController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<UserDto> getUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        UserDto profile = accountService.getUser(userDetails.getUsername());
+    public ResponseEntity<User> getUser(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        User profile = accountService.getUser(userDetails.getUsername());
         return ResponseEntity.ok(profile);
     }
 
@@ -51,12 +51,12 @@ public class AccountController {
 
         String accessToken = accessTokenService.generateAccessToken(updatedUser.getEmail());
 
-        UserDto userDto = toUserDto(updatedUser);
-        return ResponseEntity.ok(new ChangeEmailResponse(userDto, accessToken));
+        User user = toUserDto(updatedUser);
+        return ResponseEntity.ok(new ChangeEmailResponse(user, accessToken));
     }
 
     @PatchMapping("/username")
-    public ResponseEntity<UserDto> changeUsername(
+    public ResponseEntity<User> changeUsername(
             @RequestBody ChangeUsernameRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -76,7 +76,7 @@ public class AccountController {
     }
 
     @PatchMapping("/avatar")
-    public ResponseEntity<UserDto> changeAvatar(
+    public ResponseEntity<User> changeAvatar(
             @RequestBody ChangeAvatarRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
@@ -85,13 +85,13 @@ public class AccountController {
         return ResponseEntity.ok(toUserDto(updatedUser));
     }
 
-    private UserDto toUserDto(UserEntity user) {
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
+    private User toUserDto(UserEntity user) {
+        return new User(user.getId(), user.getUsername(), user.getEmail(), user.getAvatarUrl());
     }
 
     @GetMapping("/donations")
-    public ResponseEntity<List<UserDonationResponseDto>> getMyDonations(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<UserDonationResponseDto> donations = donationRepository
+    public ResponseEntity<List<UserDonationResponse>> getMyDonations(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<UserDonationResponse> donations = donationRepository
                 .findAllByUserEmailAndStatusOrderByCreatedAtDesc(userDetails.getUsername(), DonationStatusEnum.SUCCESS)
                 .stream()
                 .map(this::toUserUserDonationResponseDto)
@@ -100,8 +100,8 @@ public class AccountController {
         return ResponseEntity.ok(donations);
     }
 
-    private UserDonationResponseDto toUserUserDonationResponseDto(DonationEntity donation) {
-        return new UserDonationResponseDto(donation.getId(),
+    private UserDonationResponse toUserUserDonationResponseDto(DonationEntity donation) {
+        return new UserDonationResponse(donation.getId(),
                 donation.getName(),
                 donation.getAmount(),
                 donation.getCreatedAt(),

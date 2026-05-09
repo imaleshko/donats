@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public record UpdateFundraisingRequestDto(
+public record UpdateFundraisingRequest(
         @NotBlank(message = "Назва обов'язкова")
         String title,
 

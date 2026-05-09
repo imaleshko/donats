@@ -5,9 +5,9 @@ import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.fundraising.FundraisingEntity;
 import com.donats.backend.fundraising.FundraisingRepository;
 import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.fundraising.editing.dto.EditFundraisingResponseDto;
-import com.donats.backend.fundraising.editing.dto.UpdateFundraisingRequestDto;
-import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
+import com.donats.backend.fundraising.editing.dto.EditFundraisingResponse;
+import com.donats.backend.fundraising.editing.dto.UpdateFundraisingRequest;
+import com.donats.backend.fundraising.page.FundraisingNotFoundException;
 import com.donats.backend.image.ImageService;
 import com.donats.backend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,26 +32,25 @@ public class FundraisingEditingService {
     }
 
     @Transactional(readOnly = true)
-    public EditFundraisingResponseDto getFundraisingForEdit(String email, String slug) {
+    public EditFundraisingResponse getFundraisingForEdit(String email, String slug) {
         UserEntity user = getUserByEmail(email);
 
         FundraisingEntity fundraising = fundraisingRepository.findByUserUsernameAndSlug(user.getUsername(), slug)
                 .orElseThrow(() -> new FundraisingNotFoundException("Збір не знайдено"));
 
-        return new EditFundraisingResponseDto(
+        return new EditFundraisingResponse(
                 fundraising.getId(),
                 fundraising.getTitle(),
                 fundraising.getSlug(),
                 fundraising.getDescription(),
                 fundraising.getGoal(),
-                fundraising.getEndDate(),
                 fundraising.getImageUrls()
         );
     }
 
     @Transactional
     public void updateFundraising(String email, String currentSlug,
-                                  UpdateFundraisingRequestDto request) {
+                                  UpdateFundraisingRequest request) {
         UserEntity user = getUserByEmail(email);
 
         FundraisingEntity fundraising = fundraisingRepository.findByUserUsernameAndSlug(user.getUsername(), currentSlug)
@@ -77,7 +76,6 @@ public class FundraisingEditingService {
         fundraising.setSlug(request.slug());
         fundraising.setDescription(request.description());
         fundraising.setGoal(request.goal());
-        fundraising.setEndDate(request.endDate());
         fundraising.setImageUrls(newImagesUrls);
 
         fundraisingRepository.save(fundraising);

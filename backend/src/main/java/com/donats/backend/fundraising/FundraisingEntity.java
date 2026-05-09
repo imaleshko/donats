@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,9 +44,6 @@ public class FundraisingEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @Column(name = "endDate")
-    private LocalDate endDate;
-
     @ElementCollection
     @CollectionTable(name = "fundraising_images", joinColumns = @JoinColumn(name = "fundraising_id"))
     @Column(name = "imageUrls", nullable = false)
@@ -69,7 +65,7 @@ public class FundraisingEntity {
     public FundraisingEntity() {
     }
 
-    public FundraisingEntity(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imageUrls, FundraisingStatus status, UserEntity userEntity, List<DonationEntity> donations, List<FundraisingUpdateEntity> updates) {
+    public FundraisingEntity(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, List<String> imageUrls, FundraisingStatus status, UserEntity userEntity, List<DonationEntity> donations, List<FundraisingUpdateEntity> updates) {
         this.id = id;
         this.title = title;
         this.slug = slug;
@@ -79,7 +75,6 @@ public class FundraisingEntity {
         this.startedAt = startedAt;
         this.endedAt = endedAt;
         this.updatedAt = updatedAt;
-        this.endDate = endDate;
         this.imageUrls = imageUrls;
         this.status = status;
         this.user = userEntity;
@@ -157,14 +152,6 @@ public class FundraisingEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
     }
 
     public List<String> getImageUrls() {
