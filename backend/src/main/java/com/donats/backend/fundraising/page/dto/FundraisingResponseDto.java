@@ -13,7 +13,7 @@ public record FundraisingResponseDto(
         BigDecimal balance,
         BigDecimal goal,
         LocalDate endDate,
-        List<String> imagesUrl,
+        List<String> imageUrls,
         String authorUsername,
         String authorAvatarUrl,
         String status,

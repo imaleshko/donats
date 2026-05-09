@@ -1,50 +1,59 @@
 import styles from "./DonationForm.module.css";
-import { type ChangeEvent, type SubmitEventHandler, useState } from "react";
-import { useInitDonation } from "@/pages/Fundraising/Components/DonationForm/useInitDonation.ts";
+import { type ChangeEvent, type SubmitEvent, useState } from "react";
+import { useInitDonation } from "../../Components/DonationForm/useInitDonation.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
 interface DonationFormProps {
-  fundraisingId: number;
+  fundraiserId: number;
 }
 
-const DonationForm = ({ fundraisingId }: DonationFormProps) => {
-  const [data, setData] = useState({
+const DonationForm = ({ fundraiserId }: DonationFormProps) => {
+  const [formValues, setFormValues] = useState({
     amount: "",
     name: "",
     message: "",
   });
 
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
-  const { username, slug } = useParams();
-  const { initDonation, isPending, error } = useInitDonation({
+  const { username, slug } = useParams<{ username: string; slug: string }>();
+  const {
+    initDonation,
+    isPending,
+    error: serverError,
+  } = useInitDonation({
     onSuccessPayment: () => {
-      alert("Дякуємо за донат!");
-      setData({ amount: "", name: "", message: "" });
+      setFormValues({ amount: "", name: "", message: "" });
 
       void queryClient.invalidateQueries({
-        queryKey: ["fundraising", username, slug],
+        queryKey: ["fundraiser", username, slug],
       });
       void queryClient.invalidateQueries({
-        queryKey: ["fundraising-donations", fundraisingId],
+        queryKey: ["fundraiser-donations", fundraiserId],
       });
+    },
+    onFailedPayment: () => {
+      setPaymentError("Оплата не пройшла");
     },
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    if (errors[name]) {
-      setErrors((prevErrors) => {
+    if (validationErrors[name]) {
+      setValidationErrors((prevErrors) => {
         const newErrors = { ...prevErrors };
         delete newErrors[name];
         return newErrors;
       });
     }
 
-    setData((prevData) => ({
+    setFormValues((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -53,30 +62,30 @@ const DonationForm = ({ fundraisingId }: DonationFormProps) => {
   const validate = () => {
     const validationErrors: Record<string, string> = {};
 
-    if (!data.amount || Number(data.amount) <= 1) {
-      validationErrors.amount = "Сума має бути більшою за 1";
+    if (!formValues.amount || Number(formValues.amount) < 10) {
+      validationErrors.amount = "Мінімальна сума донату - 10 грн";
     }
-    if (data.name.trim().length === 0) {
+    if (formValues.name.trim().length === 0) {
       validationErrors.name = "Ім'я не може бути порожнім";
     }
 
     return validationErrors;
   };
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const errors = validate();
     if (Object.keys(errors).length > 0) {
-      setErrors(errors);
+      setValidationErrors(errors);
       return;
     }
 
     initDonation({
-      fundraisingId,
-      amount: Number(data.amount),
-      name: data.name.trim(),
-      message: data.message.trim(),
+      fundraisingId: fundraiserId,
+      amount: Number(formValues.amount),
+      name: formValues.name.trim(),
+      message: formValues.message.trim(),
     });
   };
 
@@ -90,12 +99,14 @@ const DonationForm = ({ fundraisingId }: DonationFormProps) => {
               placeholder="Сума"
               className={styles.input}
               name="amount"
-              value={data.amount}
+              value={formValues.amount}
               onChange={handleChange}
-              min="1"
+              min="10"
             />
-            {errors.amount && (
-              <span className={styles.errorText}>{errors.amount}</span>
+            {validationErrors.amount && (
+              <span className={styles.errorText}>
+                {validationErrors.amount}
+              </span>
             )}
           </div>
 
@@ -105,11 +116,11 @@ const DonationForm = ({ fundraisingId }: DonationFormProps) => {
               placeholder="Відображуване ім'я"
               className={styles.input}
               name="name"
-              value={data.name}
+              value={formValues.name}
               onChange={handleChange}
             />
-            {errors.name && (
-              <span className={styles.errorText}>{errors.name}</span>
+            {validationErrors.name && (
+              <span className={styles.errorText}>{validationErrors.name}</span>
             )}
           </div>
 
@@ -119,13 +130,16 @@ const DonationForm = ({ fundraisingId }: DonationFormProps) => {
               placeholder="Повідомлення"
               className={styles.input}
               name="message"
-              value={data.message}
+              value={formValues.message}
               onChange={handleChange}
             />
           </div>
         </div>
 
-        {error && <div className={styles.serverError}>{error}</div>}
+        {serverError && <div className={styles.serverError}>{serverError}</div>}
+        {paymentError && (
+          <div className={styles.serverError}>{paymentError}</div>
+        )}
 
         <button
           type="submit"

@@ -12,8 +12,7 @@
   font-size: 28px;
   font-weight: 500;
   color: var(--text-grey-color);
-  text-decoration: none;
-  cursor: pointer;
+  margin: 0;
 }
 
 .divider {
@@ -22,30 +21,12 @@
   background-color: var(--grey-color);
 }
 
-.topSection {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 32px;
-  align-items: start;
-}
-
-.carouselContainer {
-  width: 100%;
-}
-
-.infoContainer {
-  width: 100%;
-}
-
+.topSection,
 .bottomSection {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 32px;
   align-items: start;
-}
-
-.historyContainer {
-  width: 100%;
 }
 
 .sidebarContainer {

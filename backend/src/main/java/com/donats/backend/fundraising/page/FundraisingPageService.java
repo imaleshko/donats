@@ -29,7 +29,7 @@ public class FundraisingPageService {
                 fundraising.getBalance(),
                 fundraising.getGoal(),
                 fundraising.getEndDate(),
-                fundraising.getImagesUrl(),
+                fundraising.getImageUrls(),
                 fundraising.getUser().getUsername(),
                 fundraising.getUser().getAvatarUrl(),
                 fundraising.getStatus().name(),

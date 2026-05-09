@@ -50,8 +50,8 @@ public class FundraisingEntity {
 
     @ElementCollection
     @CollectionTable(name = "fundraising_images", joinColumns = @JoinColumn(name = "fundraising_id"))
-    @Column(name = "imagesUrl", nullable = false)
-    private List<String> imagesUrl;
+    @Column(name = "imageUrls", nullable = false)
+    private List<String> imageUrls;
 
     @Enumerated(EnumType.STRING)
     private FundraisingStatus status;
@@ -69,7 +69,7 @@ public class FundraisingEntity {
     public FundraisingEntity() {
     }
 
-    public FundraisingEntity(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imagesUrl, FundraisingStatus status, UserEntity userEntity, List<DonationEntity> donations, List<FundraisingUpdateEntity> updates) {
+    public FundraisingEntity(Long id, String title, String slug, String description, BigDecimal balance, BigDecimal goal, LocalDateTime startedAt, LocalDateTime endedAt, LocalDateTime updatedAt, LocalDate endDate, List<String> imageUrls, FundraisingStatus status, UserEntity userEntity, List<DonationEntity> donations, List<FundraisingUpdateEntity> updates) {
         this.id = id;
         this.title = title;
         this.slug = slug;
@@ -80,7 +80,7 @@ public class FundraisingEntity {
         this.endedAt = endedAt;
         this.updatedAt = updatedAt;
         this.endDate = endDate;
-        this.imagesUrl = imagesUrl;
+        this.imageUrls = imageUrls;
         this.status = status;
         this.user = userEntity;
         this.donations = donations;
@@ -167,12 +167,12 @@ public class FundraisingEntity {
         this.endDate = endDate;
     }
 
-    public List<String> getImagesUrl() {
-        return imagesUrl;
+    public List<String> getImageUrls() {
+        return imageUrls;
     }
 
-    public void setImagesUrl(List<String> images) {
-        this.imagesUrl = images;
+    public void setImageUrls(List<String> images) {
+        this.imageUrls = images;
     }
 
     public FundraisingStatus getStatus() {

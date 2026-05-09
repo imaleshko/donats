@@ -9,6 +9,13 @@
   gap: 24px;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
 .title {
   margin: 0;
   font-size: 22px;
@@ -17,6 +24,7 @@
   text-align: center;
 }
 
-.content {
-  width: 100%;
+.date {
+  font-size: 14px;
+  color: var(--text-grey-color);
 }

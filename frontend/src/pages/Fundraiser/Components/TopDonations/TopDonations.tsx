@@ -1,8 +1,8 @@
 import styles from "./TopDonations.module.css";
-import type { GetDonationResponse } from "@/pages/Fundraising/fundraisingPageApi.ts";
+import type { Donation } from "../../fundraiserPageApi.ts";
 
 interface TopDonationsProps {
-  donations?: GetDonationResponse[];
+  donations: Donation[];
 }
 
 const TopDonations = ({ donations }: TopDonationsProps) => {

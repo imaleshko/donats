@@ -1,7 +1,7 @@
 import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
-import { Fundraising } from "@/pages/Fundraising/Fundraising";
+import { Fundraiser } from "../pages/Fundraiser/Fundraiser";
 import { queryClient } from "./queryClient.ts";
 import { fundraisersApi } from "@/api/fundraisersApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
@@ -44,8 +44,8 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: "fundraising/:username/:slug",
-        Component: Fundraising,
+        path: "fundraiser/:username/:slug",
+        Component: Fundraiser,
         errorElement: (
           <div style={{ padding: "40px", color: "white", textAlign: "center" }}>
             Збір не знайдено (404)
@@ -58,7 +58,7 @@ export const router = createBrowserRouter([
             throw redirect("/");
           }
           return await queryClient.ensureQueryData({
-            queryKey: ["fundraising", username, slug],
+            queryKey: ["fundraiser", username, slug],
             queryFn: () => fundraisersApi.getByUsernameAndSlug(username, slug),
           });
         },

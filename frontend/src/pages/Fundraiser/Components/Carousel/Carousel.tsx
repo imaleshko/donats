@@ -1,23 +1,17 @@
 import styles from "./Carousel.module.css";
 import useEmblaCarousel from "embla-carousel-react";
-import { useCallback } from "react";
 
 interface CarouselProps {
-  imagesUrls: string[];
+  imageUrls: string[];
 }
 
-const Carousel = ({ imagesUrls }: CarouselProps) => {
+const Carousel = ({ imageUrls }: CarouselProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
+  const scrollPrev = () => emblaApi?.scrollPrev();
+  const scrollNext = () => emblaApi?.scrollNext();
 
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
-  if (!imagesUrls || imagesUrls.length === 0) {
+  if (imageUrls.length === 0) {
     return <div>Зображення відсутні</div>;
   }
 
@@ -25,17 +19,18 @@ const Carousel = ({ imagesUrls }: CarouselProps) => {
     <div className={styles.carouselWrapper}>
       <div className={styles.embla} ref={emblaRef}>
         <div className={styles.emblaContainer}>
-          {imagesUrls.map((url: string, index: number) => (
-            <div className={styles.emblaSlide} key={index}>
-              <img src={url} alt={"Зображення"} className={styles.image} />
+          {imageUrls.map((url) => (
+            <div className={styles.emblaSlide} key={url}>
+              <img src={url} alt="Зображення збору" className={styles.image} />
             </div>
           ))}
         </div>
       </div>
 
-      {imagesUrls.length > 1 && (
+      {imageUrls.length > 1 && (
         <>
           <button
+            type="button"
             className={`${styles.arrow} ${styles.arrowLeft}`}
             onClick={scrollPrev}
           >
@@ -43,6 +38,7 @@ const Carousel = ({ imagesUrls }: CarouselProps) => {
           </button>
 
           <button
+            type="button"
             className={`${styles.arrow} ${styles.arrowRight}`}
             onClick={scrollNext}
           >

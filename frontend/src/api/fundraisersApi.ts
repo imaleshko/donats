@@ -14,7 +14,6 @@ export interface CreateFundraisingRequest {
   slug: string;
   description: string;
   goal?: number;
-  endDate?: string;
   imagesUrl?: string[];
 }
 
@@ -25,8 +24,7 @@ export interface GetFundraisingResponse {
   description: string;
   balance: number;
   goal?: number;
-  endDate?: string;
-  imagesUrl: string[];
+  imageUrls: string[];
   authorUsername: string;
   authorAvatarUrl?: string;
   status: string;

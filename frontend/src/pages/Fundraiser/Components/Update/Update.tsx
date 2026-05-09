@@ -3,11 +3,11 @@ import MDEditor from "@uiw/react-md-editor";
 
 interface UpdateProps {
   title: string;
-  content: string;
+  message: string;
   createdAt: string;
 }
 
-const Update = ({ title, content, createdAt }: UpdateProps) => {
+const Update = ({ title, message, createdAt }: UpdateProps) => {
   const date = new Date(createdAt).toLocaleDateString("uk-UA");
 
   return (
@@ -17,15 +17,13 @@ const Update = ({ title, content, createdAt }: UpdateProps) => {
         <span className={styles.date}>{date}</span>
       </div>
 
-      <div className={styles.content}>
-        <MDEditor.Markdown
-          source={content}
-          style={{
-            backgroundColor: "transparent",
-            color: "var(--text-grey-color)",
-          }}
-        />
-      </div>
+      <MDEditor.Markdown
+        source={message}
+        style={{
+          backgroundColor: "transparent",
+          color: "var(--text-grey-color)",
+        }}
+      />
     </div>
   );
 };

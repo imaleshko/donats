@@ -28,9 +28,13 @@ declare global {
 
 interface UseInitDonationProps {
   onSuccessPayment?: () => void;
+  onFailedPayment?: () => void;
 }
 
-export const useInitDonation = ({ onSuccessPayment }: UseInitDonationProps) => {
+export const useInitDonation = ({
+  onSuccessPayment,
+  onFailedPayment,
+}: UseInitDonationProps) => {
   const mutation = useMutation({
     mutationFn: (data: DonationInitRequest) => donationApi.initDonation(data),
     onSuccess: (response) => {
@@ -41,18 +45,15 @@ export const useInitDonation = ({ onSuccessPayment }: UseInitDonationProps) => {
           embedTo: "#liqpay_checkout",
           language: "uk",
           mode: "popup",
-        })
-          .on("liqpay.callback", (data) => {
-            console.log("LiqPay статус:", data.status);
-            if (data.status === "success" || data.status === "sandbox") {
-              if (onSuccessPayment) onSuccessPayment();
-            }
-          })
-          .on("liqpay.close", () => {
-            console.log("Віджет закрито");
-          });
+        }).on("liqpay.callback", (data) => {
+          if (data.status === "success" || data.status === "sandbox") {
+            if (onSuccessPayment) onSuccessPayment();
+          } else if (data.status === "failure" || data.status === "error") {
+            onFailedPayment?.();
+          }
+        });
       } else {
-        console.error("LiqPay не завантажено");
+        throw new Error("Не вдалося розпочати донат");
       }
     },
   });

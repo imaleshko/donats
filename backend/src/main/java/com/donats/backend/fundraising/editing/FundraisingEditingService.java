@@ -45,7 +45,7 @@ public class FundraisingEditingService {
                 fundraising.getDescription(),
                 fundraising.getGoal(),
                 fundraising.getEndDate(),
-                fundraising.getImagesUrl()
+                fundraising.getImageUrls()
         );
     }
 
@@ -62,7 +62,7 @@ public class FundraisingEditingService {
             throw new SlugAlreadyInUseException("Slug '" + request.slug() + "' вже використовується у ваших зборах");
         }
 
-        List<String> currentImagesUrls = new ArrayList<>(fundraising.getImagesUrl());
+        List<String> currentImagesUrls = new ArrayList<>(fundraising.getImageUrls());
         List<String> newImagesUrls = request.imagesUrl() != null ? request.imagesUrl() : List.of();
 
         List<String> urlsToDelete = currentImagesUrls.stream()
@@ -78,7 +78,7 @@ public class FundraisingEditingService {
         fundraising.setDescription(request.description());
         fundraising.setGoal(request.goal());
         fundraising.setEndDate(request.endDate());
-        fundraising.setImagesUrl(newImagesUrls);
+        fundraising.setImageUrls(newImagesUrls);
 
         fundraisingRepository.save(fundraising);
     }

@@ -1,8 +1,8 @@
 import styles from "./DonationsHistory.module.css";
-import type { GetDonationResponse } from "@/pages/Fundraising/fundraisingPageApi.ts";
+import type { Donation } from "../../fundraiserPageApi.ts";
 
 interface DonationsHistoryProps {
-  donations?: GetDonationResponse[];
+  donations: Donation[];
 }
 
 const DonationsHistory = ({ donations }: DonationsHistoryProps) => {

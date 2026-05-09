@@ -47,7 +47,7 @@ public class FundraisingService {
         fundraising.setDescription(request.description());
         fundraising.setGoal(request.goal());
         fundraising.setEndDate(request.endDate());
-        fundraising.setImagesUrl(request.imagesUrl() != null ? request.imagesUrl() : List.of());
+        fundraising.setImageUrls(request.imagesUrl() != null ? request.imagesUrl() : List.of());
 
         fundraising.setBalance(BigDecimal.ZERO);
         fundraising.setStatus(FundraisingStatus.ACTIVE);

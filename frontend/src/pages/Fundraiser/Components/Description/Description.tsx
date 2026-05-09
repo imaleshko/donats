@@ -10,15 +10,13 @@ const Description = ({ description }: DescriptionProps) => {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Опис збору</h2>
 
-      <div className={styles.content}>
-        <MDEditor.Markdown
-          source={description}
-          style={{
-            backgroundColor: "transparent",
-            color: "var(--text-grey-color)",
-          }}
-        />
-      </div>
+      <MDEditor.Markdown
+        source={description}
+        style={{
+          backgroundColor: "transparent",
+          color: "var(--text-grey-color)",
+        }}
+      />
     </div>
   );
 };

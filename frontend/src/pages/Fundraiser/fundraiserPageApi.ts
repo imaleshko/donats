@@ -1,13 +1,13 @@
 import { api } from "@/app/api.ts";
 
-export interface GetUpdateResponse {
+export interface FundraiserUpdate {
   id: number;
   title: string;
   message: string;
   createdAt: string;
 }
 
-export interface GetDonationResponse {
+export interface Donation {
   id: number;
   name: string;
   amount: number;
@@ -15,9 +15,9 @@ export interface GetDonationResponse {
   message: string | null;
 }
 
-export const fundraisingPageApi = {
-  getUpdates: async (id: number): Promise<GetUpdateResponse[]> => {
-    const response = await api.get<GetUpdateResponse[]>(
+export const fundraiserPageApi = {
+  getUpdates: async (id: number): Promise<FundraiserUpdate[]> => {
+    const response = await api.get<FundraiserUpdate[]>(
       `/fundraising/${id}/updates`,
     );
     return response.data;
@@ -25,8 +25,8 @@ export const fundraisingPageApi = {
 
   getSuccessfulDonations: async (
     fundraisingId: number,
-  ): Promise<GetDonationResponse[]> => {
-    const response = await api.get<GetDonationResponse[]>(
+  ): Promise<Donation[]> => {
+    const response = await api.get<Donation[]>(
       `/fundraising/${fundraisingId}/donations`,
     );
     return response.data;

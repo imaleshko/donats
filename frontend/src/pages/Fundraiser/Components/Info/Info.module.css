@@ -55,28 +55,6 @@
   padding-top: 16px;
 }
 
-.progressCircle {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--grey-color);
-}
-
-.progressCircle {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background-color: var(--background-secondary);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
 .percentageText {
   font-size: 36px;
   font-weight: bold;
@@ -86,4 +64,25 @@
 .balanceText {
   font-size: 16px;
   color: var(--text-grey-color);
+}
+
+.progressOuter {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressInner {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: var(--background-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }

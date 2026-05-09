@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   fundraisingEditingApi,
-  type UpdateFundraisingRequest
+  type UpdateFundraisingRequest,
 } from "@/pages/Account/Fundraisers/EditFundraising/fundraisingEditingApi.ts";
 import { imageApi } from "@/api/imageApi.ts";
 import { isAxiosError } from "axios";
@@ -20,7 +20,7 @@ export const useEditFundraising = (currentSlug: string) => {
   const queryClient = useQueryClient();
 
   const query = useQuery({
-    queryKey: ["edit-fundraising", currentSlug],
+    queryKey: ["edit-fundraiser", currentSlug],
     queryFn: () => fundraisingEditingApi.getForEdit(currentSlug),
     enabled: !!currentSlug,
   });
@@ -48,7 +48,7 @@ export const useEditFundraising = (currentSlug: string) => {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["my-fundraisings"] });
-      void queryClient.invalidateQueries({ queryKey: ["fundraising"] });
+      void queryClient.invalidateQueries({ queryKey: ["fundraiser"] });
     },
   });
 
