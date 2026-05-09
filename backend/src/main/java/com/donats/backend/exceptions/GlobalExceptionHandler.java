@@ -2,8 +2,8 @@ package com.donats.backend.exceptions;
 
 import com.donats.backend.donation.exceptions.DonationCloseException;
 import com.donats.backend.donation.exceptions.DonationInitException;
+import com.donats.backend.fundraiser.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.fundraiser.page.FundraiserNotFoundException;
 import com.donats.backend.image.ImageUploadException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;
@@ -65,6 +65,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ImageUploadException.class)
     public ProblemDetail handleImageUpload(RuntimeException ex) {
         return createProblemDetail(HttpStatus.BAD_REQUEST, "Помилка завантаження зображення", ex.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ProblemDetail handleForbidden(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.FORBIDDEN, "Немає прав", ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

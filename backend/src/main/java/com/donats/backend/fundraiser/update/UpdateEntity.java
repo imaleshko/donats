@@ -1,4 +1,4 @@
-package com.donats.backend.update;
+package com.donats.backend.fundraiser.update;
 
 import com.donats.backend.fundraiser.FundraiserEntity;
 import jakarta.persistence.*;
@@ -7,13 +7,13 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "fundraiser_updates")
-public class FundraiserUpdateEntity {
+@Table(name = "updates")
+public class UpdateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -27,15 +27,7 @@ public class FundraiserUpdateEntity {
     @Column(name = "title", nullable = false)
     private String title;
 
-    public FundraiserUpdateEntity() {
-    }
-
-    public FundraiserUpdateEntity(Long id, LocalDateTime createdAt, FundraiserEntity fundraiser, String title, String message) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.fundraiser = fundraiser;
-        this.title = title;
-        this.message = message;
+    public UpdateEntity() {
     }
 
     public Long getId() {
@@ -58,8 +50,8 @@ public class FundraiserUpdateEntity {
         return fundraiser;
     }
 
-    public void setFundraiser(FundraiserEntity fundraiserEntity) {
-        this.fundraiser = fundraiserEntity;
+    public void setFundraiser(FundraiserEntity fundraiser) {
+        this.fundraiser = fundraiser;
     }
 
     public String getMessage() {

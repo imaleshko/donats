@@ -1,5 +1,7 @@
 package com.donats.backend.fundraiser.page;
 
+import com.donats.backend.fundraiser.FundraiserEntity;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,4 +20,20 @@ public record FundraiserResponse(
         LocalDateTime startedAt,
         LocalDateTime endedAt
 ) {
+    public static FundraiserResponse from(FundraiserEntity entity) {
+        return new FundraiserResponse(
+                entity.getId(),
+                entity.getTitle(),
+                entity.getSlug(),
+                entity.getDescription(),
+                entity.getBalance(),
+                entity.getGoal(),
+                entity.getImageUrls(),
+                entity.getUser().getUsername(),
+                entity.getUser().getAvatarUrl(),
+                entity.getStatus().name(),
+                entity.getStartedAt(),
+                entity.getEndedAt()
+        );
+    }
 }

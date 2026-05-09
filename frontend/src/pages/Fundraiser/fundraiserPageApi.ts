@@ -1,6 +1,6 @@
 import { api } from "@/app/api.ts";
 
-export interface FundraiserUpdate {
+export interface Update {
   id: number;
   title: string;
   message: string;
@@ -16,9 +16,9 @@ export interface Donation {
 }
 
 export const fundraiserPageApi = {
-  getUpdates: async (id: number): Promise<FundraiserUpdate[]> => {
-    const response = await api.get<FundraiserUpdate[]>(
-      `/fundraisers/${id}/updates`,
+  getUpdates: async (fundraiserId: number): Promise<Update[]> => {
+    const response = await api.get<Update[]>(
+      `/fundraisers/${fundraiserId}/updates`,
     );
     return response.data;
   },

@@ -1,17 +1,17 @@
-package com.donats.backend.update.dto;
+package com.donats.backend.fundraiser.update.dto;
 
-import com.donats.backend.update.FundraiserUpdateEntity;
+import com.donats.backend.fundraiser.update.UpdateEntity;
 
 import java.time.LocalDateTime;
 
-public record FundraiserUpdateView(
+public record UpdateView(
         Long id,
         String title,
         String message,
         LocalDateTime createdAt
 ) {
-    public static FundraiserUpdateView from(FundraiserUpdateEntity entity) {
-        return new FundraiserUpdateView(
+    public static UpdateView from(UpdateEntity entity) {
+        return new UpdateView(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getMessage(),

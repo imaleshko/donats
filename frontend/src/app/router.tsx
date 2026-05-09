@@ -12,7 +12,7 @@ import { requireAuth } from "@/app/requireAuth.ts";
 import CreateFundraiser from "../pages/Account/Fundraisers/CreateFundraiser/CreateFundraiser.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
 import EditFundraiser from "../pages/Account/Fundraisers/EditFundraiser/EditFundraiser.tsx";
-import AddUpdate from "../pages/Account/Fundraisers/FundraiserUpdate/AddUpdate.tsx";
+import AddUpdate from "../pages/Account/Fundraisers/Update/AddUpdate.tsx";
 import { Fundraiser } from "@/pages/Fundraiser/Fundraiser.tsx";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 

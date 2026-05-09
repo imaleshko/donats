@@ -2,7 +2,7 @@ package com.donats.backend.fundraiser;
 
 import com.donats.backend.donation.DonationEntity;
 import com.donats.backend.entities.UserEntity;
-import com.donats.backend.update.FundraiserUpdateEntity;
+import com.donats.backend.fundraiser.update.UpdateEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -60,7 +60,7 @@ public class FundraiserEntity {
     private List<DonationEntity> donations;
 
     @OneToMany(mappedBy = "fundraiser", cascade = CascadeType.ALL)
-    private List<FundraiserUpdateEntity> updates;
+    private List<UpdateEntity> updates;
 
     public FundraiserEntity() {
     }
@@ -169,11 +169,11 @@ public class FundraiserEntity {
         this.donations = donations;
     }
 
-    public List<FundraiserUpdateEntity> getUpdates() {
+    public List<UpdateEntity> getUpdates() {
         return updates;
     }
 
-    public void setUpdates(List<FundraiserUpdateEntity> updates) {
+    public void setUpdates(List<UpdateEntity> updates) {
         this.updates = updates;
     }
 }
