@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record DonationInitRequest(
-        @NotNull Long fundraisingId,
+        @NotNull Long fundraiserId,
         @NotNull @DecimalMin("1.0") BigDecimal amount,
         @NotBlank String name,
         String message

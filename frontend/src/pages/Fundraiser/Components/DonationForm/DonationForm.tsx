@@ -82,7 +82,7 @@ const DonationForm = ({ fundraiserId }: DonationFormProps) => {
     }
 
     initDonation({
-      fundraisingId: fundraiserId,
+      fundraiserId: fundraiserId,
       amount: Number(formValues.amount),
       name: formValues.name.trim(),
       message: formValues.message.trim(),

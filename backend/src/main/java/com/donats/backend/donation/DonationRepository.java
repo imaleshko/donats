@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface DonationRepository extends JpaRepository<DonationEntity, Long> {
     Optional<DonationEntity> findByOrderId(String orderId);
 
-    List<DonationEntity> findAllByFundraisingIdAndStatusOrderByCreatedAtDesc(Long fundraisingId, DonationStatusEnum status);
+    List<DonationEntity> findAllByFundraiserIdAndStatusOrderByCreatedAtDesc(Long fundraiserId, DonationStatusEnum status);
 
-    @EntityGraph(attributePaths = {"fundraising", "fundraising.user"})
+    @EntityGraph(attributePaths = {"fundraiser", "fundraiser.user"})
     List<DonationEntity> findAllByUserEmailAndStatusOrderByCreatedAtDesc(String email, DonationStatusEnum status);
 }

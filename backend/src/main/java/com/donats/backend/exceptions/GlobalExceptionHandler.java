@@ -2,8 +2,8 @@ package com.donats.backend.exceptions;
 
 import com.donats.backend.donation.exceptions.DonationCloseException;
 import com.donats.backend.donation.exceptions.DonationInitException;
-import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.fundraising.page.FundraisingNotFoundException;
+import com.donats.backend.fundraiser.creating.exception.SlugAlreadyInUseException;
+import com.donats.backend.fundraiser.page.FundraiserNotFoundException;
 import com.donats.backend.image.ImageUploadException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;
@@ -47,8 +47,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return createProblemDetail(HttpStatus.CONFLICT, "Помилка створення збору", ex.getMessage());
     }
 
-    @ExceptionHandler(FundraisingNotFoundException.class)
-    public ProblemDetail handleFundraisingNotFound(RuntimeException ex) {
+    @ExceptionHandler(FundraiserNotFoundException.class)
+    public ProblemDetail handleFundraiserNotFound(RuntimeException ex) {
         return createProblemDetail(HttpStatus.NOT_FOUND, "Збір не знайдено", ex.getMessage());
     }
 

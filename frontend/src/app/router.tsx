@@ -1,7 +1,6 @@
 import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
-import { Fundraiser } from "../pages/Fundraiser/Fundraiser";
 import { queryClient } from "./queryClient.ts";
 import { fundraisersApi } from "@/api/fundraisersApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
@@ -10,11 +9,12 @@ import Account from "@/pages/Account/Account.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { accountApi } from "@/api/accountApi.ts";
 import { requireAuth } from "@/app/requireAuth.ts";
-import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
-import CreateFundraising from "@/pages/Account/Fundraisers/CreateFundraising/CreateFundraising.tsx";
+import CreateFundraiser from "../pages/Account/Fundraisers/CreateFundraiser/CreateFundraiser.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
-import EditFundraising from "@/pages/Account/Fundraisers/EditFundraising/EditFundraising.tsx";
-import AddUpdate from "@/pages/Account/Fundraisers/FundraisingUpdate/AddUpdate.tsx";
+import EditFundraiser from "../pages/Account/Fundraisers/EditFundraiser/EditFundraiser.tsx";
+import AddUpdate from "../pages/Account/Fundraisers/FundraiserUpdate/AddUpdate.tsx";
+import { Fundraiser } from "@/pages/Fundraiser/Fundraiser.tsx";
+import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -97,11 +97,11 @@ export const router = createBrowserRouter([
               },
               {
                 path: "create",
-                Component: CreateFundraising,
+                Component: CreateFundraiser,
               },
               {
                 path: "edit/:slug",
-                Component: EditFundraising,
+                Component: EditFundraiser,
               },
               {
                 path: "add-update/:id",

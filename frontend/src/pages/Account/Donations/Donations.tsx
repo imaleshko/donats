@@ -31,10 +31,10 @@ const Donations = () => {
               <div className={styles.linkText}>
                 <span>Донат на збір: </span>
                 <Link
-                  to={`/fundraising/${donation.authorUsername}/${donation.fundraisingSlug}`}
+                  to={`/fundraiser/${donation.authorUsername}/${donation.fundraiserSlug}`}
                   className={styles.link}
                 >
-                  {donation.fundraisingTitle}
+                  {donation.fundraiserTitle}
                 </Link>
               </div>
 

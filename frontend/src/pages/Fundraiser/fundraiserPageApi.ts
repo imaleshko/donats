@@ -18,16 +18,14 @@ export interface Donation {
 export const fundraiserPageApi = {
   getUpdates: async (id: number): Promise<FundraiserUpdate[]> => {
     const response = await api.get<FundraiserUpdate[]>(
-      `/fundraising/${id}/updates`,
+      `/fundraisers/${id}/updates`,
     );
     return response.data;
   },
 
-  getSuccessfulDonations: async (
-    fundraisingId: number,
-  ): Promise<Donation[]> => {
+  getSuccessfulDonations: async (fundraiserId: number): Promise<Donation[]> => {
     const response = await api.get<Donation[]>(
-      `/fundraising/${fundraisingId}/donations`,
+      `/fundraisers/${fundraiserId}/donations`,
     );
     return response.data;
   },

@@ -1,7 +1,7 @@
 package com.donats.backend.entities;
 
 import com.donats.backend.donation.DonationEntity;
-import com.donats.backend.fundraising.FundraisingEntity;
+import com.donats.backend.fundraiser.FundraiserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -28,7 +28,7 @@ public class UserEntity {
     private String avatarUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<FundraisingEntity> fundraisings;
+    private List<FundraiserEntity> fundraiser;
 
     @OneToMany(mappedBy = "user")
     private List<DonationEntity> donations;
@@ -40,13 +40,13 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String username, String password, String email, String avatarUrl, List<FundraisingEntity> fundraisings, List<DonationEntity> donations, LocalDateTime createdAt) {
+    public UserEntity(Long id, String username, String password, String email, String avatarUrl, List<FundraiserEntity> fundraiser, List<DonationEntity> donations, LocalDateTime createdAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.avatarUrl = avatarUrl;
-        this.fundraisings = fundraisings;
+        this.fundraiser = fundraiser;
         this.donations = donations;
         this.createdAt = createdAt;
     }
@@ -91,12 +91,12 @@ public class UserEntity {
         this.avatarUrl = avatarUrl;
     }
 
-    public List<FundraisingEntity> getFundraisings() {
-        return fundraisings;
+    public List<FundraiserEntity> getFundraiser() {
+        return fundraiser;
     }
 
-    public void setFundraisings(List<FundraisingEntity> fundraisingEntity) {
-        this.fundraisings = fundraisingEntity;
+    public void setFundraiser(List<FundraiserEntity> fundraiserEntity) {
+        this.fundraiser = fundraiserEntity;
     }
 
     public List<DonationEntity> getDonations() {

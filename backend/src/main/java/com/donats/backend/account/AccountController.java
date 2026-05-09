@@ -6,8 +6,8 @@ import com.donats.backend.donation.DonationRepository;
 import com.donats.backend.donation.DonationStatusEnum;
 import com.donats.backend.donation.dto.UserDonationResponse;
 import com.donats.backend.entities.UserEntity;
-import com.donats.backend.fundraising.FundraisingEntity;
-import com.donats.backend.fundraising.FundraisingRepository;
+import com.donats.backend.fundraiser.FundraiserEntity;
+import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.security.AccessTokenService;
 import com.donats.backend.security.CustomUserDetails;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +23,16 @@ public class AccountController {
     private final AccountService accountService;
     private final AccessTokenService accessTokenService;
     private final DonationRepository donationRepository;
-    private final FundraisingRepository fundraisingRepository;
+    private final FundraiserRepository fundraiserRepository;
 
     public AccountController(AccountService accountService,
                              AccessTokenService accessTokenService,
                              DonationRepository donationRepository,
-                             FundraisingRepository fundraisingRepository) {
+                             FundraiserRepository fundraiserRepository) {
         this.accountService = accountService;
         this.accessTokenService = accessTokenService;
         this.donationRepository = donationRepository;
-        this.fundraisingRepository = fundraisingRepository;
+        this.fundraiserRepository = fundraiserRepository;
     }
 
     @GetMapping("/user")
@@ -106,32 +106,32 @@ public class AccountController {
                 donation.getAmount(),
                 donation.getCreatedAt(),
                 donation.getMessage(),
-                donation.getFundraising().getTitle(),
-                donation.getFundraising().getSlug(),
-                donation.getFundraising().getUser().getUsername());
+                donation.getFundraiser().getTitle(),
+                donation.getFundraiser().getSlug(),
+                donation.getFundraiser().getUser().getUsername());
     }
 
-    @GetMapping("/fundraisings")
-    public ResponseEntity<List<UsersFundraisingResponse>> getMyFundraising(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<UsersFundraisingResponse> fundraising = fundraisingRepository
+    @GetMapping("/fundraisers")
+    public ResponseEntity<List<UsersFundraiserResponse>> getUserFundraisers(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<UsersFundraiserResponse> fundraiser = fundraiserRepository
                 .findAllByUserEmailOrderByStartedAtDesc(userDetails.getUsername())
                 .stream()
-                .map(this::toUsersFundraisingResponseDto)
+                .map(this::toUsersFundraiserResponseDto)
                 .toList();
-        return ResponseEntity.ok(fundraising);
+        return ResponseEntity.ok(fundraiser);
     }
 
-    private UsersFundraisingResponse toUsersFundraisingResponseDto(FundraisingEntity fundraising) {
-        long totalDonations = fundraising.getDonations().stream().filter(donation -> donation.getStatus() == DonationStatusEnum.SUCCESS).count();
+    private UsersFundraiserResponse toUsersFundraiserResponseDto(FundraiserEntity fundraiser) {
+        long totalDonations = fundraiser.getDonations().stream().filter(donation -> donation.getStatus() == DonationStatusEnum.SUCCESS).count();
 
-        return new UsersFundraisingResponse(
-                fundraising.getId(),
-                fundraising.getTitle(),
-                fundraising.getSlug(),
-                fundraising.getUser().getUsername(),
-                fundraising.getStartedAt(),
-                fundraising.getStatus(),
-                fundraising.getBalance(),
+        return new UsersFundraiserResponse(
+                fundraiser.getId(),
+                fundraiser.getTitle(),
+                fundraiser.getSlug(),
+                fundraiser.getUser().getUsername(),
+                fundraiser.getStartedAt(),
+                fundraiser.getStatus(),
+                fundraiser.getBalance(),
                 totalDonations
         );
     }

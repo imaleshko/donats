@@ -1,7 +1,7 @@
 import { api } from "@/app/api.ts";
 
 export interface DonationInitRequest {
-  fundraisingId: number;
+  fundraiserId: number;
   amount: number;
   name: string;
   message?: string;

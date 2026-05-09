@@ -9,8 +9,8 @@ public record UserDonationResponse(
         BigDecimal amount,
         LocalDateTime createdAt,
         String message,
-        String fundraisingTitle,
-        String fundraisingSlug,
+        String fundraiserTitle,
+        String fundraiserSlug,
         String authorUsername
 ) {
 }

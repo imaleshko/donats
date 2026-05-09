@@ -9,7 +9,7 @@ interface FundraiserCard {
   slug: string;
 }
 
-export interface CreateFundraisingRequest {
+export interface CreateFundraiserRequest {
   title: string;
   slug: string;
   description: string;
@@ -34,12 +34,12 @@ export interface Fundraiser {
 
 export const fundraisersApi = {
   getNewest: async (): Promise<FundraiserCard[]> => {
-    const response = await api.get<FundraiserCard[]>("/fundraising/newest");
+    const response = await api.get<FundraiserCard[]>("/fundraisers/newest");
     return response.data;
   },
 
-  createFundraising: async (data: CreateFundraisingRequest): Promise<void> => {
-    await api.post<void>("/fundraising/create", data);
+  createFundraiser: async (data: CreateFundraiserRequest): Promise<void> => {
+    await api.post<void>("/fundraisers/create", data);
   },
 
   getByUsernameAndSlug: async (
@@ -47,7 +47,7 @@ export const fundraisersApi = {
     slug: string,
   ): Promise<Fundraiser> => {
     const response = await api.get<Fundraiser>(
-      `/fundraising/${username}/${slug}`,
+      `/fundraisers/${username}/${slug}`,
     );
     return response.data;
   },

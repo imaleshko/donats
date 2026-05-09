@@ -35,12 +35,12 @@ export interface UserDonationResponse {
   amount: number;
   createdAt: string;
   message: string | null;
-  fundraisingTitle: string;
-  fundraisingSlug: string;
+  fundraiserTitle: string;
+  fundraiserSlug: string;
   authorUsername: string;
 }
 
-export interface UsersFundraisingsResponse {
+export interface UsersFundraisersResponse {
   id: number;
   title: string;
   slug: string;
@@ -86,9 +86,9 @@ export const accountApi = {
     return response.data;
   },
 
-  getUserFundraisings: async (): Promise<UsersFundraisingsResponse[]> => {
-    const response = await api.get<UsersFundraisingsResponse[]>(
-      "/account/fundraisings",
+  getUserFundraisers: async (): Promise<UsersFundraisersResponse[]> => {
+    const response = await api.get<UsersFundraisersResponse[]>(
+      "/account/fundraisers",
     );
     return response.data;
   },
