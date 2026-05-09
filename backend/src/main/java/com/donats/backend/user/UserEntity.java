@@ -1,4 +1,4 @@
-package com.donats.backend.entities;
+package com.donats.backend.user;
 
 import com.donats.backend.donation.DonationEntity;
 import com.donats.backend.fundraiser.FundraiserEntity;

@@ -1,6 +1,6 @@
 package com.donats.backend.fundraiser;
 
-import com.donats.backend.entities.UserEntity;
+import com.donats.backend.user.UserEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

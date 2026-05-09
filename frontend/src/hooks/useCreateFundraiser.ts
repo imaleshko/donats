@@ -11,7 +11,6 @@ interface CreateFundraiserFormData {
   slug: string;
   description: string;
   goal?: number;
-  endDate?: string;
   images: File[];
 }
 

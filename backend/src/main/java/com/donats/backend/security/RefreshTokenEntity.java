@@ -1,5 +1,6 @@
-package com.donats.backend.entities;
+package com.donats.backend.security;
 
+import com.donats.backend.user.UserEntity;
 import jakarta.persistence.*;
 
 import java.time.Instant;

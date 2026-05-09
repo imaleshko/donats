@@ -15,9 +15,9 @@ public class FundraiserPageService {
     }
 
     @Transactional(readOnly = true)
-    public FundraiserResponse getFundraiserByUsernameAndSlug(String username, String slug) {
+    public Fundraiser getFundraiserByUsernameAndSlug(String username, String slug) {
         return fundraiserRepository.findByUserUsernameAndSlug(username, slug)
-                .map(FundraiserResponse::from)
+                .map(Fundraiser::from)
                 .orElseThrow(() -> new FundraiserNotFoundException("Збір не знайдено"));
     }
 }

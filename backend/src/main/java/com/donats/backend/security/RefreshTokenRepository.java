@@ -1,6 +1,5 @@
-package com.donats.backend.repositories;
+package com.donats.backend.security;
 
-import com.donats.backend.entities.RefreshTokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

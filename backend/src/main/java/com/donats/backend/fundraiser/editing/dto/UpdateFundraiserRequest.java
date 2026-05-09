@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 public record UpdateFundraiserRequest(
@@ -19,7 +18,6 @@ public record UpdateFundraiserRequest(
         String description,
 
         BigDecimal goal,
-        LocalDate endDate,
 
         List<String> imagesUrl
 ) {

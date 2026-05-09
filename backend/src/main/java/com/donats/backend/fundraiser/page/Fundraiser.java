@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record FundraiserResponse(
+public record Fundraiser(
         Long id,
         String title,
         String slug,
@@ -20,8 +20,8 @@ public record FundraiserResponse(
         LocalDateTime startedAt,
         LocalDateTime endedAt
 ) {
-    public static FundraiserResponse from(FundraiserEntity entity) {
-        return new FundraiserResponse(
+    public static Fundraiser from(FundraiserEntity entity) {
+        return new Fundraiser(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getSlug(),

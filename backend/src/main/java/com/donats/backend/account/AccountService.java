@@ -1,13 +1,13 @@
 package com.donats.backend.account;
 
 import com.donats.backend.account.dto.User;
-import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.EmailAlreadyInUseException;
 import com.donats.backend.exceptions.InvalidPasswordException;
 import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.exceptions.UsernameAlreadyInUseException;
 import com.donats.backend.image.ImageService;
-import com.donats.backend.repositories.UserRepository;
+import com.donats.backend.user.UserEntity;
+import com.donats.backend.user.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

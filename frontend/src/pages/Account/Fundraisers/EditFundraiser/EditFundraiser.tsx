@@ -27,7 +27,6 @@ const EditFundraiser = () => {
         slug: fundraiserData.slug,
         description: fundraiserData.description,
         goal: fundraiserData.goal ? String(fundraiserData.goal) : "",
-        endDate: fundraiserData.endDate || "",
       });
       setRetainedImages(fundraiserData.existingImagesUrls || []);
     }
@@ -45,7 +44,6 @@ const EditFundraiser = () => {
         goal: formLogic.formData.goal
           ? Number(formLogic.formData.goal)
           : undefined,
-        endDate: formLogic.formData.endDate || undefined,
         retainedImages: formLogic.retainedImages,
         newImages: formLogic.newImages.map((img) => img.file),
       },

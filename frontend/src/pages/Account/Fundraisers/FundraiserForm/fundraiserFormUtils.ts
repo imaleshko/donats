@@ -5,7 +5,6 @@ export const INITIAL_FORM = {
   slug: "",
   description: "",
   goal: "",
-  endDate: "",
 };
 
 export const validate = (form: typeof INITIAL_FORM) => {

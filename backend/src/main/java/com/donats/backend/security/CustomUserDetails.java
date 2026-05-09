@@ -1,6 +1,6 @@
 package com.donats.backend.security;
 
-import com.donats.backend.entities.UserEntity;
+import com.donats.backend.user.UserEntity;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

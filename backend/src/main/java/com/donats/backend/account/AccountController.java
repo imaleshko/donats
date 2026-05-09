@@ -1,15 +1,14 @@
 package com.donats.backend.account;
 
 import com.donats.backend.account.dto.*;
-import com.donats.backend.donation.DonationEntity;
 import com.donats.backend.donation.DonationRepository;
-import com.donats.backend.donation.DonationStatusEnum;
-import com.donats.backend.donation.dto.UserDonationResponse;
-import com.donats.backend.entities.UserEntity;
+import com.donats.backend.donation.DonationStatus;
+import com.donats.backend.donation.dto.UserDonation;
 import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.security.AccessTokenService;
 import com.donats.backend.security.CustomUserDetails;
+import com.donats.backend.user.UserEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -90,39 +89,28 @@ public class AccountController {
     }
 
     @GetMapping("/donations")
-    public ResponseEntity<List<UserDonationResponse>> getMyDonations(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<UserDonationResponse> donations = donationRepository
-                .findAllByUserEmailAndStatusOrderByCreatedAtDesc(userDetails.getUsername(), DonationStatusEnum.SUCCESS)
+    public ResponseEntity<List<UserDonation>> getMyDonations(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        List<UserDonation> donations = donationRepository
+                .findAllByUserIdAndStatusOrderByCreatedAtDesc(userDetails.getId(), DonationStatus.SUCCESS)
                 .stream()
-                .map(this::toUserUserDonationResponseDto)
+                .map(UserDonation::from)
                 .toList();
 
         return ResponseEntity.ok(donations);
     }
 
-    private UserDonationResponse toUserUserDonationResponseDto(DonationEntity donation) {
-        return new UserDonationResponse(donation.getId(),
-                donation.getName(),
-                donation.getAmount(),
-                donation.getCreatedAt(),
-                donation.getMessage(),
-                donation.getFundraiser().getTitle(),
-                donation.getFundraiser().getSlug(),
-                donation.getFundraiser().getUser().getUsername());
-    }
-
     @GetMapping("/fundraisers")
     public ResponseEntity<List<UsersFundraiserResponse>> getUserFundraisers(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        List<UsersFundraiserResponse> fundraiser = fundraiserRepository
+        List<UsersFundraiserResponse> fundraisers = fundraiserRepository
                 .findAllByUserEmailOrderByStartedAtDesc(userDetails.getUsername())
                 .stream()
                 .map(this::toUsersFundraiserResponseDto)
                 .toList();
-        return ResponseEntity.ok(fundraiser);
+        return ResponseEntity.ok(fundraisers);
     }
 
     private UsersFundraiserResponse toUsersFundraiserResponseDto(FundraiserEntity fundraiser) {
-        long totalDonations = fundraiser.getDonations().stream().filter(donation -> donation.getStatus() == DonationStatusEnum.SUCCESS).count();
+        long totalDonations = fundraiser.getDonations().stream().filter(donation -> donation.getStatus() == DonationStatus.SUCCESS).count();
 
         return new UsersFundraiserResponse(
                 fundraiser.getId(),

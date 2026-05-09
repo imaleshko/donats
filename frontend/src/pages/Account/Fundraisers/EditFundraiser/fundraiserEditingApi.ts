@@ -6,7 +6,6 @@ export interface EditFundraiserResponse {
   slug: string;
   description: string;
   goal: number | null;
-  endDate: string | null;
   existingImagesUrls: string[];
 }
 
@@ -15,7 +14,6 @@ export interface UpdateFundraiserRequest {
   slug: string;
   description: string;
   goal?: number;
-  endDate?: string;
   imagesUrl: string[];
 }
 

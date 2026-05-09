@@ -1,15 +1,15 @@
 package com.donats.backend.fundraiser.editing;
 
-import com.donats.backend.entities.UserEntity;
 import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserRepository;
-import com.donats.backend.fundraiser.creating.exception.SlugAlreadyInUseException;
+import com.donats.backend.fundraiser.creating.SlugAlreadyInUseException;
 import com.donats.backend.fundraiser.editing.dto.EditFundraiserResponse;
 import com.donats.backend.fundraiser.editing.dto.UpdateFundraiserRequest;
 import com.donats.backend.image.ImageService;
-import com.donats.backend.repositories.UserRepository;
+import com.donats.backend.user.UserEntity;
+import com.donats.backend.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

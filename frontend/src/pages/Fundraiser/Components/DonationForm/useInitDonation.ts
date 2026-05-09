@@ -46,9 +46,13 @@ export const useInitDonation = ({
           language: "uk",
           mode: "popup",
         }).on("liqpay.callback", (data) => {
-          if (data.status === "success" || data.status === "sandbox") {
+          if (data.status === "success") {
             if (onSuccessPayment) onSuccessPayment();
-          } else if (data.status === "failure" || data.status === "error") {
+          } else if (
+            data.status === "failure" ||
+            data.status === "error" ||
+            data.status === "reversed"
+          ) {
             onFailedPayment?.();
           }
         });

@@ -119,18 +119,6 @@ export const FundraiserForm = ({
           />
           {errors.goal && <p className={styles.errorText}>{errors.goal}</p>}
 
-          <label htmlFor="endDate" className={styles.label}>
-            Дата завершення (опціонально)
-          </label>
-          <input
-            id="endDate"
-            name="endDate"
-            type="date"
-            className={styles.formInput}
-            value={formData.endDate}
-            onChange={onFieldChange}
-          />
-
           <label htmlFor="images" className={styles.label}>
             Фотографії для збору
           </label>

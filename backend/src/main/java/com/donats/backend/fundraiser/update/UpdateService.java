@@ -5,7 +5,7 @@ import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.fundraiser.update.dto.CreateUpdateRequest;
-import com.donats.backend.fundraiser.update.dto.UpdateView;
+import com.donats.backend.fundraiser.update.dto.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,10 +41,10 @@ public class UpdateService {
     }
 
     @Transactional(readOnly = true)
-    public List<UpdateView> getUpdates(Long fundraiserId) {
+    public List<Update> getUpdates(Long fundraiserId) {
         return updateRepository.findAllByFundraiserIdOrderByCreatedAtDesc(fundraiserId)
                 .stream()
-                .map(UpdateView::from)
+                .map(Update::from)
                 .toList();
     }
 }

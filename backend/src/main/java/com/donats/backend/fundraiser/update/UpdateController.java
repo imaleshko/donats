@@ -1,7 +1,7 @@
 package com.donats.backend.fundraiser.update;
 
 import com.donats.backend.fundraiser.update.dto.CreateUpdateRequest;
-import com.donats.backend.fundraiser.update.dto.UpdateView;
+import com.donats.backend.fundraiser.update.dto.Update;
 import com.donats.backend.security.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class UpdateController {
     }
 
     @GetMapping("/{fundraiserId}/updates")
-    public ResponseEntity<List<UpdateView>> getUpdates(@PathVariable Long fundraiserId) {
+    public ResponseEntity<List<Update>> getUpdates(@PathVariable Long fundraiserId) {
         return ResponseEntity.ok(updateService.getUpdates(fundraiserId));
     }
 }

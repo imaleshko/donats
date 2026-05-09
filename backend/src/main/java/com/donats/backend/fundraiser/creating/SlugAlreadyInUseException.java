@@ -1,4 +1,4 @@
-package com.donats.backend.fundraiser.creating.exception;
+package com.donats.backend.fundraiser.creating;
 
 public class SlugAlreadyInUseException extends RuntimeException {
     public SlugAlreadyInUseException(String message) {

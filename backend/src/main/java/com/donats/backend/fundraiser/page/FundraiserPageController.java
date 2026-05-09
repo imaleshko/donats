@@ -1,7 +1,7 @@
 package com.donats.backend.fundraiser.page;
 
 import com.donats.backend.donation.DonationService;
-import com.donats.backend.donation.dto.DonationView;
+import com.donats.backend.donation.dto.Donation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ public class FundraiserPageController {
     }
 
     @GetMapping("/{username}/{slug}")
-    public ResponseEntity<FundraiserResponse> getFundraiser(
+    public ResponseEntity<Fundraiser> getFundraiser(
             @PathVariable String username,
             @PathVariable String slug
     ) {
@@ -33,7 +33,7 @@ public class FundraiserPageController {
     }
 
     @GetMapping("/{id}/donations")
-    public ResponseEntity<List<DonationView>> getDonations(@PathVariable Long id) {
+    public ResponseEntity<List<Donation>> getDonations(@PathVariable Long id) {
         return ResponseEntity.ok(donationService.getSuccessfulDonations(id));
     }
 }

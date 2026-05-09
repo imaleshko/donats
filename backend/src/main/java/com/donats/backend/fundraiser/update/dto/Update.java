@@ -4,14 +4,14 @@ import com.donats.backend.fundraiser.update.UpdateEntity;
 
 import java.time.LocalDateTime;
 
-public record UpdateView(
+public record Update(
         Long id,
         String title,
         String message,
         LocalDateTime createdAt
 ) {
-    public static UpdateView from(UpdateEntity entity) {
-        return new UpdateView(
+    public static Update from(UpdateEntity entity) {
+        return new Update(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getMessage(),

@@ -1,6 +1,6 @@
 package com.donats.backend.donation;
 
-public enum DonationStatusEnum {
+public enum DonationStatus {
     PENDING,
     SUCCESS,
     FAILED

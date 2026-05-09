@@ -11,7 +11,6 @@ export interface EditFundraiserFormData {
   slug: string;
   description: string;
   goal?: number;
-  endDate?: string;
   retainedImages: string[];
   newImages: File[];
 }
@@ -40,7 +39,6 @@ export const useEditFundraiser = (currentSlug: string) => {
         slug: data.slug,
         description: data.description,
         goal: data.goal,
-        endDate: data.endDate,
         imagesUrl: finalImagesUrl,
       };
 

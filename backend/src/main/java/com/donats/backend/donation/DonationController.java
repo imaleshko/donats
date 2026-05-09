@@ -24,8 +24,8 @@ public class DonationController {
             @Valid @RequestBody DonationInitRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        String email = userDetails != null ? userDetails.getUsername() : null;
-        return ResponseEntity.ok(donationService.initDonation(request, email));
+        Long userId = userDetails != null ? userDetails.getId() : null;
+        return ResponseEntity.ok(donationService.initDonation(request, userId));
     }
 
     @PostMapping(value = "/liqpay/server", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -37,7 +37,6 @@ public class DonationController {
             donationService.closeDonation(data, signature);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            System.err.println("Помилка обробки вебхуку LiqPay: " + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }

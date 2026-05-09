@@ -1,7 +1,7 @@
 package com.donats.backend.donation;
 
-import com.donats.backend.entities.UserEntity;
 import com.donats.backend.fundraiser.FundraiserEntity;
+import com.donats.backend.user.UserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,10 +15,10 @@ public class DonationEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -38,24 +38,12 @@ public class DonationEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private DonationStatusEnum status;
+    private DonationStatus status;
 
     @Column(name = "order_id", unique = true)
     private String orderId;
 
     public DonationEntity() {
-    }
-
-    public DonationEntity(Long id, String name, LocalDateTime createdAt, String message, BigDecimal amount, FundraiserEntity fundraiser, UserEntity user, DonationStatusEnum status, String orderId) {
-        this.id = id;
-        this.name = name;
-        this.createdAt = createdAt;
-        this.message = message;
-        this.amount = amount;
-        this.fundraiser = fundraiser;
-        this.user = user;
-        this.status = status;
-        this.orderId = orderId;
     }
 
     public Long getId() {
@@ -102,23 +90,23 @@ public class DonationEntity {
         return fundraiser;
     }
 
-    public void setFundraiser(FundraiserEntity fundraiserEntity) {
-        this.fundraiser = fundraiserEntity;
+    public void setFundraiser(FundraiserEntity fundraiser) {
+        this.fundraiser = fundraiser;
     }
 
     public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(UserEntity userEntity) {
-        this.user = userEntity;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public DonationStatusEnum getStatus() {
+    public DonationStatus getStatus() {
         return status;
     }
 
-    public void setStatus(DonationStatusEnum status) {
+    public void setStatus(DonationStatus status) {
         this.status = status;
     }
 

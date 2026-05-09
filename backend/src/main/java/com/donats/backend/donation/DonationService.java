@@ -1,15 +1,15 @@
 package com.donats.backend.donation;
 
+import com.donats.backend.donation.dto.Donation;
 import com.donats.backend.donation.dto.DonationInitRequest;
 import com.donats.backend.donation.dto.DonationInitResponse;
-import com.donats.backend.donation.dto.DonationView;
 import com.donats.backend.donation.exceptions.DonationCloseException;
 import com.donats.backend.donation.liqpay.LiqPayService;
-import com.donats.backend.entities.UserEntity;
 import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserRepository;
-import com.donats.backend.repositories.UserRepository;
+import com.donats.backend.user.UserEntity;
+import com.donats.backend.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,13 +33,13 @@ public class DonationService {
     }
 
     @Transactional
-    public DonationInitResponse initDonation(DonationInitRequest request, String email) {
+    public DonationInitResponse initDonation(DonationInitRequest request, Long userId) {
         FundraiserEntity fundraiser = fundraiserRepository.findById(request.fundraiserId())
                 .orElseThrow(() -> new FundraiserNotFoundException("Збір не знайдено"));
 
         UserEntity user = null;
-        if (email != null) {
-            user = userRepository.findByEmail(email).orElse(null);
+        if (userId != null) {
+            user = userRepository.findById(userId).orElse(null);
         }
 
         String orderId = "Donation" + UUID.randomUUID();
@@ -50,7 +50,7 @@ public class DonationService {
         donation.setMessage(request.message());
         donation.setFundraiser(fundraiser);
         donation.setUser(user);
-        donation.setStatus(DonationStatusEnum.PENDING);
+        donation.setStatus(DonationStatus.PENDING);
         donation.setOrderId(orderId);
 
         donationRepository.save(donation);
@@ -67,14 +67,14 @@ public class DonationService {
         }
         Map<String, Object> payload = liqPayService.decodeData(data);
         String orderId = (String) payload.get("order_id");
-        String status = (String) payload.get("status");
+        String liqPayStatus = (String) payload.get("status");
 
         DonationEntity donation = donationRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new DonationCloseException("Донат не знайдено"));
 
-        if ("success".equals(status)) {
-            if (donation.getStatus() != DonationStatusEnum.SUCCESS) {
-                donation.setStatus(DonationStatusEnum.SUCCESS);
+        if ("success".equals(liqPayStatus)) {
+            if (donation.getStatus() != DonationStatus.SUCCESS) {
+                donation.setStatus(DonationStatus.SUCCESS);
 
                 FundraiserEntity fundraiser = donation.getFundraiser();
                 fundraiser.setBalance(fundraiser.getBalance().add(donation.getAmount()));
@@ -82,20 +82,20 @@ public class DonationService {
                 fundraiserRepository.save(fundraiser);
                 donationRepository.save(donation);
             }
-        } else if ("error".equals(status) || "failure".equals(status) || "reversed".equals(status)) {
-            if (donation.getStatus() != DonationStatusEnum.FAILED) {
-                donation.setStatus(DonationStatusEnum.FAILED);
+        } else if ("error".equals(liqPayStatus) || "failure".equals(liqPayStatus) || "reversed".equals(liqPayStatus)) {
+            if (donation.getStatus() != DonationStatus.FAILED) {
+                donation.setStatus(DonationStatus.FAILED);
                 donationRepository.save(donation);
             }
         }
     }
 
     @Transactional(readOnly = true)
-    public List<DonationView> getSuccessfulDonations(Long fundraiserId) {
+    public List<Donation> getSuccessfulDonations(Long fundraiserId) {
         return donationRepository
-                .findAllByFundraiserIdAndStatusOrderByCreatedAtDesc(fundraiserId, DonationStatusEnum.SUCCESS)
+                .findAllByFundraiserIdAndStatusOrderByCreatedAtDesc(fundraiserId, DonationStatus.SUCCESS)
                 .stream()
-                .map(DonationView::from)
+                .map(Donation::from)
                 .toList();
     }
 }
