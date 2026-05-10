@@ -9,14 +9,6 @@ interface FundraiserCard {
   slug: string;
 }
 
-export interface CreateFundraiserRequest {
-  title: string;
-  slug: string;
-  description: string;
-  goal?: number;
-  imagesUrl?: string[];
-}
-
 export interface Fundraiser {
   id: number;
   title: string;
@@ -36,10 +28,6 @@ export const homeApi = {
   getNewest: async (): Promise<FundraiserCard[]> => {
     const response = await api.get<FundraiserCard[]>("/fundraisers/newest");
     return response.data;
-  },
-
-  createFundraiser: async (data: CreateFundraiserRequest): Promise<void> => {
-    await api.post<void>("/fundraisers/create", data);
   },
 
   getByUsernameAndSlug: async (

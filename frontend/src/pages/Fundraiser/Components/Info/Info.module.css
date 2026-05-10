@@ -31,7 +31,6 @@
 
 .username {
   font-size: 22px;
-  color: var(--text-grey-color);
   font-weight: 500;
 }
 
@@ -43,8 +42,6 @@
 
 .dates p {
   margin: 0;
-  font-size: 16px;
-  color: var(--text-grey-color);
 }
 
 .progress {
@@ -59,11 +56,6 @@
   font-size: 36px;
   font-weight: bold;
   color: var(--yellow-color);
-}
-
-.balanceText {
-  font-size: 16px;
-  color: var(--text-grey-color);
 }
 
 .progressOuter {

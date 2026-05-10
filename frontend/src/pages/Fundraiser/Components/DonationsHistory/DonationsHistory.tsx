@@ -21,7 +21,7 @@ const DonationsHistory = ({ donations }: DonationsHistoryProps) => {
               <div className={styles.header}>
                 <span className={styles.name}>{donation.name}</span>
                 <span className={styles.amount}>{donation.amount} ₴</span>
-                <span className={styles.date}>{date}</span>
+                <span>{date}</span>
               </div>
 
               {donation.message && (

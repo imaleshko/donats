@@ -27,7 +27,6 @@
   color: var(--error-red-color);
   margin-bottom: 20px;
   text-align: center;
-  font-size: 16px;
 }
 
 .inputs {
@@ -45,7 +44,6 @@
   border-radius: 20px;
   border: none;
   outline: none;
-  font-size: 16px;
   background-color: var(--grey-color);
 }
 
@@ -64,14 +62,12 @@
   background-color: var(--orange-color);
   color: white;
   cursor: pointer;
-  font-size: 16px;
   margin-top: 10px;
 }
 
 .authSwitch {
   display: flex;
   gap: 8px;
-  font-size: 16px;
 }
 
 .authSwitch a {

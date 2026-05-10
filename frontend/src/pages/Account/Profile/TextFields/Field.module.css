@@ -6,7 +6,6 @@
 
 .label {
   font-size: 18px;
-  color: var(--text-grey-color);
   padding-left: 16px;
 }
 
@@ -70,7 +69,6 @@
   color: var(--error-red-color);
   margin-bottom: 20px;
   text-align: center;
-  font-size: 16px;
 }
 
 .errorText {
@@ -95,5 +93,4 @@
   width: 100%;
   border: none;
   outline: none;
-  font-size: 16px;
 }

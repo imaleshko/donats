@@ -11,7 +11,7 @@ import com.donats.backend.security.RefreshTokenEntity;
 import com.donats.backend.security.RefreshTokenService;
 import com.donats.backend.user.UserEntity;
 import com.donats.backend.user.UserRepository;
-import com.donats.backend.user.account.exceptions.UserAlreadyExistsException;
+import com.donats.backend.exceptions.UserAlreadyExistsException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

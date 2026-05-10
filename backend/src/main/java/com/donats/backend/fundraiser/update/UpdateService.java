@@ -2,7 +2,7 @@ package com.donats.backend.fundraiser.update;
 
 import com.donats.backend.exceptions.ForbiddenException;
 import com.donats.backend.fundraiser.FundraiserEntity;
-import com.donats.backend.fundraiser.FundraiserNotFoundException;
+import com.donats.backend.exceptions.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.fundraiser.update.dto.CreateUpdateRequest;
 import com.donats.backend.fundraiser.update.dto.Update;

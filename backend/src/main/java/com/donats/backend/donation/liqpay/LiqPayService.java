@@ -1,8 +1,8 @@
 package com.donats.backend.donation.liqpay;
 
 import com.donats.backend.donation.dto.DonationInitResponse;
-import com.donats.backend.donation.exceptions.DonationCloseException;
-import com.donats.backend.donation.exceptions.DonationInitException;
+import com.donats.backend.exceptions.DonationCloseException;
+import com.donats.backend.exceptions.DonationInitException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tools.jackson.core.type.TypeReference;

@@ -1,6 +1,6 @@
 package com.donats.backend.fundraiser.page;
 
-import com.donats.backend.fundraiser.FundraiserNotFoundException;
+import com.donats.backend.exceptions.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

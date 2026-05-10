@@ -13,7 +13,6 @@
   margin: 0;
   font-size: 22px;
   font-weight: 500;
-  color: var(--text-grey-color);
   text-align: center;
 }
 
@@ -36,8 +35,6 @@
 
 .name {
   font-weight: 500;
-  font-size: 16px;
-  color: var(--text-grey-color);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -46,7 +43,6 @@
 
 .amount {
   font-weight: bold;
-  font-size: 16px;
   color: var(--yellow-color);
   flex-shrink: 0;
 }

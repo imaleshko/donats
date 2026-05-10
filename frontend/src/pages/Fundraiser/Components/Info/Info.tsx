@@ -44,7 +44,7 @@ const Info = ({ fundraiser }: InfoProps) => {
         >
           <div className={styles.progressInner}>
             <span className={styles.percentageText}>{progressPercentage}%</span>
-            <span className={styles.balanceText}>
+            <span>
               {fundraiser.balance} / {fundraiser.goal ?? "∞"}
             </span>
           </div>

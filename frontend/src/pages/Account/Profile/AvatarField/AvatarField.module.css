@@ -41,7 +41,8 @@
   opacity: 0;
 }
 
-.avatarContainer:hover .overlay {
+.avatarContainer:hover .overlay,
+.avatarContainer.loading .overlay {
   opacity: 1;
 }
 

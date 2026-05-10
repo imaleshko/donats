@@ -34,15 +34,47 @@ export interface UserDonationResponse {
   authorUsername: string;
 }
 
+export type FundraiserStatus = "ACTIVE" | "CLOSED";
+
 export interface UserFundraiserResponse {
   id: number;
   title: string;
   slug: string;
   username: string;
   startedAt: string;
-  status: string;
+  status: FundraiserStatus;
   balance: number;
   totalDonationsCount: number;
+}
+
+export interface CreateFundraiserRequest {
+  title: string;
+  slug: string;
+  description: string;
+  goal?: number;
+  imageUrls?: string[];
+}
+
+export interface EditFundraiserResponse {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  goal?: number;
+  existingImagesUrls: string[];
+}
+
+export interface UpdateFundraiserRequest {
+  title: string;
+  slug: string;
+  description: string;
+  goal?: number;
+  imageUrls: string[];
+}
+
+export interface CreateUpdateRequest {
+  title: string;
+  message: string;
 }
 
 export const accountApi = {
@@ -61,7 +93,7 @@ export const accountApi = {
   },
 
   changePassword: async (data: ChangePasswordRequest): Promise<void> => {
-    await api.patch<void>("/account/password", data);
+    await api.patch<void>("/user/account/password", data);
   },
 
   changeAvatar: async (data: ChangeAvatarRequest): Promise<User> => {
@@ -81,5 +113,32 @@ export const accountApi = {
       "/user/account/fundraisers",
     );
     return response.data;
+  },
+
+  createFundraiser: async (data: CreateFundraiserRequest): Promise<void> => {
+    await api.post<void>("/fundraisers", data);
+  },
+
+  getFundraiserForEdit: async (
+    fundraiserId: number,
+  ): Promise<EditFundraiserResponse> => {
+    const response = await api.get<EditFundraiserResponse>(
+      `/fundraisers/${fundraiserId}`,
+    );
+    return response.data;
+  },
+
+  updateFundraiser: async (
+    fundraiserId: number,
+    data: UpdateFundraiserRequest,
+  ): Promise<void> => {
+    await api.put(`/fundraisers/${fundraiserId}`, data);
+  },
+
+  createUpdate: async (
+    fundraiserId: number,
+    data: CreateUpdateRequest,
+  ): Promise<void> => {
+    await api.post(`/fundraisers/${fundraiserId}/updates`, data);
   },
 };

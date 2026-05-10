@@ -1,6 +1,6 @@
 package com.donats.backend.fundraiser;
 
-import com.donats.backend.user.UserEntity;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,5 +17,9 @@ public interface FundraiserRepository extends JpaRepository<FundraiserEntity, Lo
     @EntityGraph(attributePaths = {"user", "donations"})
     List<FundraiserEntity> findAllByUserIdOrderByStartedAtDesc(Long id);
 
-    boolean existsByUserAndSlug(UserEntity user, String slug);
+    @EntityGraph(attributePaths = {"user"})
+    @NonNull
+    Optional<FundraiserEntity> findById(@NonNull Long id);
+
+    boolean existsByUserIdAndSlug(Long userId, String slug);
 }
