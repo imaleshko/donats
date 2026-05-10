@@ -1,17 +1,12 @@
 import { Logo } from "../Logo/Logo";
 import styles from "./Header.module.css";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import { accountApi } from "@/pages/Account/accountApi.ts";
 import useLogout from "./useLogout.ts";
 import defaultAvatar from "@/assets/defaultAvatar.png";
+import useGetUser from "@/app/useGetUser.ts";
 
 export const Header = () => {
-  const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => accountApi.getUser(),
-    staleTime: Infinity,
-  });
+  const { data: user } = useGetUser();
   const { mutate: logout, isPending } = useLogout();
 
   return (
@@ -33,7 +28,7 @@ export const Header = () => {
 
             <div className={styles.dropdown}>
               <Link to="/account/profile" className={styles.dropdownItem}>
-                Кабінет
+                Мої дані
               </Link>
               <Link to="/account/donations" className={styles.dropdownItem}>
                 Мої донати

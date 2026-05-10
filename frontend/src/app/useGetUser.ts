@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { accountApi } from "../pages/Account/accountApi.ts";
+import { getUser } from "@/app/getUser.ts";
 
 const useGetUser = () => {
   return useQuery({
     queryKey: ["user"],
-    queryFn: () => accountApi.getUser(),
+    queryFn: getUser,
     retry: false,
     staleTime: 1000 * 60 * 5,
   });

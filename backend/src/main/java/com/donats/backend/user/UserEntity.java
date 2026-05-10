@@ -28,27 +28,16 @@ public class UserEntity {
     private String avatarUrl;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<FundraiserEntity> fundraiser;
+    private List<FundraiserEntity> fundraisers;
 
     @OneToMany(mappedBy = "user")
     private List<DonationEntity> donations;
 
     @CreationTimestamp
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public UserEntity() {
-    }
-
-    public UserEntity(Long id, String username, String password, String email, String avatarUrl, List<FundraiserEntity> fundraiser, List<DonationEntity> donations, LocalDateTime createdAt) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.avatarUrl = avatarUrl;
-        this.fundraiser = fundraiser;
-        this.donations = donations;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -91,12 +80,12 @@ public class UserEntity {
         this.avatarUrl = avatarUrl;
     }
 
-    public List<FundraiserEntity> getFundraiser() {
-        return fundraiser;
+    public List<FundraiserEntity> getFundraisers() {
+        return fundraisers;
     }
 
-    public void setFundraiser(List<FundraiserEntity> fundraiserEntity) {
-        this.fundraiser = fundraiserEntity;
+    public void setFundraisers(List<FundraiserEntity> fundraiser) {
+        this.fundraisers = fundraiser;
     }
 
     public List<DonationEntity> getDonations() {

@@ -1,4 +1,4 @@
-package com.donats.backend.account.dto;
+package com.donats.backend.user.account.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

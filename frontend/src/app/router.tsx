@@ -5,16 +5,16 @@ import { queryClient } from "./queryClient.ts";
 import { homeApi } from "@/pages/Home/homeApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
-import Account from "../pages/Account/AccountLayout.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
-import { accountApi } from "../pages/Account/accountApi.ts";
 import { requireAuth } from "@/app/requireAuth.ts";
-import CreateFundraiser from "../pages/Account/Fundraisers/CreateFundraiser/CreateFundraiser.tsx";
+import CreateFundraiser from "@/pages/Account/Fundraisers/CreateFundraiser/CreateFundraiser.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
-import EditFundraiser from "../pages/Account/Fundraisers/EditFundraiser/EditFundraiser.tsx";
-import AddUpdate from "../pages/Account/Fundraisers/Update/AddUpdate.tsx";
+import EditFundraiser from "@/pages/Account/Fundraisers/EditFundraiser/EditFundraiser.tsx";
+import AddUpdate from "@/pages/Account/Fundraisers/Update/AddUpdate.tsx";
 import { Fundraiser } from "@/pages/Fundraiser/Fundraiser.tsx";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
+import { getUser } from "@/app/getUser.ts";
+import AccountLayout from "@/pages/Account/AccountLayout.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       try {
         return await queryClient.ensureQueryData({
           queryKey: ["user"],
-          queryFn: accountApi.getUser,
+          queryFn: getUser,
         });
       } catch {
         queryClient.setQueryData(["user"], null);
@@ -73,7 +73,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "account",
-        Component: Account,
+        Component: AccountLayout,
         loader: requireAuth,
         children: [
           {

@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { imageApi } from "@/pages/Account/imageApi.ts";
-import { accountApi, type User } from "@/pages/Account/accountApi.ts";
+import { accountApi } from "@/pages/Account/accountApi.ts";
 import { getApiErrorMessage } from "@/utils/getApiErrorMessage.ts";
+import type { User } from "@/app/getUser.ts";
 
 const useChangeAvatar = () => {
   const queryClient = useQueryClient();

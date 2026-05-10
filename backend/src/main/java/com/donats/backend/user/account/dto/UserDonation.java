@@ -1,4 +1,4 @@
-package com.donats.backend.donation.dto;
+package com.donats.backend.user.account.dto;
 
 import com.donats.backend.donation.DonationEntity;
 

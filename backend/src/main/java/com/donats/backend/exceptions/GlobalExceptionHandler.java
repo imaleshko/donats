@@ -5,6 +5,10 @@ import com.donats.backend.donation.exceptions.DonationInitException;
 import com.donats.backend.fundraiser.FundraiserNotFoundException;
 import com.donats.backend.fundraiser.creating.SlugAlreadyInUseException;
 import com.donats.backend.image.ImageUploadException;
+import com.donats.backend.user.account.exceptions.EmailAlreadyInUseException;
+import com.donats.backend.user.account.exceptions.InvalidPasswordException;
+import com.donats.backend.user.account.exceptions.UserAlreadyExistsException;
+import com.donats.backend.user.account.exceptions.UsernameAlreadyInUseException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,7 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ProblemDetail handleUserAlreadyExists(UserAlreadyExistsException ex) {
+    public ProblemDetail handleUserAlreadyExists(RuntimeException ex) {
         return createProblemDetail(HttpStatus.CONFLICT, "Користувач вже існує", ex.getMessage());
     }
 

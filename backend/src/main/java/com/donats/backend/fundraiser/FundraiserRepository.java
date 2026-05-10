@@ -14,8 +14,8 @@ public interface FundraiserRepository extends JpaRepository<FundraiserEntity, Lo
     @EntityGraph(attributePaths = {"user"})
     List<FundraiserEntity> findTop5ByStatusOrderByStartedAtDesc(FundraiserStatus status);
 
-    @EntityGraph(attributePaths = {"donations"})
-    List<FundraiserEntity> findAllByUserEmailOrderByStartedAtDesc(String email);
+    @EntityGraph(attributePaths = {"user", "donations"})
+    List<FundraiserEntity> findAllByUserIdOrderByStartedAtDesc(Long id);
 
     boolean existsByUserAndSlug(UserEntity user, String slug);
 }

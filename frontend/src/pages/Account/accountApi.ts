@@ -1,4 +1,5 @@
 import { api, setAccessToken } from "@/app/api.ts";
+import type { User } from "@/app/getUser.ts";
 
 export interface ChangeEmailRequest {
   email: string;
@@ -20,13 +21,6 @@ export interface ChangePasswordRequest {
 
 export interface ChangeAvatarRequest {
   avatarUrl: string;
-}
-
-export interface User {
-  id: number;
-  username: string;
-  email: string;
-  avatarUrl: string | null;
 }
 
 export interface UserDonationResponse {
@@ -52,14 +46,9 @@ export interface UserFundraiserResponse {
 }
 
 export const accountApi = {
-  getUser: async (): Promise<User> => {
-    const response = await api.get<User>("/account/user");
-    return response.data;
-  },
-
   changeEmail: async (data: ChangeEmailRequest): Promise<User> => {
     const response = await api.patch<ChangeEmailResponse>(
-      "/account/email",
+      "/user/account/email",
       data,
     );
     setAccessToken(response.data.accessToken);
@@ -67,7 +56,7 @@ export const accountApi = {
   },
 
   changeUsername: async (data: ChangeUsernameRequest): Promise<User> => {
-    const response = await api.patch<User>("/account/username", data);
+    const response = await api.patch<User>("/user/account/username", data);
     return response.data;
   },
 
@@ -76,19 +65,20 @@ export const accountApi = {
   },
 
   changeAvatar: async (data: ChangeAvatarRequest): Promise<User> => {
-    const response = await api.patch<User>("/account/avatar", data);
+    const response = await api.patch<User>("/user/account/avatar", data);
     return response.data;
   },
 
   getUserDonations: async (): Promise<UserDonationResponse[]> => {
-    const response =
-      await api.get<UserDonationResponse[]>("/account/donations");
+    const response = await api.get<UserDonationResponse[]>(
+      "/user/account/donations",
+    );
     return response.data;
   },
 
   getUserFundraisers: async (): Promise<UserFundraiserResponse[]> => {
     const response = await api.get<UserFundraiserResponse[]>(
-      "/account/fundraisers",
+      "/user/account/fundraisers",
     );
     return response.data;
   },
