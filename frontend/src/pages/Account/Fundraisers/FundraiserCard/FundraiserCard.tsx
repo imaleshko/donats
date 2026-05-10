@@ -1,9 +1,9 @@
 import styles from "./FundraiserCard.module.css";
 import { Link } from "react-router";
-import type { UsersFundraisersResponse } from "@/api/accountApi.ts";
+import type { UserFundraiserResponse } from "../../accountApi.ts";
 
 interface FundraiserCardProps {
-  fundraiser: UsersFundraisersResponse;
+  fundraiser: UserFundraiserResponse;
   onAddUpdate: (id: number) => void;
   onEdit: (slug: string) => void;
   onClose: (id: number) => void;

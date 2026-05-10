@@ -1,4 +1,4 @@
-import { api } from "../app/api.ts";
+import { api } from "@/app/api.ts";
 
 interface FundraiserCard {
   id: number;
@@ -32,7 +32,7 @@ export interface Fundraiser {
   endedAt: string;
 }
 
-export const fundraisersApi = {
+export const homeApi = {
   getNewest: async (): Promise<FundraiserCard[]> => {
     const response = await api.get<FundraiserCard[]>("/fundraisers/newest");
     return response.data;

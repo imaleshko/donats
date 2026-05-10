@@ -3,7 +3,7 @@ import {
   fundraiserEditingApi,
   type UpdateFundraiserRequest,
 } from "./fundraiserEditingApi.ts";
-import { imageApi } from "@/api/imageApi.ts";
+import { imageApi } from "../../imageApi.ts";
 import { isAxiosError } from "axios";
 
 export interface EditFundraiserFormData {

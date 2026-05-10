@@ -19,28 +19,33 @@ const PasswordField = ({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleEditClick = () => {
-    setIsEditing(true);
+  const resetForm = () => {
     setOldPassword("");
     setNewPassword("");
     setConfirmPassword("");
     setErrors({});
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+    resetForm();
+  };
+
   const handleCancel = () => {
     setIsEditing(false);
+    resetForm();
   };
 
   const validate = () => {
     const validationErrors: Record<string, string> = {};
 
-    if (oldPassword.trim().length === 0) {
+    if (oldPassword.length === 0) {
       validationErrors.oldPassword = "Введіть старий пароль";
     }
-    if (newPassword.trim().length < 8) {
+    if (newPassword.length < 8) {
       validationErrors.newPassword = "Пароль має містити щонайменше 8 символів";
     }
-    if (newPassword.trim() !== confirmPassword.trim()) {
+    if (newPassword !== confirmPassword) {
       validationErrors.confirmPassword = "Паролі не співпадають";
     }
 
@@ -56,9 +61,7 @@ const PasswordField = ({
 
     onSave(oldPassword, newPassword, () => {
       setIsEditing(false);
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
+      resetForm();
     });
   };
 
@@ -76,10 +79,10 @@ const PasswordField = ({
     return (
       <div className={styles.wrapper}>
         <label className={styles.label}>Пароль</label>
-        <div className={styles.inputsGroup}>
+        <div className={styles.inputGroup}>
           <input
             type="password"
-            value="***************"
+            value="••••••••••••••••"
             readOnly
             className={styles.input}
           />

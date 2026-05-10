@@ -1,12 +1,12 @@
 import styles from "./Donations.module.css";
 import { useQuery } from "@tanstack/react-query";
-import { accountApi } from "@/api/accountApi.ts";
+import { accountApi } from "../accountApi.ts";
 import { Link } from "react-router";
 
 const Donations = () => {
   const { data: donations } = useQuery({
     queryKey: ["my-donations"],
-    queryFn: accountApi.getMyDonations,
+    queryFn: accountApi.getUserDonations,
   });
 
   if (!donations || donations.length === 0) {

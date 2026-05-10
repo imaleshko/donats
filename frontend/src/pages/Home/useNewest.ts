@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fundraisersApi } from "@/api/fundraisersApi.ts";
+import { homeApi } from "./homeApi.ts";
 
 const useNewest = () => {
   return useQuery({
     queryKey: ["newest"],
-    queryFn: fundraisersApi.getNewest,
+    queryFn: homeApi.getNewest,
   });
 };
 

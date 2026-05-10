@@ -2,7 +2,7 @@ import { Logo } from "../Logo/Logo";
 import styles from "./Header.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import { accountApi } from "@/api/accountApi.ts";
+import { accountApi } from "@/pages/Account/accountApi.ts";
 import useLogout from "./useLogout.ts";
 import defaultAvatar from "@/assets/defaultAvatar.png";
 

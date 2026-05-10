@@ -5,11 +5,12 @@ import { type ChangeEvent, useState } from "react";
 interface DataFieldProps {
   label: string;
   value: string;
-  type: "text" | "password" | "email";
+  type: "text" | "email";
   onSave: (newValue: string, onSuccess: () => void) => void;
   isPending: boolean;
   serverError: string | null;
-  validate?: (value: string) => string | null;
+  validate: (value: string) => string | null;
+  warning?: string;
 }
 
 const DataField = ({
@@ -20,8 +21,9 @@ const DataField = ({
   isPending,
   serverError,
   validate,
+  warning,
 }: DataFieldProps) => {
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
 
@@ -43,20 +45,25 @@ const DataField = ({
   };
 
   const handleSave = () => {
-    if (inputValue === value) {
+    const trimmedValue = inputValue.trim();
+
+    if (trimmedValue === value) {
       setIsEditing(false);
       return;
     }
 
-    if (validate) {
-      const validationError = validate(inputValue);
-      if (validationError) {
-        setLocalError(validationError);
-        return;
-      }
+    if (trimmedValue === "") {
+      setLocalError("Поле не може бути порожнім");
+      return;
     }
 
-    onSave(inputValue, () => setIsEditing(false));
+    const validationError = validate(trimmedValue);
+    if (validationError) {
+      setLocalError(validationError);
+      return;
+    }
+
+    onSave(trimmedValue, () => setIsEditing(false));
   };
 
   const error = localError || serverError;
@@ -64,14 +71,14 @@ const DataField = ({
   return (
     <div className={styles.wrapper}>
       <label className={styles.label}>{label}</label>
-      <div className={styles.inputsGroup}>
+      <div className={styles.inputGroup}>
         <input
           type={type}
           value={isEditing ? inputValue : value}
           onChange={handleChange}
           readOnly={!isEditing}
           className={styles.input}
-          placeholder={isEditing ? "Введіть нові дані..." : ""}
+          placeholder="Введіть нові дані"
         />
         {!isEditing && (
           <button
@@ -79,12 +86,14 @@ const DataField = ({
             className={styles.button}
             onClick={handleEditClick}
           >
-            <img src={editIcon} alt="edit" width={30} height={30} />
+            <img src={editIcon} alt="Редагувати" width={30} height={30} />
           </button>
         )}
       </div>
 
       {error && <p className={styles.errorText}>{error}</p>}
+
+      {isEditing && warning && <p className={styles.errorText}>{warning}</p>}
 
       {isEditing && (
         <div className={styles.actions}>

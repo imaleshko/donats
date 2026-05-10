@@ -1,6 +1,6 @@
 import styles from "./AvatarField.module.css";
 import { type ChangeEvent, useRef } from "react";
-import useChangeAvatar from "@/hooks/useChangeAvatar.ts";
+import useChangeAvatar from "./useChangeAvatar.ts";
 import defaultAvatar from "@/assets/defaultAvatar.png";
 
 interface AvatarFieldProps {
@@ -24,28 +24,28 @@ const AvatarField = ({ avatarUrl }: AvatarFieldProps) => {
   };
 
   const handleAvatarClick = () => {
-    if (!isPending) {
-      fileInputRef.current?.click();
-    }
+    fileInputRef.current?.click();
   };
 
   return (
     <div className={styles.wrapper}>
-      <div
+      <button
+        type="button"
         className={`${styles.avatarContainer} ${isPending ? styles.loading : ""}`}
         onClick={handleAvatarClick}
+        disabled={isPending}
       >
         <img
           src={avatarUrl || defaultAvatar}
-          alt="Avatar"
+          alt="Аватар"
           className={styles.avatarImage}
         />
         <div className={styles.overlay}>
           <span className={styles.overlayText}>
-            {isPending ? "Завантаження..." : "Змінити фото"}
+            {isPending ? "Завантаження" : "Змінити фото"}
           </span>
         </div>
-      </div>
+      </button>
 
       <input
         type="file"

@@ -1,7 +1,7 @@
 import styles from "./Fundraisers.module.css";
 import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { accountApi } from "@/api/accountApi.ts";
+import { accountApi } from "../accountApi.ts";
 import FundraiserCard from "./FundraiserCard/FundraiserCard.tsx";
 
 const Fundraisers = () => {

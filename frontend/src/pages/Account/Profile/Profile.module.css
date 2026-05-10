@@ -1,25 +1,17 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
   width: 100%;
   max-width: 900px;
-}
-
-.section {
   border: 1px solid var(--grey-color);
   border-radius: 40px;
   padding: 40px;
 }
 
-.cardTitle {
-  display: flex;
-  justify-content: center;
+.title {
+  text-align: center;
   font-size: 24px;
   font-weight: 500;
   color: var(--text-grey-color);
-  margin-top: 0;
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
 }
 
 .divider {
@@ -34,7 +26,7 @@
   margin-bottom: 20px;
 }
 
-.formGroup {
+.fields {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -45,7 +37,7 @@
   margin-top: 40px;
   margin-left: auto;
   background-color: var(--delete-red-color);
-  color: white;
+  color: var(--white-color);
   border: none;
   border-radius: 8px;
   padding: 12px 24px;

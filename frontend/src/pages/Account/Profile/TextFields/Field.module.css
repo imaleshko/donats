@@ -10,7 +10,7 @@
   padding-left: 16px;
 }
 
-.inputsGroup {
+.inputGroup {
   display: flex;
   align-items: center;
   background-color: var(--grey-color);
@@ -28,7 +28,6 @@
   outline: none;
   font-size: 16px;
   flex-grow: 1;
-  width: 100%;
 }
 
 .button {
@@ -49,7 +48,7 @@
 
 .saveButton {
   background-color: var(--delete-red-color);
-  color: white;
+  color: var(--white-color);
   border: none;
   border-radius: 20px;
   padding: 8px 16px;
@@ -77,7 +76,7 @@
 .errorText {
   color: var(--error-red-color);
   font-size: 14px;
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .editGroup {
@@ -97,5 +96,4 @@
   border: none;
   outline: none;
   font-size: 16px;
-  flex-grow: 1;
 }

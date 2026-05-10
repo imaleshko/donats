@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fundraisersApi } from "@/api/fundraisersApi.ts";
+import { homeApi } from "../Home/homeApi.ts";
 import { fundraiserPageApi } from "./fundraiserPageApi.ts";
 
 export const useFundraiserPage = (username: string, slug: string) => {
   const fundraiserQuery = useQuery({
     queryKey: ["fundraiser", username, slug],
-    queryFn: () => fundraisersApi.getByUsernameAndSlug(username, slug),
+    queryFn: () => homeApi.getByUsernameAndSlug(username, slug),
   });
 
   const fundraiserId = fundraiserQuery.data?.id;

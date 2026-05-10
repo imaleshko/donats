@@ -2,12 +2,12 @@ import { createBrowserRouter, redirect } from "react-router";
 import { Layout } from "@/layout/Layout/Layout";
 import { Home } from "@/pages/Home/Home";
 import { queryClient } from "./queryClient.ts";
-import { fundraisersApi } from "@/api/fundraisersApi.ts";
+import { homeApi } from "@/pages/Home/homeApi.ts";
 import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
-import Account from "@/pages/Account/Account.tsx";
+import Account from "../pages/Account/AccountLayout.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
-import { accountApi } from "@/api/accountApi.ts";
+import { accountApi } from "../pages/Account/accountApi.ts";
 import { requireAuth } from "@/app/requireAuth.ts";
 import CreateFundraiser from "../pages/Account/Fundraisers/CreateFundraiser/CreateFundraiser.tsx";
 import Donations from "@/pages/Account/Donations/Donations.tsx";
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         loader: async () => {
           return await queryClient.ensureQueryData({
             queryKey: ["newest"],
-            queryFn: fundraisersApi.getNewest,
+            queryFn: homeApi.getNewest,
           });
         },
       },
@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
           }
           return await queryClient.ensureQueryData({
             queryKey: ["fundraiser", username, slug],
-            queryFn: () => fundraisersApi.getByUsernameAndSlug(username, slug),
+            queryFn: () => homeApi.getByUsernameAndSlug(username, slug),
           });
         },
       },

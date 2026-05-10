@@ -1,4 +1,4 @@
-import { api, setAccessToken } from "../app/api.ts";
+import { api, setAccessToken } from "@/app/api.ts";
 
 export interface ChangeEmailRequest {
   email: string;
@@ -40,7 +40,7 @@ export interface UserDonationResponse {
   authorUsername: string;
 }
 
-export interface UsersFundraisersResponse {
+export interface UserFundraiserResponse {
   id: number;
   title: string;
   slug: string;
@@ -57,37 +57,37 @@ export const accountApi = {
     return response.data;
   },
 
-  changeEmail: async (email: ChangeEmailRequest): Promise<User> => {
+  changeEmail: async (data: ChangeEmailRequest): Promise<User> => {
     const response = await api.patch<ChangeEmailResponse>(
       "/account/email",
-      email,
+      data,
     );
     setAccessToken(response.data.accessToken);
     return response.data.user;
   },
 
-  changeUsername: async (username: ChangeUsernameRequest): Promise<User> => {
-    const response = await api.patch<User>("/account/username", username);
+  changeUsername: async (data: ChangeUsernameRequest): Promise<User> => {
+    const response = await api.patch<User>("/account/username", data);
     return response.data;
   },
 
-  changePassword: async (password: ChangePasswordRequest): Promise<void> => {
-    await api.patch<void>("/account/password", password);
+  changePassword: async (data: ChangePasswordRequest): Promise<void> => {
+    await api.patch<void>("/account/password", data);
   },
 
-  changeAvatar: async (avatar: ChangeAvatarRequest): Promise<User> => {
-    const response = await api.patch<User>("/account/avatar", avatar);
+  changeAvatar: async (data: ChangeAvatarRequest): Promise<User> => {
+    const response = await api.patch<User>("/account/avatar", data);
     return response.data;
   },
 
-  getMyDonations: async (): Promise<UserDonationResponse[]> => {
+  getUserDonations: async (): Promise<UserDonationResponse[]> => {
     const response =
       await api.get<UserDonationResponse[]>("/account/donations");
     return response.data;
   },
 
-  getUserFundraisers: async (): Promise<UsersFundraisersResponse[]> => {
-    const response = await api.get<UsersFundraisersResponse[]>(
+  getUserFundraisers: async (): Promise<UserFundraiserResponse[]> => {
+    const response = await api.get<UserFundraiserResponse[]>(
       "/account/fundraisers",
     );
     return response.data;

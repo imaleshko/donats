@@ -12,7 +12,7 @@
   gap: 8px;
 }
 
-.mainArea {
+.content {
   flex: 1;
   padding: 40px;
   display: flex;
@@ -29,10 +29,10 @@
 
 .navLink:hover {
   background-color: #2a2a2f;
-  color: #ffffff;
+  color: var(--white-color);
 }
 
 .active {
   background-color: var(--background-secondary);
-  color: #ffffff;
+  color: var(--white-color);
 }

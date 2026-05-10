@@ -1,4 +1,4 @@
-import { api } from "../app/api.ts";
+import { api } from "@/app/api.ts";
 
 export const imageApi = {
   uploadImages: async (files: File[]): Promise<string[]> => {

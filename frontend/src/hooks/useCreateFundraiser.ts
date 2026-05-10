@@ -1,10 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  type CreateFundraiserRequest,
-  fundraisersApi,
-} from "../api/fundraisersApi.ts";
+import { type CreateFundraiserRequest, homeApi } from "@/pages/Home/homeApi.ts";
 import { isAxiosError } from "axios";
-import { imageApi } from "@/api/imageApi.ts";
+import { imageApi } from "../pages/Account/imageApi.ts";
 
 interface CreateFundraiserFormData {
   title: string;
@@ -33,7 +30,7 @@ export const useCreateFundraiser = () => {
         imagesUrl: imageUrls,
       };
 
-      return fundraisersApi.createFundraiser(requestData);
+      return homeApi.createFundraiser(requestData);
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["fundraiser"] });
