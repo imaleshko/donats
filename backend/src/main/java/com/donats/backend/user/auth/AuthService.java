@@ -1,17 +1,17 @@
-package com.donats.backend.auth;
+package com.donats.backend.user.auth;
 
-import com.donats.backend.auth.dto.LoginRequest;
-import com.donats.backend.auth.dto.RegisterRequest;
-import com.donats.backend.auth.dto.Tokens;
 import com.donats.backend.exceptions.InvalidTokenException;
 import com.donats.backend.exceptions.TokenExpiredException;
+import com.donats.backend.exceptions.UserAlreadyExistsException;
 import com.donats.backend.exceptions.UserNotFoundException;
 import com.donats.backend.security.AccessTokenService;
 import com.donats.backend.security.RefreshTokenEntity;
 import com.donats.backend.security.RefreshTokenService;
 import com.donats.backend.user.UserEntity;
 import com.donats.backend.user.UserRepository;
-import com.donats.backend.exceptions.UserAlreadyExistsException;
+import com.donats.backend.user.auth.dto.LoginRequest;
+import com.donats.backend.user.auth.dto.RegisterRequest;
+import com.donats.backend.user.auth.dto.Tokens;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,8 +35,7 @@ public class AuthService {
     }
 
     public Tokens register(RegisterRequest request) {
-        if (userRepository.existsByEmailOrUsername(request.email(), request.username())
-        ) {
+        if (userRepository.existsByEmailOrUsername(request.email(), request.username())) {
             throw new UserAlreadyExistsException("Користувач з таким email або ім'ям вже існує");
         }
 

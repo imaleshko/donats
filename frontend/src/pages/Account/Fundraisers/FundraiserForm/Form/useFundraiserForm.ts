@@ -21,7 +21,7 @@ const validate = (form: typeof INITIAL_FORM) => {
   return errors;
 };
 
-export const useFundraiserFormLogic = () => {
+export const useFundraiserForm = () => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [retainedImages, setRetainedImages] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<NewImageEntry[]>([]);

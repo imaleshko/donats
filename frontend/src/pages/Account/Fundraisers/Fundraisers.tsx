@@ -1,12 +1,12 @@
-import styles from "./UserFundraisers.module.css";
+import styles from "./Fundraisers.module.css";
 import { useNavigate } from "react-router";
 import FundraiserCard from "./FundraiserCard/FundraiserCard.tsx";
-import { useUserFundraisers } from "@/pages/Account/UserFundraisers/useUserFundraisers.ts";
+import { useFundraisers } from "@/pages/Account/Fundraisers/useFundraisers.ts";
 
-const UserFundraisers = () => {
+const Fundraisers = () => {
   const navigate = useNavigate();
 
-  const { data: fundraisers, isLoading } = useUserFundraisers();
+  const { data: fundraisers, isLoading } = useFundraisers();
 
   const handleCreateClick = () => {
     navigate("create");
@@ -56,4 +56,4 @@ const UserFundraisers = () => {
   );
 };
 
-export default UserFundraisers;
+export default Fundraisers;

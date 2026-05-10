@@ -42,7 +42,7 @@ export const useEditFundraiser = (fundraiserId: number) => {
         imageUrls: finalImagesUrl,
       };
 
-      return accountApi.updateFundraiser(fundraiserId, requestData);
+      return accountApi.editFundraiser(fundraiserId, requestData);
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["user-fundraisers"] });
@@ -53,7 +53,7 @@ export const useEditFundraiser = (fundraiserId: number) => {
   return {
     fundraiserData: query.data,
     isLoadingData: query.isLoading,
-    updateFundraiser: mutation.mutate,
+    editFundraiser: mutation.mutate,
     isPending: mutation.isPending,
     error: getApiErrorMessage(mutation.error, "Помилка оновлення збору"),
   };

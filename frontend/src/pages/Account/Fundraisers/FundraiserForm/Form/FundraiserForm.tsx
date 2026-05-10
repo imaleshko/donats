@@ -1,16 +1,7 @@
-import {
-  type ChangeEvent,
-  type DragEvent,
-  type SubmitEvent,
-  useRef,
-  useState,
-} from "react";
+import { type ChangeEvent, type DragEvent, type SubmitEvent, useRef, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import styles from "./FundraiserForm.module.css";
-import type {
-  INITIAL_FORM,
-  NewImageEntry,
-} from "@/pages/Account/UserFundraisers/FundraiserForm/Form/useFundraiserFormLogic.ts";
+import type { INITIAL_FORM, NewImageEntry } from "@/pages/Account/Fundraisers/FundraiserForm/Form/useFundraiserForm.ts";
 
 interface FundraiserFormProps {
   title: string;

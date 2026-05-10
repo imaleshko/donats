@@ -7,12 +7,12 @@ import Register from "@/pages/Auth/Register/Register.tsx";
 import Login from "@/pages/Auth/Login/Login.tsx";
 import Profile from "@/pages/Account/Profile/Profile.tsx";
 import { requireAuth } from "@/app/requireAuth.ts";
-import CreateFundraiser from "../pages/Account/UserFundraisers/FundraiserForm/CreateFundraiser/CreateFundraiser.tsx";
-import UserDonations from "../pages/Account/UserDonations/UserDonations.tsx";
-import EditFundraiser from "../pages/Account/UserFundraisers/FundraiserForm/EditFundraiser/EditFundraiser.tsx";
-import AddUpdate from "../pages/Account/UserFundraisers/Update/AddUpdate.tsx";
+import CreateFundraiser from "@/pages/Account/Fundraisers/FundraiserForm/CreateFundraiser/CreateFundraiser.tsx";
+import Donations from "@/pages/Account/Donations/Donations.tsx";
+import EditFundraiser from "@/pages/Account/Fundraisers/FundraiserForm/EditFundraiser/EditFundraiser.tsx";
+import AddUpdate from "@/pages/Account/Fundraisers/Update/AddUpdate.tsx";
 import { Fundraiser } from "@/pages/Fundraiser/Fundraiser.tsx";
-import UserFundraisers from "../pages/Account/UserFundraisers/UserFundraisers.tsx";
+import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 import { getUser } from "@/app/getUser.ts";
 import AccountLayout from "@/pages/Account/AccountLayout.tsx";
 
@@ -86,14 +86,14 @@ export const router = createBrowserRouter([
           },
           {
             path: "donations",
-            Component: UserDonations,
+            Component: Donations,
           },
           {
             path: "fundraisers",
             children: [
               {
                 index: true,
-                Component: UserFundraisers,
+                Component: Fundraisers,
               },
               {
                 path: "create",

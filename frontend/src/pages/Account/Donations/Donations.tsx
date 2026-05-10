@@ -1,9 +1,9 @@
-import styles from "./UserDonations.module.css";
+import styles from "./Donations.module.css";
 import { Link } from "react-router";
-import { useUserDonations } from "@/pages/Account/UserDonations/useUserDonations.ts";
+import { useDonations } from "@/pages/Account/Donations/useDonations.ts";
 
-const UserDonations = () => {
-  const { data: donations, isLoading } = useUserDonations();
+const Donations = () => {
+  const { data: donations, isLoading } = useDonations();
 
   return (
     <div className={styles.wrapper}>
@@ -52,4 +52,4 @@ const UserDonations = () => {
   );
 };
 
-export default UserDonations;
+export default Donations;

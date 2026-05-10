@@ -1,4 +1,0 @@
-package com.donats.backend.auth.dto;
-
-public record RegisterRequest(String username, String email, String password) {
-}

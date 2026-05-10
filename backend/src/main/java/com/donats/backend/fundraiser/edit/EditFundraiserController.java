@@ -18,7 +18,7 @@ public class EditFundraiserController {
         this.editFundraiserService = editFundraiserService;
     }
 
-    @GetMapping("/{fundraiserId}")
+    @GetMapping("/{fundraiserId}/edit")
     public ResponseEntity<EditFundraiserResponse> getFundraiserForEdit(
             @PathVariable Long fundraiserId,
             @AuthenticationPrincipal CustomUserDetails userDetails
@@ -27,13 +27,13 @@ public class EditFundraiserController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{fundraiserId}")
-    public ResponseEntity<Void> updateFundraiser(
+    @PutMapping("/{fundraiserId}/edit")
+    public ResponseEntity<Void> editFundraiser(
             @PathVariable Long fundraiserId,
             @Valid @RequestBody EditFundraiserRequest request,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) {
-        editFundraiserService.updateFundraiser(userDetails.getId(), fundraiserId, request);
+        editFundraiserService.editFundraiser(userDetails.getId(), fundraiserId, request);
         return ResponseEntity.ok().build();
     }
 }

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { useEditFundraiser } from "./useEditFundraiser.ts";
 import { type SubmitEvent, useEffect } from "react";
 import FundraiserForm from "../Form/FundraiserForm.tsx";
-import { useFundraiserFormLogic } from "../Form/useFundraiserFormLogic.ts";
+import { useFundraiserForm } from "../Form/useFundraiserForm.ts";
 
 const EditFundraiser = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,11 +13,11 @@ const EditFundraiser = () => {
   const {
     fundraiserData,
     isLoadingData,
-    updateFundraiser,
+    editFundraiser,
     isPending,
     error: updateError,
   } = useEditFundraiser(fundraiserId);
-  const formLogic = useFundraiserFormLogic();
+  const formLogic = useFundraiserForm();
 
   const { setFormData, setRetainedImages, validateForm } = formLogic;
 
@@ -39,7 +39,7 @@ const EditFundraiser = () => {
     const data = validateForm();
     if (!data) return;
 
-    updateFundraiser(
+    editFundraiser(
       {
         title: data.title,
         slug: data.slug,

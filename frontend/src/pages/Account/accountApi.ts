@@ -123,16 +123,16 @@ export const accountApi = {
     fundraiserId: number,
   ): Promise<EditFundraiserResponse> => {
     const response = await api.get<EditFundraiserResponse>(
-      `/fundraisers/${fundraiserId}`,
+      `/fundraisers/${fundraiserId}/edit`,
     );
     return response.data;
   },
 
-  updateFundraiser: async (
+  editFundraiser: async (
     fundraiserId: number,
     data: UpdateFundraiserRequest,
   ): Promise<void> => {
-    await api.put(`/fundraisers/${fundraiserId}`, data);
+    await api.put(`/fundraisers/${fundraiserId}/edit`, data);
   },
 
   createUpdate: async (

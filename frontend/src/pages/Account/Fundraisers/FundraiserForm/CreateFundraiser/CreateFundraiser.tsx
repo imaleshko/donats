@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useCreateFundraiser } from "./useCreateFundraiser.ts";
 import { type SubmitEvent } from "react";
 import FundraiserForm from "../Form/FundraiserForm.tsx";
-import { useFundraiserFormLogic } from "../Form/useFundraiserFormLogic.ts";
+import { useFundraiserForm } from "../Form/useFundraiserForm.ts";
 
 const CreateFundraiser = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const CreateFundraiser = () => {
     isPending,
     error: createError,
   } = useCreateFundraiser();
-  const formLogic = useFundraiserFormLogic();
+  const formLogic = useFundraiserForm();
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();

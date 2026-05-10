@@ -12,7 +12,7 @@ public class RefreshTokenEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "token", nullable = false)
+    @Column(name = "token", nullable = false, unique = true)
     private String token;
 
     @Column(name = "expiry_date", nullable = false)
@@ -23,12 +23,6 @@ public class RefreshTokenEntity {
     private UserEntity user;
 
     public RefreshTokenEntity() {
-    }
-
-    public RefreshTokenEntity(String token, Instant expiryDate, UserEntity user) {
-        this.token = token;
-        this.expiryDate = expiryDate;
-        this.user = user;
     }
 
     public Long getId() {

@@ -1,4 +1,4 @@
-package com.donats.backend.auth.dto;
+package com.donats.backend.user.auth.dto;
 
 public record Tokens(String accessToken, String refreshToken) {
 }

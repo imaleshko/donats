@@ -32,7 +32,7 @@ public class EditFundraiserService {
     }
 
     @Transactional
-    public void updateFundraiser(Long userId, Long fundraiserId, EditFundraiserRequest request) {
+    public void editFundraiser(Long userId, Long fundraiserId, EditFundraiserRequest request) {
         FundraiserEntity fundraiser = getFundraiser(userId, fundraiserId);
 
         if (!fundraiser.getSlug().equals(request.slug()) &&

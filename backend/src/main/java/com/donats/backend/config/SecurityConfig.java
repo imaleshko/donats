@@ -4,6 +4,7 @@ import com.donats.backend.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,8 +28,8 @@ public class SecurityConfig {
     @Value("${cors.allowed-origins}")
     private List<String> allowedOrigins;
 
-    public SecurityConfig(JwtAuthenticationFilter JwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
-        this.JwtAuthenticationFilter = JwtAuthenticationFilter;
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
+        this.JwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authenticationProvider = authenticationProvider;
     }
 
@@ -38,8 +39,10 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/api/fundraisers/newest").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/fundraisers/*/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/fundraisers/*/donations").permitAll()
                         .requestMatchers(
-                                "/api/fundraisers/**",
                                 "/api/auth/**",
                                 "/api/donations/liqpay/server",
                                 "/api/donations/init",
