@@ -93,6 +93,7 @@ const Register = () => {
             name="email"
             value={data.email}
             onChange={handleChange}
+            autoComplete="email"
             required
           />
 
@@ -103,6 +104,7 @@ const Register = () => {
             name="password"
             value={data.password}
             onChange={handleChange}
+            autoComplete="new-password"
             required
           />
           {errors.password && (
@@ -116,6 +118,7 @@ const Register = () => {
             name="confirmPassword"
             value={data.confirmPassword}
             onChange={handleChange}
+            autoComplete="new-password"
             required
           />
           {errors.confirmPassword && (

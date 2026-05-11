@@ -3,7 +3,7 @@ import { imageApi } from "@/pages/Account/imageApi.ts";
 import { getApiErrorMessage } from "@/utils/getApiErrorMessage.ts";
 import {
   accountApi,
-  type UpdateFundraiserRequest,
+  type EditFundraiserRequest,
 } from "@/pages/Account/accountApi.ts";
 
 export interface EditFundraiserFormData {
@@ -34,7 +34,7 @@ export const useEditFundraiser = (fundraiserId: number) => {
 
       const finalImagesUrl = [...data.retainedImages, ...uploadedUrls];
 
-      const requestData: UpdateFundraiserRequest = {
+      const requestData: EditFundraiserRequest = {
         title: data.title,
         slug: data.slug,
         description: data.description,

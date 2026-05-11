@@ -1,7 +1,16 @@
-import { type ChangeEvent, type DragEvent, type SubmitEvent, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  type DragEvent,
+  type SubmitEvent,
+  useRef,
+  useState,
+} from "react";
 import MDEditor from "@uiw/react-md-editor";
 import styles from "./FundraiserForm.module.css";
-import type { INITIAL_FORM, NewImageEntry } from "@/pages/Account/Fundraisers/FundraiserForm/Form/useFundraiserForm.ts";
+import type {
+  INITIAL_FORM,
+  NewImageEntry,
+} from "@/pages/Account/Fundraisers/FundraiserForm/Form/useFundraiserForm.ts";
 
 interface FundraiserFormProps {
   title: string;
@@ -10,7 +19,7 @@ interface FundraiserFormProps {
   isPending: boolean;
   serverError?: string | null;
   originalSlug?: string;
-  retainedImages?: string[];
+  retainedImages: string[];
   newImages: NewImageEntry[];
   onFieldChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (value?: string) => void;
@@ -29,7 +38,7 @@ export const FundraiserForm = ({
   isPending,
   serverError,
   originalSlug,
-  retainedImages = [],
+  retainedImages,
   newImages,
   onFieldChange,
   onDescriptionChange,
@@ -156,6 +165,8 @@ export const FundraiserForm = ({
               />
             </div>
           </div>
+
+          {errors.images && <p className={styles.errorText}>{errors.images}</p>}
 
           {(retainedImages.length > 0 || newImages.length > 0) && (
             <div className={styles.previewGrid}>

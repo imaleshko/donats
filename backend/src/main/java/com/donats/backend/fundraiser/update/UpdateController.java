@@ -34,4 +34,14 @@ public class UpdateController {
     public ResponseEntity<List<Update>> getUpdates(@PathVariable Long fundraiserId) {
         return ResponseEntity.ok(updateService.getUpdates(fundraiserId));
     }
+
+    @DeleteMapping("/{fundraiserId}/updates/{updateId}")
+    public ResponseEntity<Void> deleteUpdate(
+            @PathVariable Long fundraiserId,
+            @PathVariable Long updateId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) {
+        updateService.deleteUpdate(fundraiserId, updateId, userDetails.getId());
+        return ResponseEntity.noContent().build();
+    }
 }

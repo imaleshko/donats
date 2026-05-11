@@ -29,4 +29,11 @@ export const fundraiserPageApi = {
     );
     return response.data;
   },
+
+  deleteUpdate: async (
+    fundraiserId: number,
+    updateId: number,
+  ): Promise<void> => {
+    await api.delete(`/fundraisers/${fundraiserId}/updates/${updateId}`);
+  },
 };

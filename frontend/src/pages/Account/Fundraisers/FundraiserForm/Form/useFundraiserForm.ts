@@ -9,18 +9,6 @@ export const INITIAL_FORM = {
   goal: "",
 };
 
-const validate = (form: typeof INITIAL_FORM) => {
-  const errors: Record<string, string> = {};
-  if (!form.title.trim()) errors.title = "Назва обов'язкова";
-  if (!form.slug.trim()) errors.slug = "Slug обов'язковий";
-  else if (!/^[a-z0-9-]+$/.test(form.slug))
-    errors.slug = "Тільки малі літери, цифри та дефіс";
-  if (!form.description.trim()) errors.description = "Опис обов'язковий";
-  if (form.goal && Number(form.goal) <= 0)
-    errors.goal = "Ціль має бути більшою за 0";
-  return errors;
-};
-
 export const useFundraiserForm = () => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [retainedImages, setRetainedImages] = useState<string[]>([]);
@@ -50,6 +38,7 @@ export const useFundraiserForm = () => {
       .filter((file) => file.type.startsWith("image/"))
       .map((file) => ({ file, previewUrl: URL.createObjectURL(file) }));
     setNewImages((prev) => [...prev, ...entries]);
+    setErrors((prev) => ({ ...prev, images: "" }));
   };
 
   const onRemoveRetainedImage = (urlToRemove: string) => {
@@ -70,9 +59,26 @@ export const useFundraiserForm = () => {
     description: formData.description.trim(),
   });
 
+  const validate = (form: typeof INITIAL_FORM) => {
+    const errors: Record<string, string> = {};
+    if (!form.title.trim()) errors.title = "Назва обов'язкова";
+    if (!form.slug.trim()) errors.slug = "Slug обов'язковий";
+    else if (!/^[a-z0-9-]+$/.test(form.slug))
+      errors.slug = "Тільки малі літери, цифри та дефіс";
+    if (!form.description.trim()) errors.description = "Опис обов'язковий";
+    if (form.goal && Number(form.goal) <= 0)
+      errors.goal = "Ціль має бути більшою за 0";
+    return errors;
+  };
+
   const validateForm = () => {
     const trimmed = getTrimmedFormData();
     const validationErrors = validate(trimmed);
+
+    if (retainedImages.length === 0 && newImages.length === 0) {
+      validationErrors.images = "Хоча б одне зображення обов'язкове";
+    }
+
     if (Object.keys(validationErrors).length) {
       setErrors(validationErrors);
       return null;

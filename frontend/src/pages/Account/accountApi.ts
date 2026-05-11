@@ -53,7 +53,7 @@ export interface CreateFundraiserRequest {
   slug: string;
   description: string;
   goal?: number;
-  imageUrls?: string[];
+  imageUrls: string[];
 }
 
 export interface EditFundraiserResponse {
@@ -65,7 +65,7 @@ export interface EditFundraiserResponse {
   existingImagesUrls: string[];
 }
 
-export interface UpdateFundraiserRequest {
+export interface EditFundraiserRequest {
   title: string;
   slug: string;
   description: string;
@@ -131,7 +131,7 @@ export const accountApi = {
 
   editFundraiser: async (
     fundraiserId: number,
-    data: UpdateFundraiserRequest,
+    data: EditFundraiserRequest,
   ): Promise<void> => {
     await api.put(`/fundraisers/${fundraiserId}/edit`, data);
   },

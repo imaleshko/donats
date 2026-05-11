@@ -1,10 +1,10 @@
 .wrapper {
   display: flex;
+  min-height: 90vh;
 }
 
 .sidebar {
   width: 250px;
-  height: 90vh;
   border-right: 1px solid var(--grey-color);
   padding: 24px;
   display: flex;

@@ -41,10 +41,11 @@ public class FundraiserEntity {
 
     @ElementCollection
     @CollectionTable(name = "fundraiser_images", joinColumns = @JoinColumn(name = "fundraiser_id"))
-    @Column(name = "image_urls", nullable = false)
+    @Column(name = "image_url", nullable = false)
     private List<String> imageUrls;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private FundraiserStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,7 +55,7 @@ public class FundraiserEntity {
     @OneToMany(mappedBy = "fundraiser")
     private List<DonationEntity> donations;
 
-    @OneToMany(mappedBy = "fundraiser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fundraiser")
     private List<UpdateEntity> updates;
 
     public FundraiserEntity() {

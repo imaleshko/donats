@@ -27,7 +27,7 @@ public class UserEntity {
     @Column(name = "avatar_url")
     private String avatarUrl;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     private List<FundraiserEntity> fundraisers;
 
     @OneToMany(mappedBy = "user")
@@ -84,8 +84,8 @@ public class UserEntity {
         return fundraisers;
     }
 
-    public void setFundraisers(List<FundraiserEntity> fundraiser) {
-        this.fundraisers = fundraiser;
+    public void setFundraisers(List<FundraiserEntity> fundraisers) {
+        this.fundraisers = fundraisers;
     }
 
     public List<DonationEntity> getDonations() {
