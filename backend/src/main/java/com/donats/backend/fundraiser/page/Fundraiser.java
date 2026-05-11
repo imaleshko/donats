@@ -18,7 +18,7 @@ public record Fundraiser(
         String authorAvatarUrl,
         String status,
         LocalDateTime startedAt,
-        LocalDateTime endedAt
+        LocalDateTime closedAt
 ) {
     public static Fundraiser from(FundraiserEntity entity) {
         return new Fundraiser(
@@ -33,7 +33,7 @@ public record Fundraiser(
                 entity.getUser().getAvatarUrl(),
                 entity.getStatus().name(),
                 entity.getStartedAt(),
-                entity.getEndedAt()
+                entity.getClosedAt()
         );
     }
 }

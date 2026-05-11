@@ -69,3 +69,13 @@
 .submitButton:disabled {
   cursor: not-allowed;
 }
+
+.closedNotice {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-grey-color);
+  padding: 32px;
+  border: 1px solid var(--grey-color);
+  border-radius: 20px;
+}

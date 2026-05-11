@@ -42,6 +42,7 @@ export interface UserFundraiserResponse {
   slug: string;
   username: string;
   startedAt: string;
+  closedAt?: string;
   status: FundraiserStatus;
   balance: number;
   totalDonationsCount: number;
@@ -140,5 +141,9 @@ export const accountApi = {
     data: CreateUpdateRequest,
   ): Promise<void> => {
     await api.post(`/fundraisers/${fundraiserId}/updates`, data);
+  },
+
+  closeFundraiser: async (fundraiserId: number): Promise<void> => {
+    await api.put(`/fundraisers/${fundraiserId}/close`);
   },
 };

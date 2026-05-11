@@ -13,6 +13,7 @@ public record UserFundraiser(
         String slug,
         String username,
         LocalDateTime startedAt,
+        LocalDateTime closedAt,
         FundraiserStatus status,
         BigDecimal balance,
         Long totalDonationsCount
@@ -28,10 +29,10 @@ public record UserFundraiser(
                 entity.getSlug(),
                 entity.getUser().getUsername(),
                 entity.getStartedAt(),
+                entity.getClosedAt(),
                 entity.getStatus(),
                 entity.getBalance(),
                 totalDonations
         );
-
     }
 }

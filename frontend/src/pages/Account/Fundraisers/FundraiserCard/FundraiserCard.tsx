@@ -18,9 +18,9 @@ const FundraiserCard = ({
   onEdit,
   onClose,
 }: FundraiserCardProps) => {
-  const formattedDate = new Date(fundraiser.startedAt).toLocaleDateString(
-    "uk-UA",
-  );
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("uk-UA");
+  };
 
   const getStatusLabel = (status: FundraiserStatus) => {
     switch (status) {
@@ -62,28 +62,42 @@ const FundraiserCard = ({
         </div>
 
         <div className={styles.rightColumn}>
-          <span>Дата створення</span>
-          <span>{formattedDate}</span>
+          <div className={styles.dateBlock}>
+            <span>Дата створення</span>
+            <span>{formatDate(fundraiser.startedAt)}</span>
+          </div>
+
+          {fundraiser.closedAt && (
+            <div className={styles.dateBlock}>
+              <span>Дата закриття</span>
+              <span>{formatDate(fundraiser.closedAt)}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className={styles.actions}>
-        <button
-          className={styles.button}
-          onClick={() => onAddUpdate(fundraiser.id)}
-        >
-          Додати апдейт
-        </button>
-        <button className={styles.button} onClick={() => onEdit(fundraiser.id)}>
-          Редагувати
-        </button>
-        <button
-          className={styles.closeButton}
-          onClick={() => onClose(fundraiser.id)}
-        >
-          Закрити
-        </button>
-      </div>
+      {fundraiser.status === "ACTIVE" && (
+        <div className={styles.actions}>
+          <button
+            className={styles.button}
+            onClick={() => onAddUpdate(fundraiser.id)}
+          >
+            Додати апдейт
+          </button>
+          <button
+            className={styles.button}
+            onClick={() => onEdit(fundraiser.id)}
+          >
+            Редагувати
+          </button>
+          <button
+            className={styles.closeButton}
+            onClick={() => onClose(fundraiser.id)}
+          >
+            Закрити
+          </button>
+        </div>
+      )}
     </div>
   );
 };

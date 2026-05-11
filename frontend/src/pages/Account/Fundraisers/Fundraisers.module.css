@@ -57,3 +57,9 @@
 .empty {
   text-align: center;
 }
+
+.errorText {
+  color: var(--error-red-color);
+  font-size: 14px;
+  margin-left: 15px;
+}

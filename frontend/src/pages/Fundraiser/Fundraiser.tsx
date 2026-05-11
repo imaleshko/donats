@@ -37,7 +37,7 @@ export const Fundraiser = () => {
         <Info fundraiser={fundraiser} />
       </div>
 
-      <DonationForm fundraiserId={fundraiser.id} />
+      <DonationForm fundraiserId={fundraiser.id} status={fundraiser.status} />
 
       <Description description={fundraiser.description} />
 

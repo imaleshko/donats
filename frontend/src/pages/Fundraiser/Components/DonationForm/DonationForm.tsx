@@ -3,12 +3,14 @@ import { type ChangeEvent, type SubmitEvent, useState } from "react";
 import { useInitDonation } from "../../Components/DonationForm/useInitDonation.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
+import type { FundraiserStatus } from "@/pages/Account/accountApi.ts";
 
 interface DonationFormProps {
   fundraiserId: number;
+  status: FundraiserStatus;
 }
 
-const DonationForm = ({ fundraiserId }: DonationFormProps) => {
+const DonationForm = ({ fundraiserId, status }: DonationFormProps) => {
   const [formValues, setFormValues] = useState({
     amount: "",
     name: "",
@@ -88,6 +90,14 @@ const DonationForm = ({ fundraiserId }: DonationFormProps) => {
       message: formValues.message.trim(),
     });
   };
+
+  if (status === "CLOSED") {
+    return (
+      <div className={styles.wrapper}>
+        <div className={styles.closedNotice}>Збір закрито</div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.wrapper}>

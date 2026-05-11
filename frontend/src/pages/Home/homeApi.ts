@@ -1,4 +1,5 @@
 import { api } from "@/app/api.ts";
+import type { FundraiserStatus } from "@/pages/Account/accountApi.ts";
 
 interface FundraiserCard {
   id: number;
@@ -19,9 +20,9 @@ export interface Fundraiser {
   imageUrls: string[];
   authorUsername: string;
   authorAvatarUrl?: string;
-  status: string;
+  status: FundraiserStatus;
   startedAt: string;
-  endedAt: string;
+  closedAt?: string;
 }
 
 export const homeApi = {

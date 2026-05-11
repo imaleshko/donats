@@ -3,11 +3,13 @@ package com.donats.backend.donation;
 import com.donats.backend.donation.dto.Donation;
 import com.donats.backend.donation.dto.DonationInitRequest;
 import com.donats.backend.donation.dto.DonationInitResponse;
-import com.donats.backend.exceptions.DonationCloseException;
 import com.donats.backend.donation.liqpay.LiqPayService;
-import com.donats.backend.fundraiser.FundraiserEntity;
+import com.donats.backend.exceptions.DonationCloseException;
+import com.donats.backend.exceptions.DonationInitException;
 import com.donats.backend.exceptions.FundraiserNotFoundException;
+import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
+import com.donats.backend.fundraiser.FundraiserStatus;
 import com.donats.backend.user.UserEntity;
 import com.donats.backend.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -37,12 +39,16 @@ public class DonationService {
         FundraiserEntity fundraiser = fundraiserRepository.findById(request.fundraiserId())
                 .orElseThrow(() -> new FundraiserNotFoundException("Збір не знайдено"));
 
+        if (fundraiser.getStatus() != FundraiserStatus.ACTIVE) {
+            throw new DonationInitException("Збір закритий");
+        }
+
         UserEntity user = null;
         if (userId != null) {
             user = userRepository.findById(userId).orElse(null);
         }
 
-        String orderId = "Donation" + UUID.randomUUID();
+        String orderId = "Donation-" + UUID.randomUUID();
 
         DonationEntity donation = new DonationEntity();
         donation.setAmount(request.amount());

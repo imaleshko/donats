@@ -5,7 +5,6 @@ import com.donats.backend.fundraiser.update.UpdateEntity;
 import com.donats.backend.user.UserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -37,12 +36,8 @@ public class FundraiserEntity {
     @CreationTimestamp
     private LocalDateTime startedAt;
 
-    @Column(name = "ended_at")
-    private LocalDateTime endedAt;
-
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    @Column(name = "closed_at")
+    private LocalDateTime closedAt;
 
     @ElementCollection
     @CollectionTable(name = "fundraiser_images", joinColumns = @JoinColumn(name = "fundraiser_id"))
@@ -121,20 +116,12 @@ public class FundraiserEntity {
         this.startedAt = startedAt;
     }
 
-    public LocalDateTime getEndedAt() {
-        return endedAt;
+    public LocalDateTime getClosedAt() {
+        return closedAt;
     }
 
-    public void setEndedAt(LocalDateTime endedAt) {
-        this.endedAt = endedAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setClosedAt(LocalDateTime closedAt) {
+        this.closedAt = closedAt;
     }
 
     public List<String> getImageUrls() {

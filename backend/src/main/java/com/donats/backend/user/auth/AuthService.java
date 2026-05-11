@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
@@ -34,6 +35,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
+    @Transactional
     public Tokens register(RegisterRequest request) {
         if (userRepository.existsByEmailOrUsername(request.email(), request.username())) {
             throw new UserAlreadyExistsException("Користувач з таким email або ім'ям вже існує");
@@ -48,6 +50,7 @@ public class AuthService {
         return generateTokensForUser(savedUser);
     }
 
+    @Transactional
     public Tokens login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
@@ -60,19 +63,16 @@ public class AuthService {
     }
 
     public Tokens refreshToken(String refreshToken) {
-        return refreshTokenService.findByToken(refreshToken)
-                .map(refreshTokenEntity -> {
-                    if (refreshTokenService.isTokenExpired(refreshTokenEntity)) {
-                        refreshTokenService.deleteByToken(refreshToken);
-                        throw new TokenExpiredException("Час дії Refresh токена минув");
-                    }
-                    return refreshTokenEntity.getUser();
-                })
-                .map(user -> {
-                    refreshTokenService.deleteByToken(refreshToken);
-                    return generateTokensForUser(user);
-                })
+        RefreshTokenEntity tokenEntity = refreshTokenService.findByToken(refreshToken)
                 .orElseThrow(() -> new InvalidTokenException("Недійсний Refresh токен"));
+
+        refreshTokenService.deleteByToken(refreshToken);
+
+        if (refreshTokenService.isTokenExpired(tokenEntity)) {
+            throw new TokenExpiredException("Час дії Refresh токена минув");
+        }
+
+        return generateTokensForUser(tokenEntity.getUser());
     }
 
     public void logout(String refreshToken) {

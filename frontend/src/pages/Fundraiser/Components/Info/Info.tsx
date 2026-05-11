@@ -1,5 +1,5 @@
 import styles from "./Info.module.css";
-import type { Fundraiser } from "../../../Home/homeApi.ts";
+import type { Fundraiser } from "@/pages/Home/homeApi.ts";
 
 interface InfoProps {
   fundraiser: Fundraiser;
@@ -10,10 +10,9 @@ const Info = ({ fundraiser }: InfoProps) => {
     ? Math.min(Math.round((fundraiser.balance / fundraiser.goal) * 100), 100)
     : 0;
 
-  const startDate = new Date(fundraiser.startedAt).toLocaleDateString("uk-UA");
-  const endedAt = fundraiser.endedAt
-    ? new Date(fundraiser.endedAt).toLocaleDateString("uk-UA")
-    : null;
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("uk-UA");
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -31,8 +30,10 @@ const Info = ({ fundraiser }: InfoProps) => {
       </div>
 
       <div className={styles.dates}>
-        <p>Збір розпочато: {startDate}</p>
-        {endedAt && <p>Збір завершено: {endedAt}</p>}
+        <p>Збір розпочато: {formatDate(fundraiser.startedAt)}</p>
+        {fundraiser.closedAt && (
+          <p>Збір завершено: {formatDate(fundraiser.closedAt)}</p>
+        )}
       </div>
 
       <div className={styles.progress}>

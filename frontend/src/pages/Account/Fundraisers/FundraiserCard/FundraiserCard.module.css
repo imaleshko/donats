@@ -24,19 +24,26 @@
   align-items: center;
 }
 
-.rightColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
+.titleLink {
+  color: var(--text-grey-color);
 }
 
 .balance {
   color: var(--yellow-color);
 }
 
-.titleLink {
-  color: var(--text-grey-color);
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.dateBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
 .actions {
