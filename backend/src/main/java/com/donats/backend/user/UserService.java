@@ -17,5 +17,4 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("Користувача не знайдено"));
         return User.from(user);
     }
-
 }
