@@ -19,9 +19,9 @@ public class AccessTokenService {
 
     public AccessTokenService(
             @Value("${jwt.secretKey}") String secretKey,
-            @Value("${jwt.expiration}") String expiration) {
+            @Value("${jwt.expiration}") long expirationTime) {
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
-        this.expirationTime = Long.parseLong(expiration);
+        this.expirationTime = expirationTime;
     }
 
     public String generateAccessToken(String email) {

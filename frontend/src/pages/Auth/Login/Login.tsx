@@ -1,7 +1,7 @@
-import styles from "../Auth.module.css";
-import { type ChangeEvent, type SubmitEventHandler, useState } from "react";
+import { useLogin } from "@/pages/Auth/Login/useLogin.ts";
+import { type ChangeEvent, type SubmitEvent, useState } from "react";
 import { Link } from "react-router";
-import useLogin from "@/hooks/useLogin.ts";
+import styles from "@/pages/Auth/Auth.module.css";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -19,12 +19,12 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     login({
       email: data.email.trim(),
-      password: data.password.trim(),
+      password: data.password,
     });
   };
 
@@ -57,14 +57,14 @@ const Login = () => {
           />
 
           <button
-            type={"submit"}
+            type="submit"
             className={styles.submitButton}
             disabled={isPending}
           >
             Увійти
           </button>
         </div>
-        <div className={styles.loginLink}>
+        <div className={styles.authSwitch}>
           <p>Не маєте акаунта?</p>
           <Link to="/register">Реєстрація</Link>
         </div>

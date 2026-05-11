@@ -1,10 +1,5 @@
 package com.donats.backend.exceptions;
 
-import com.donats.backend.donation.exceptions.DonationCloseException;
-import com.donats.backend.donation.exceptions.DonationInitException;
-import com.donats.backend.fundraising.creating.exception.SlugAlreadyInUseException;
-import com.donats.backend.fundraising.page.exception.FundraisingNotFoundException;
-import com.donats.backend.image.ImageUploadException;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.*;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    public ProblemDetail handleUserAlreadyExists(UserAlreadyExistsException ex) {
+    public ProblemDetail handleUserAlreadyExists(RuntimeException ex) {
         return createProblemDetail(HttpStatus.CONFLICT, "Користувач вже існує", ex.getMessage());
     }
 
@@ -47,8 +42,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return createProblemDetail(HttpStatus.CONFLICT, "Помилка створення збору", ex.getMessage());
     }
 
-    @ExceptionHandler(FundraisingNotFoundException.class)
-    public ProblemDetail handleFundraisingNotFound(RuntimeException ex) {
+    @ExceptionHandler(FundraiserNotFoundException.class)
+    public ProblemDetail handleFundraiserNotFound(RuntimeException ex) {
         return createProblemDetail(HttpStatus.NOT_FOUND, "Збір не знайдено", ex.getMessage());
     }
 
@@ -65,6 +60,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ImageUploadException.class)
     public ProblemDetail handleImageUpload(RuntimeException ex) {
         return createProblemDetail(HttpStatus.BAD_REQUEST, "Помилка завантаження зображення", ex.getMessage());
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ProblemDetail handleForbidden(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.FORBIDDEN, "Немає прав", ex.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

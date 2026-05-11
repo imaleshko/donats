@@ -1,8 +1,10 @@
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/donation_platform
-#    username: admin
-#    password: password
+spring:
+  #  datasource:
+  #    url: jdbc:postgresql://localhost:5432/donation_platform
+  #    username: admin
+  #    password: password
+  jpa:
+    show-sql: true
 
 cors:
   allowed-origins: "http://localhost:5173"

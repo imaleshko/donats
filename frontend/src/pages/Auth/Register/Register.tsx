@@ -1,7 +1,7 @@
-import styles from "../Auth.module.css";
-import { type ChangeEvent, type SubmitEventHandler, useState } from "react";
+import styles from "@/pages/Auth/Auth.module.css";
+import { type ChangeEvent, type SubmitEvent, useState } from "react";
 import { Link } from "react-router";
-import useRegister from "@/hooks/useRegister.ts";
+import { useRegister } from "./useRegister.ts";
 
 const Register = () => {
   const [data, setData] = useState({
@@ -41,14 +41,14 @@ const Register = () => {
     if (data.password.trim().length < 8) {
       validationErrors.password = "Пароль має містити щонайменше 8 символів";
     }
-    if (data.password.trim() !== data.confirmPassword.trim()) {
+    if (data.password !== data.confirmPassword.trim()) {
       validationErrors.confirmPassword = "Паролі не співпадають";
     }
 
     return validationErrors;
   };
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationErrors = validate();
@@ -60,7 +60,7 @@ const Register = () => {
     register({
       username: data.username.trim(),
       email: data.email.trim(),
-      password: data.password.trim(),
+      password: data.password,
     });
   };
 
@@ -71,6 +71,7 @@ const Register = () => {
         {isError && error && (
           <p className={`${styles.errorText} ${styles.serverError}`}>{error}</p>
         )}
+
         <div className={styles.inputs}>
           <input
             type="text"
@@ -122,14 +123,14 @@ const Register = () => {
           )}
 
           <button
-            type={"submit"}
+            type="submit"
             className={styles.submitButton}
             disabled={isPending}
           >
             Зареєструватися
           </button>
         </div>
-        <div className={styles.loginLink}>
+        <div className={styles.authSwitch}>
           <p>Вже маєте акаунт?</p>
           <Link to="/login">Авторизація</Link>
         </div>

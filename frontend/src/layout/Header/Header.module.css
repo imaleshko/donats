@@ -71,7 +71,6 @@
   padding: 10px 20px;
   color: var(--text-grey-color);
   text-decoration: none;
-  font-size: 16px;
 }
 
 .dropdownItem:hover {
@@ -93,7 +92,6 @@
   color: var(--delete-red-color);
   background: transparent;
   border: none;
-  font-size: 16px;
   cursor: pointer;
 }
 
@@ -109,10 +107,9 @@
 .loginButton,
 .regButton {
   background: transparent;
-  color: #fff;
+  color: var(--white-color);
   padding: 10px 24px;
   border-radius: 20px;
-  font-size: 16px;
   text-decoration: none;
 }
 

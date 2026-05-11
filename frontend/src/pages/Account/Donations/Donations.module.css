@@ -1,17 +1,33 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
   width: 100%;
-  gap: 24px;
+  max-width: 900px;
+  box-sizing: border-box;
+  border: 1px solid var(--grey-color);
+  border-radius: 40px;
+  padding: 40px;
 }
 
 .title {
   text-align: center;
-  margin: 0;
   font-size: 24px;
   font-weight: 500;
-  color: var(--text-grey-color);
+  margin: 0 0 24px 0;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  margin-bottom: 24px;
+}
+
+.empty {
+  text-align: center;
 }
 
 .list {
@@ -34,14 +50,12 @@
 }
 
 .link {
-  color: var(--grey-color);
   text-decoration: none;
   font-weight: 500;
 }
 
 .header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
@@ -61,16 +75,11 @@
 }
 
 .date {
-  color: var(--grey-color);
+  color: var(--text-grey-color);
 }
 
 .message {
   margin: 0;
   color: var(--text-grey-color);
   line-height: 1.4;
-}
-
-.empty {
-  color: var(--grey-color);
-  font-size: 16px;
 }

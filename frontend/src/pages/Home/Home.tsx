@@ -1,25 +1,19 @@
 import styles from "./Home.module.css";
-import { useState } from "react";
-import Top5Newest from "@/components/Home/Top5Newest/Top5Newest.tsx";
+import useNewest from "./useNewest.ts";
+import { Card } from "@/pages/Home/Card/Card.tsx";
 
 export const Home = () => {
-  const [search, setSearch] = useState("");
+  const { data: newest = [] } = useNewest();
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.text1}>Шукай</p>
-      <div className={styles.searchGroup}>
-        <input
-          className={styles.input}
-          name="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button className={styles.button}>Пошук</button>
-      </div>
-      <p className={styles.text2}>або переглянь нові</p>
+      <p className={styles.text}>Нові збори:</p>
 
-      <Top5Newest />
+      <div className={styles.cards}>
+        {newest.map((fundraiser) => (
+          <Card key={fundraiser.id} {...fundraiser} />
+        ))}
+      </div>
     </div>
   );
 };

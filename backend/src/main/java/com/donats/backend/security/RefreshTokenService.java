@@ -1,8 +1,6 @@
 package com.donats.backend.security;
 
-import com.donats.backend.entities.RefreshTokenEntity;
-import com.donats.backend.entities.UserEntity;
-import com.donats.backend.repositories.RefreshTokenRepository;
+import com.donats.backend.user.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

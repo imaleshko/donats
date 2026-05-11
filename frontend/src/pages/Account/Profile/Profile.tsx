@@ -1,11 +1,11 @@
 import styles from "./Profile.module.css";
-import DataField from "@/components/Account/Field/DataField.tsx";
-import PasswordField from "@/components/Account/Field/PasswordField.tsx";
-import useGetUser from "@/hooks/useGetUser.ts";
-import useChangeEmail from "@/hooks/useChangeEmail.ts";
-import useChangePassword from "@/hooks/useChangePassword.ts";
-import useChangeUsername from "@/hooks/useChangeUsername.ts";
-import AvatarField from "@/components/Account/Field/AvatarField.tsx";
+import DataField from "./TextFields/DataField.tsx";
+import PasswordField from "./TextFields/PasswordField.tsx";
+import useGetUser from "@/app/useGetUser.ts";
+import useChangeEmail from "./TextFields/useChangeEmail.ts";
+import useChangePassword from "./TextFields/useChangePassword.ts";
+import useChangeUsername from "./TextFields/useChangeUsername.ts";
+import AvatarField from "./AvatarField/AvatarField.tsx";
 
 const validateEmail = (value: string) =>
   !value.includes("@") ? "Некоректна пошта" : null;
@@ -51,40 +51,39 @@ const Profile = () => {
 
   return (
     <div className={styles.wrapper}>
-      <section className={styles.section}>
-        <h2 className={styles.cardTitle}>Персональні дані</h2>
+      <h2 className={styles.title}>Персональні дані</h2>
 
-        <div className={styles.divider}></div>
+      <div className={styles.divider} />
 
-        <AvatarField avatarUrl={user.avatarUrl} />
+      <AvatarField avatarUrl={user.avatarUrl} />
 
-        <div className={styles.formGroup}>
-          <DataField
-            label="Електронна адреса"
-            value={user.email}
-            type="email"
-            onSave={handleEmailSave}
-            isPending={isEmailPending}
-            serverError={emailError}
-            validate={validateEmail}
-          />
-          <DataField
-            label="Ім'я"
-            value={user.username}
-            type="text"
-            onSave={handleUsernameSave}
-            isPending={isUsernamePending}
-            serverError={usernameError}
-            validate={validateUsername}
-          />
-          <PasswordField
-            onSave={handlePasswordSave}
-            isPending={isPasswordPending}
-            serverError={passwordError}
-          />
-        </div>
-        <button className={styles.deleteButton}>Видалити акаунт</button>
-      </section>
+      <div className={styles.fields}>
+        <DataField
+          label="Електронна адреса"
+          value={user.email}
+          type="email"
+          onSave={handleEmailSave}
+          isPending={isEmailPending}
+          serverError={emailError}
+          validate={validateEmail}
+        />
+        <DataField
+          label="Ім'я"
+          value={user.username}
+          type="text"
+          onSave={handleUsernameSave}
+          isPending={isUsernamePending}
+          serverError={usernameError}
+          validate={validateUsername}
+          warning="Зміна імені зробить недійсними всі посилання на збори"
+        />
+        <PasswordField
+          onSave={handlePasswordSave}
+          isPending={isPasswordPending}
+          serverError={passwordError}
+        />
+      </div>
+      <button className={styles.deleteButton}>Видалити акаунт</button>
     </div>
   );
 };

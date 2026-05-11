@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.text {
+  color: var(--yellow-color);
+  font-size: 32px;
+}
+
+.image {
+  height: 35px;
+}

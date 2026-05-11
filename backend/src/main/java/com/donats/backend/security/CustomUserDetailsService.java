@@ -1,7 +1,7 @@
 package com.donats.backend.security;
 
-import com.donats.backend.entities.UserEntity;
-import com.donats.backend.repositories.UserRepository;
+import com.donats.backend.user.UserEntity;
+import com.donats.backend.user.UserRepository;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

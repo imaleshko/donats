@@ -1,64 +1,76 @@
 import styles from "./Fundraisers.module.css";
 import { useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { accountApi } from "@/api/accountApi.ts";
-import FundraisingCard from "@/pages/Account/Fundraisers/FundraisingCard/FundraisingCard.tsx";
+import FundraiserCard from "./FundraiserCard/FundraiserCard.tsx";
+import { useFundraisers } from "./useFundraisers.ts";
+import CloseFundraiserModal from "./CloseFundraiserModal/CloseFundraiserModal.tsx";
+import { useState } from "react";
+import { useCloseFundraiser } from "./useCloseFundraiser.ts";
 
 const Fundraisers = () => {
   const navigate = useNavigate();
 
-  const { data: fundraisings, isLoading } = useQuery({
-    queryKey: ["my-fundraisings"],
-    queryFn: accountApi.getUserFundraisings,
-  });
+  const { data: fundraisers, isLoading } = useFundraisers();
+  const {
+    closeFundraiser,
+    isPending,
+    error: closeError,
+  } = useCloseFundraiser();
 
-  const handleCreateClick = () => {
-    navigate("create");
+  const [closingFundraiserId, setClosingFundraiserId] = useState<number | null>(
+    null,
+  );
+
+  const handleConfirmClose = () => {
+    if (closingFundraiserId === null) return;
+
+    closeFundraiser(closingFundraiserId, {
+      onSuccess: () => {
+        setClosingFundraiserId(null);
+      },
+    });
   };
 
-  const handleAddUpdate = (id: number) => {
-    navigate(`add-update/${id}`);
-  };
-
-  const handleEdit = (slug: string) => {
-    navigate(`edit/${slug}`);
-  };
-
-  const handleClose = (id: number) => {
-    console.log("Закрити збір", id);
-  };
+  const isEmpty = !fundraisers || fundraisers.length === 0;
 
   return (
     <div className={styles.wrapper}>
-      <section className={styles.section}>
-        <div className={styles.header}>
-          <button className={styles.createButton} onClick={handleCreateClick}>
-            Додати новий збір
-          </button>
-        </div>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Мої збори</h2>
+        <button
+          className={styles.createButton}
+          onClick={() => navigate("create")}
+        >
+          Додати новий збір
+        </button>
+      </div>
 
-        <div className={styles.divider}></div>
+      <div className={styles.divider} />
 
-        <div className={styles.content}>
-          {isLoading ? (
-            <p className={styles.emptyState}>Завантаження...</p>
-          ) : fundraisings && fundraisings.length > 0 ? (
-            <div className={styles.cardsList}>
-              {fundraisings.map((fundraising) => (
-                <FundraisingCard
-                  key={fundraising.id}
-                  fundraising={fundraising}
-                  onAddUpdate={handleAddUpdate}
-                  onEdit={handleEdit}
-                  onClose={handleClose}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className={styles.emptyState}>Зборів ще немає</p>
-          )}
+      {closeError && <p className={styles.errorText}>{closeError}</p>}
+
+      {isLoading ? (
+        <p className={styles.empty}>Завантаження...</p>
+      ) : isEmpty ? (
+        <p className={styles.empty}>Ви ще не створили жодного збору</p>
+      ) : (
+        <div className={styles.cardsList}>
+          {fundraisers.map((fundraiser) => (
+            <FundraiserCard
+              key={fundraiser.id}
+              fundraiser={fundraiser}
+              onAddUpdate={(id) => navigate(`update/${id}`)}
+              onEdit={(id) => navigate(`edit/${id}`)}
+              onClose={setClosingFundraiserId}
+            />
+          ))}
         </div>
-      </section>
+      )}
+      <CloseFundraiserModal
+        isOpen={closingFundraiserId !== null}
+        isPending={isPending}
+        onClose={() => setClosingFundraiserId(null)}
+        onConfirm={handleConfirmClose}
+      />
     </div>
   );
 };
