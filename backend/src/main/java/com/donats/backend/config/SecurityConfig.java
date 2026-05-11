@@ -22,14 +22,14 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private final JwtAuthenticationFilter JwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Value("${cors.allowed-origins}")
     private List<String> allowedOrigins;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider) {
-        this.JwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.authenticationProvider = authenticationProvider;
     }
 
@@ -53,7 +53,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(JwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

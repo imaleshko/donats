@@ -10,7 +10,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
 
   servlet:
     multipart:
@@ -24,9 +23,9 @@ cors:
   allowed-origins: ${CORS_ALLOWED_ORIGIN}
 
 jwt:
-  secretKey: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
-  expiration: 3600000
-  refreshExpiration: 2592000000
+  secretKey: ${JWT_SECRET_KEY}
+  expiration: 3600000 #1 година
+  refreshExpiration: 2592000000 #30 днів
 
 cloudinary:
   cloud-name: ${CLOUDINARY_CLOUD_NAME}
