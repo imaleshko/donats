@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class CreateFundraiserService {
@@ -45,7 +44,7 @@ public class CreateFundraiserService {
         fundraiser.setSlug(request.slug());
         fundraiser.setDescription(request.description());
         fundraiser.setGoal(request.goal());
-        fundraiser.setImageUrls(request.imageUrls() != null ? request.imageUrls() : List.of());
+        fundraiser.setImageUrls(request.imageUrls());
 
         fundraiser.setBalance(BigDecimal.ZERO);
         fundraiser.setStatus(FundraiserStatus.ACTIVE);

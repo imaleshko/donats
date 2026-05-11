@@ -1,6 +1,7 @@
 package com.donats.backend.fundraiser.create;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 
@@ -21,6 +22,7 @@ public record CreateFundraiserRequest(
         @Positive(message = "Ціль має бути більшою за нуль")
         BigDecimal goal,
 
+        @NotEmpty(message = "Додайте хоча б одне зображення")
         List<String> imageUrls
 ) {
 }

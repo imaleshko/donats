@@ -1,6 +1,7 @@
 package com.donats.backend.fundraiser.edit.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
@@ -19,6 +20,7 @@ public record EditFundraiserRequest(
 
         BigDecimal goal,
 
+        @NotEmpty(message = "Додайте хоча б одне зображення")
         List<String> imageUrls
 ) {
 }
