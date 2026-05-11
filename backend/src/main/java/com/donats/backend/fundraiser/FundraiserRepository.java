@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FundraiserRepository extends JpaRepository<FundraiserEntity, Long> {
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "imageUrls"})
     Optional<FundraiserEntity> findByUserUsernameAndSlug(String username, String slug);
 
     @EntityGraph(attributePaths = {"user"})
