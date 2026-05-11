@@ -1,8 +1,9 @@
 package com.donats.backend.fundraiser.update;
 
 import com.donats.backend.exceptions.ForbiddenException;
-import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.exceptions.FundraiserNotFoundException;
+import com.donats.backend.exceptions.UpdateNotFoundException;
+import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.fundraiser.update.dto.CreateUpdateRequest;
 import com.donats.backend.fundraiser.update.dto.Update;
@@ -46,5 +47,21 @@ public class UpdateService {
                 .stream()
                 .map(Update::from)
                 .toList();
+    }
+
+    @Transactional
+    public void deleteUpdate(Long fundraiserId, Long updateId, Long userId) {
+        UpdateEntity update = updateRepository.findById(updateId)
+                .orElseThrow(() -> new UpdateNotFoundException("Апдейт не знайдено"));
+
+        if (!update.getFundraiser().getId().equals(fundraiserId)) {
+            throw new UpdateNotFoundException("Апдейт не знайдено");
+        }
+
+        if (!update.getFundraiser().getUser().getId().equals(userId)) {
+            throw new ForbiddenException("Ви не маєте прав видаляти оновлення цього збору");
+        }
+
+        updateRepository.delete(update);
     }
 }

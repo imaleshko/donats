@@ -1,4 +1,5 @@
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -6,7 +7,7 @@
   border: 1px solid var(--grey-color);
   border-radius: 20px;
   padding: 32px;
-  gap: 24px;
+  gap: 16px;
 }
 
 .header {
@@ -25,4 +26,27 @@
 
 .date {
   font-size: 14px;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  background-color: transparent;
+  color: var(--error-red-color);
+  border: 1px solid var(--error-red-color);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+.error {
+  color: var(--error-red-color);
+  font-size: 14px;
+  margin-top: 12px;
 }

@@ -47,6 +47,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return createProblemDetail(HttpStatus.NOT_FOUND, "Збір не знайдено", ex.getMessage());
     }
 
+    @ExceptionHandler(UpdateNotFoundException.class)
+    public ProblemDetail handleUpdateNotFound(RuntimeException ex) {
+        return createProblemDetail(HttpStatus.NOT_FOUND, "Оновлення не знайдено", ex.getMessage());
+    }
+
     @ExceptionHandler(DonationInitException.class)
     public ProblemDetail handleDonationInit(RuntimeException ex) {
         return createProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, "Помилка ініціалізації донату", ex.getMessage());

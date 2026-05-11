@@ -9,6 +9,7 @@ import Update from "./Components/Update/Update.tsx";
 import DonationsHistory from "./Components/DonationsHistory/DonationsHistory.tsx";
 import TopDonations from "./Components/TopDonations/TopDonations.tsx";
 import { useFundraiserPage } from "./useFundraiserPage.ts";
+import useGetUser from "@/app/useGetUser.ts";
 
 export const Fundraiser = () => {
   const { username, slug } = useParams<{ username: string; slug: string }>();
@@ -18,6 +19,8 @@ export const Fundraiser = () => {
     slug!,
   );
 
+  const { data: currentUser } = useGetUser();
+
   const topDonations = useMemo(() => {
     if (!donations) return [];
 
@@ -25,6 +28,8 @@ export const Fundraiser = () => {
   }, [donations]);
 
   if (!fundraiser) return null;
+
+  const isOwner = currentUser?.username === fundraiser.authorUsername;
 
   return (
     <div className={styles.wrapper}>
@@ -44,9 +49,12 @@ export const Fundraiser = () => {
       {updates?.map((update) => (
         <Update
           key={update.id}
+          id={update.id}
+          fundraiserId={fundraiser.id}
           title={update.title}
           message={update.message}
           createdAt={update.createdAt}
+          canDelete={isOwner}
         />
       ))}
 
