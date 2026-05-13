@@ -6,6 +6,7 @@ import useChangeEmail from "./TextFields/useChangeEmail.ts";
 import useChangePassword from "./TextFields/useChangePassword.ts";
 import useChangeUsername from "./TextFields/useChangeUsername.ts";
 import AvatarField from "./AvatarField/AvatarField.tsx";
+import { Divider } from "@/components/Divider/Divider.tsx";
 
 const validateEmail = (value: string) =>
   !value.includes("@") ? "Некоректна пошта" : null;
@@ -53,7 +54,7 @@ const Profile = () => {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Персональні дані</h2>
 
-      <div className={styles.divider} />
+      <Divider />
 
       <AvatarField avatarUrl={user.avatarUrl} />
 

@@ -10,6 +10,7 @@ import DonationsHistory from "./Components/DonationsHistory/DonationsHistory.tsx
 import TopDonations from "./Components/TopDonations/TopDonations.tsx";
 import { useFundraiserPage } from "./useFundraiserPage.ts";
 import useGetUser from "@/app/useGetUser.ts";
+import { Divider } from "@/components/Divider/Divider.tsx";
 
 export const Fundraiser = () => {
   const { username, slug } = useParams<{ username: string; slug: string }>();
@@ -35,7 +36,7 @@ export const Fundraiser = () => {
     <div className={styles.wrapper}>
       <h1 className={styles.title}>{fundraiser.title}</h1>
 
-      <div className={styles.divider} />
+      <Divider />
 
       <div className={styles.topSection}>
         <Carousel imageUrls={fundraiser.imageUrls} />

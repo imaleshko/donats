@@ -5,6 +5,7 @@ import { useFundraisers } from "./useFundraisers.ts";
 import CloseFundraiserModal from "./CloseFundraiserModal/CloseFundraiserModal.tsx";
 import { useState } from "react";
 import { useCloseFundraiser } from "./useCloseFundraiser.ts";
+import { Divider } from "@/components/Divider/Divider.tsx";
 
 const Fundraisers = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Fundraisers = () => {
         </button>
       </div>
 
-      <div className={styles.divider} />
+      <Divider />
 
       {closeError && <p className={styles.errorText}>{closeError}</p>}
 

@@ -1,6 +1,7 @@
 import styles from "./Donations.module.css";
 import { Link } from "react-router";
 import { useDonations } from "@/pages/Account/Donations/useDonations.ts";
+import { Divider } from "@/components/Divider/Divider.tsx";
 
 const Donations = () => {
   const { data: donations, isLoading } = useDonations();
@@ -9,7 +10,7 @@ const Donations = () => {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Мої донати</h2>
 
-      <div className={styles.divider} />
+      <Divider />
 
       {isLoading ? (
         <p className={styles.empty}>Завантаження...</p>
