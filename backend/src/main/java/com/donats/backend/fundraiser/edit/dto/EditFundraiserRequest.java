@@ -12,7 +12,7 @@ public record EditFundraiserRequest(
         String title,
 
         @NotBlank(message = "Slug обов'язковий")
-        @Pattern(regexp = "^[a-z0-9-]+$", message = "Тільки малі літери, цифри та дефіс")
+        @Pattern(regexp = "^[a-z0-9-]+$", message = "Тільки малі латинські літери, цифри та дефіс")
         String slug,
 
         @NotBlank(message = "Опис обов'язковий")

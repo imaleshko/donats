@@ -14,12 +14,6 @@
   margin: 0;
 }
 
-.divider {
-  height: 1px;
-  width: 100%;
-  background-color: var(--grey-color);
-}
-
 .topSection,
 .bottomSection {
   display: grid;

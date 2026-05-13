@@ -64,7 +64,7 @@ export const useFundraiserForm = () => {
     if (!form.title.trim()) errors.title = "Назва обов'язкова";
     if (!form.slug.trim()) errors.slug = "Slug обов'язковий";
     else if (!/^[a-z0-9-]+$/.test(form.slug))
-      errors.slug = "Тільки малі літери, цифри та дефіс";
+      errors.slug = "Тільки малі латинські літери, цифри та дефіс";
     if (!form.description.trim()) errors.description = "Опис обов'язковий";
     if (form.goal && Number(form.goal) <= 0)
       errors.goal = "Ціль має бути більшою за 0";

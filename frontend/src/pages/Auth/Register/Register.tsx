@@ -93,7 +93,7 @@ const Register = () => {
             name="email"
             value={data.email}
             onChange={handleChange}
-            autoComplete="email"
+            autoComplete="username"
             required
           />
 
@@ -135,7 +135,7 @@ const Register = () => {
         </div>
         <div className={styles.authSwitch}>
           <p>Вже маєте акаунт?</p>
-          <Link to="/login">Авторизація</Link>
+          <Link to="/login">Вхід</Link>
         </div>
       </form>
     </div>

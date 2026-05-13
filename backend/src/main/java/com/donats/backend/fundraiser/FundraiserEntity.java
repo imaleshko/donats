@@ -26,18 +26,11 @@ public class FundraiserEntity {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "balance", nullable = false)
-    private BigDecimal balance;
-
     @Column(name = "goal")
     private BigDecimal goal;
 
-    @Column(name = "started_at")
-    @CreationTimestamp
-    private LocalDateTime startedAt;
-
-    @Column(name = "closed_at")
-    private LocalDateTime closedAt;
+    @Column(name = "balance", nullable = false)
+    private BigDecimal balance;
 
     @ElementCollection
     @CollectionTable(name = "fundraiser_images", joinColumns = @JoinColumn(name = "fundraiser_id"))
@@ -47,6 +40,13 @@ public class FundraiserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private FundraiserStatus status;
+
+    @Column(name = "started_at")
+    @CreationTimestamp
+    private LocalDateTime startedAt;
+
+    @Column(name = "closed_at")
+    private LocalDateTime closedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -93,14 +93,6 @@ public class FundraiserEntity {
         this.description = description;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
     public BigDecimal getGoal() {
         return goal;
     }
@@ -109,20 +101,12 @@ public class FundraiserEntity {
         this.goal = goal;
     }
 
-    public LocalDateTime getStartedAt() {
-        return startedAt;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
-    public void setStartedAt(LocalDateTime startedAt) {
-        this.startedAt = startedAt;
-    }
-
-    public LocalDateTime getClosedAt() {
-        return closedAt;
-    }
-
-    public void setClosedAt(LocalDateTime closedAt) {
-        this.closedAt = closedAt;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public List<String> getImageUrls() {
@@ -139,6 +123,22 @@ public class FundraiserEntity {
 
     public void setStatus(FundraiserStatus status) {
         this.status = status;
+    }
+
+    public LocalDateTime getStartedAt() {
+        return startedAt;
+    }
+
+    public void setStartedAt(LocalDateTime startedAt) {
+        this.startedAt = startedAt;
+    }
+
+    public LocalDateTime getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(LocalDateTime closedAt) {
+        this.closedAt = closedAt;
     }
 
     public UserEntity getUser() {

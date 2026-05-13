@@ -1,5 +1,6 @@
 import styles from "./Info.module.css";
 import type { Fundraiser } from "@/pages/Home/homeApi.ts";
+import { Divider } from "@/components/Divider/Divider.tsx";
 
 interface InfoProps {
   fundraiser: Fundraiser;
@@ -29,6 +30,8 @@ const Info = ({ fundraiser }: InfoProps) => {
         <span className={styles.username}>{fundraiser.authorUsername}</span>
       </div>
 
+      <Divider />
+
       <div className={styles.dates}>
         <p>Збір розпочато: {formatDate(fundraiser.startedAt)}</p>
         {fundraiser.closedAt && (
@@ -37,18 +40,11 @@ const Info = ({ fundraiser }: InfoProps) => {
       </div>
 
       <div className={styles.progress}>
-        <div
-          className={styles.progressOuter}
-          style={{
-            background: `conic-gradient(var(--yellow-color) ${progressPercentage}%, var(--grey-color) 0deg)`,
-          }}
-        >
-          <div className={styles.progressInner}>
-            <span className={styles.percentageText}>{progressPercentage}%</span>
-            <span>
-              {fundraiser.balance} / {fundraiser.goal ?? "∞"}
-            </span>
-          </div>
+        <div className={styles.circle}>
+          <span className={styles.percentageText}>{progressPercentage}%</span>
+          <span>
+            {fundraiser.balance} / {fundraiser.goal ?? "∞"}
+          </span>
         </div>
       </div>
     </div>

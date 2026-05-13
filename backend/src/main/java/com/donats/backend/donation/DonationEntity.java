@@ -18,15 +18,22 @@ public class DonationEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    private LocalDateTime createdAt;
-
     @Column(name = "message")
     private String message;
 
     @Column(name = "amount")
     private BigDecimal amount;
+
+    @Column(name = "order_id", unique = true)
+    private String orderId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private DonationStatus status;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fundraiser_id", nullable = false)
@@ -35,13 +42,6 @@ public class DonationEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private DonationStatus status;
-
-    @Column(name = "order_id", unique = true)
-    private String orderId;
 
     public DonationEntity() {
     }
@@ -62,14 +62,6 @@ public class DonationEntity {
         this.name = name;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -86,6 +78,30 @@ public class DonationEntity {
         this.amount = amount;
     }
 
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public DonationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DonationStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public FundraiserEntity getFundraiser() {
         return fundraiser;
     }
@@ -100,21 +116,5 @@ public class DonationEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
-    }
-
-    public DonationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(DonationStatus status) {
-        this.status = status;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
     }
 }
