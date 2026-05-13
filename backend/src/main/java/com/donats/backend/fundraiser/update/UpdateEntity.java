@@ -13,6 +13,12 @@ public class UpdateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
+    private String message;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -20,12 +26,6 @@ public class UpdateEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fundraiser_id", nullable = false)
     private FundraiserEntity fundraiser;
-
-    @Column(name = "message", nullable = false, columnDefinition = "TEXT")
-    private String message;
-
-    @Column(name = "title", nullable = false)
-    private String title;
 
     public UpdateEntity() {
     }
@@ -36,6 +36,22 @@ public class UpdateEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -52,21 +68,5 @@ public class UpdateEntity {
 
     public void setFundraiser(FundraiserEntity fundraiser) {
         this.fundraiser = fundraiser;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 }
