@@ -30,15 +30,3 @@
   flex-direction: column;
   gap: 20px;
 }
-
-.deleteButton {
-  display: block;
-  margin-top: 40px;
-  margin-left: auto;
-  background-color: var(--delete-red-color);
-  color: var(--white-color);
-  border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
-  cursor: pointer;
-}

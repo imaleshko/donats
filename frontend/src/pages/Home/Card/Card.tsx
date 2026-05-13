@@ -18,7 +18,7 @@ export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
         <div className={styles.info}>
           <p className={styles.title}>{title}</p>
           <p className={styles.author}>
-            <span className={styles.for}>for</span>
+            <span className={styles.for}>для</span>
             {author}
           </p>
         </div>
@@ -26,11 +26,10 @@ export const Card = ({ title, author, balance, goal, slug }: CardProps) => {
           <div
             className={styles.progressFill}
             style={{ width: `${percentage}%` }}
-          >
-            <p className={styles.progressNumbers}>
-              {goal > 0 ? `${balance}/${goal}` : `${balance}`}
-            </p>
-          </div>
+          />
+          <p className={styles.progressNumbers}>
+            {goal > 0 ? `${balance}/${goal}` : `${balance}`}
+          </p>
         </div>
       </div>
 

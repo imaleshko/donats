@@ -6,6 +6,8 @@
   border: 2px solid var(--grey-color);
   border-radius: 50px;
   gap: 40px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .content {
@@ -13,20 +15,28 @@
   flex-direction: column;
   flex: 1;
   gap: 16px;
+  min-width: 0;
 }
 
 .info {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
+  gap: 40px;
 }
 
 .title {
   font-size: 28px;
+  margin: 0;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .author {
   font-size: 24px;
+  margin: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .for {
@@ -40,19 +50,25 @@
   border-radius: 12px;
   overflow: hidden;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   background-color: var(--yellow-color);
-  display: flex;
-  align-items: center;
-  padding-left: 16px;
 }
 
 .progressNumbers {
-  color: #433838;
+  color: var(--background-secondary);
   font-size: 14px;
+  position: relative;
+  z-index: 1;
+  padding-left: 16px;
+  margin: 0;
 }
 
 .button {

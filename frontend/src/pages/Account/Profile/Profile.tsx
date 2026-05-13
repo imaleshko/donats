@@ -83,7 +83,6 @@ const Profile = () => {
           serverError={passwordError}
         />
       </div>
-      <button className={styles.deleteButton}>Видалити акаунт</button>
     </div>
   );
 };
