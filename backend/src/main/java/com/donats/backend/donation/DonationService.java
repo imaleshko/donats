@@ -86,8 +86,13 @@ public class DonationService {
                 donation.setStatus(DonationStatus.SUCCESS);
 
                 FundraiserEntity fundraiser = donation.getFundraiser();
-                fundraiser.setBalance(fundraiser.getBalance().add(donation.getAmount()));
+                BigDecimal balanceAfterDonation = fundraiser.getBalance().add(amount);
+                fundraiser.setBalance(balanceAfterDonation);
 
+                if (fundraiser.getGoal() != null && balanceAfterDonation.compareTo(fundraiser.getGoal()) >= 0) {
+                    fundraiser.setStatus(FundraiserStatus.CLOSED);
+                }
+                
                 fundraiserRepository.save(fundraiser);
                 donationRepository.save(donation);
             }
