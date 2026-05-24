@@ -14,18 +14,21 @@ import java.util.List;
 @Service
 public class FundraiserCardsService {
 
-    private final FundraiserRepository fundraiserRepository;
     private static final int PAGE_SIZE = 10;
+
+    private final FundraiserRepository fundraiserRepository;
 
     public FundraiserCardsService(FundraiserRepository fundraiserRepository) {
         this.fundraiserRepository = fundraiserRepository;
     }
 
     @Transactional(readOnly = true)
-    public FundraiserCardsPage getCards(int page) {
+    public FundraiserCardsPage getCards(int page, String tag) {
         Pageable pageable = PageRequest.of(page, PAGE_SIZE);
 
-        Slice<FundraiserEntity> result = fundraiserRepository.findByStatusOrderByStartedAtDesc(FundraiserStatus.ACTIVE, pageable);
+        Slice<FundraiserEntity> result = (tag == null || tag.isBlank())
+                ? fundraiserRepository.findByStatusOrderByStartedAtDesc(FundraiserStatus.ACTIVE, pageable)
+                : fundraiserRepository.findByStatusAndTagsNameOrderByStartedAtDesc(FundraiserStatus.ACTIVE, tag.toLowerCase(), pageable);
 
         List<FundraiserCard> items = result.getContent().stream()
                 .map(FundraiserCard::from)

@@ -16,6 +16,9 @@ public interface FundraiserRepository extends JpaRepository<FundraiserEntity, Lo
     @EntityGraph(attributePaths = {"user", "tags"})
     Slice<FundraiserEntity> findByStatusOrderByStartedAtDesc(FundraiserStatus status, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"user", "tags"})
+    Slice<FundraiserEntity> findByStatusAndTagsNameOrderByStartedAtDesc(FundraiserStatus status, String name, Pageable pageable);
+
     @EntityGraph(attributePaths = {"user", "donations"})
     List<FundraiserEntity> findAllByUserIdOrderByStartedAtDesc(Long id);
 
