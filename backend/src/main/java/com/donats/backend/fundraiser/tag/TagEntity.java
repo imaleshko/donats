@@ -1,4 +1,4 @@
-package com.donats.backend.fundraiser.create.tag;
+package com.donats.backend.fundraiser.tag;
 
 import com.donats.backend.fundraiser.FundraiserEntity;
 import jakarta.persistence.*;

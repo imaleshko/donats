@@ -1,7 +1,7 @@
 package com.donats.backend.fundraiser.cards;
 
 import com.donats.backend.fundraiser.FundraiserEntity;
-import com.donats.backend.fundraiser.create.tag.TagEntity;
+import com.donats.backend.fundraiser.tag.TagEntity;
 
 import java.math.BigDecimal;
 import java.util.Set;
