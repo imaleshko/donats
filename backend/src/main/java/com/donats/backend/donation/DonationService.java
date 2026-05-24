@@ -15,6 +15,7 @@ import com.donats.backend.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -74,12 +75,14 @@ public class DonationService {
         Map<String, Object> payload = liqPayService.decodeData(data);
         String orderId = (String) payload.get("order_id");
         String liqPayStatus = (String) payload.get("status");
+        BigDecimal amount = new BigDecimal(payload.get("amount").toString());
 
         DonationEntity donation = donationRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new DonationCloseException("Донат не знайдено"));
 
         if ("success".equals(liqPayStatus)) {
             if (donation.getStatus() != DonationStatus.SUCCESS) {
+                donation.setAmount(amount);
                 donation.setStatus(DonationStatus.SUCCESS);
 
                 FundraiserEntity fundraiser = donation.getFundraiser();

@@ -40,6 +40,11 @@
 .link {
   text-decoration: none;
   font-weight: 500;
+  color: var(--text-grey-color);
+}
+
+.link:visited {
+  color: var(--text-grey-color);
 }
 
 .header {
