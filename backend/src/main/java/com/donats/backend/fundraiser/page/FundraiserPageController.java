@@ -32,8 +32,8 @@ public class FundraiserPageController {
         return ResponseEntity.ok(fundraiserPageService.getFundraiserByUsernameAndSlug(username, slug));
     }
 
-    @GetMapping("/{id}/donations")
-    public ResponseEntity<List<Donation>> getDonations(@PathVariable Long id) {
-        return ResponseEntity.ok(donationService.getSuccessfulDonations(id));
+    @GetMapping("/{fundraiserId}/donations")
+    public ResponseEntity<List<Donation>> getDonations(@PathVariable Long fundraiserId) {
+        return ResponseEntity.ok(donationService.getSuccessfulDonations(fundraiserId));
     }
 }

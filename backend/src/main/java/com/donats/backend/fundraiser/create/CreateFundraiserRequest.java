@@ -1,12 +1,11 @@
 package com.donats.backend.fundraiser.create;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 public record CreateFundraiserRequest(
         @NotBlank(message = "Назва не може бути порожньою")
@@ -23,6 +22,10 @@ public record CreateFundraiserRequest(
         BigDecimal goal,
 
         @NotEmpty(message = "Додайте хоча б одне зображення")
-        List<String> imageUrls
+        List<String> imageUrls,
+
+        @NotEmpty(message = "Додайте тег")
+        @Size(max = 5, message = "Максимум 5 тегів")
+        Set<@Length(max = 25, message = "Максимум 25 символів") String> tags
 ) {
 }
