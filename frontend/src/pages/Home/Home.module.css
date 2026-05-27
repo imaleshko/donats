@@ -67,3 +67,16 @@
   width: 100%;
   max-width: 1000px;
 }
+
+.moreButton {
+  background-color: var(--orange-color);
+  color: white;
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 16px;
+}

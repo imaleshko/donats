@@ -1,8 +1,10 @@
 import styles from "./Home.module.css";
-import useNewest from "./useNewest.ts";
+import useFundraisers from "./useFundraisers.ts";
 import { Card } from "@/pages/Home/Card/Card.tsx";
 import { Link } from "react-router";
 import { Feature } from "@/pages/Home/Feature/Feature.tsx";
+import { useState } from "react";
+import { Tags } from "@/pages/Home/Tags/Tags.tsx";
 
 const FEATURES = [
   {
@@ -22,7 +24,11 @@ const FEATURES = [
 ];
 
 export const Home = () => {
-  const { data: newest = [] } = useNewest();
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useFundraisers(activeTag);
+
+  const fundraisers = data?.pages.flatMap((page) => page.fundraisers) ?? [];
 
   return (
     <div className={styles.wrapper}>
@@ -43,18 +49,31 @@ export const Home = () => {
             title={feature.title}
             description={feature.description}
             index={index}
+            key={index}
           />
         ))}
       </section>
 
       <section className={styles.fundraisersList}>
-        <p className={styles.newText}>Нові збори:</p>
+        <p className={styles.newText}>Збори:</p>
+
+        <Tags activeTag={activeTag} onChange={setActiveTag} />
 
         <div className={styles.cards}>
-          {newest.map((fundraiser) => (
+          {fundraisers.map((fundraiser) => (
             <Card key={fundraiser.id} {...fundraiser} />
           ))}
         </div>
+
+        {hasNextPage && (
+          <button
+            className={styles.moreButton}
+            onClick={() => fetchNextPage()}
+            disabled={isFetchingNextPage}
+          >
+            {isFetchingNextPage ? "Завантаження" : "Ще"}
+          </button>
+        )}
       </section>
     </div>
   );

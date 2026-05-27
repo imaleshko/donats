@@ -6,23 +6,29 @@ import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.fundraiser.edit.dto.EditFundraiserRequest;
 import com.donats.backend.fundraiser.edit.dto.EditFundraiserResponse;
+import com.donats.backend.fundraiser.tag.TagEntity;
+import com.donats.backend.fundraiser.tag.TagService;
 import com.donats.backend.image.ImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class EditFundraiserService {
 
     private final FundraiserRepository fundraiserRepository;
     private final ImageService imageService;
+    private final TagService tagService;
 
     public EditFundraiserService(FundraiserRepository fundraiserRepository,
-                                 ImageService imageService) {
+                                 ImageService imageService,
+                                 TagService tagService) {
         this.fundraiserRepository = fundraiserRepository;
         this.imageService = imageService;
+        this.tagService = tagService;
     }
 
     @Transactional(readOnly = true)
@@ -53,11 +59,14 @@ public class EditFundraiserService {
             imageService.deleteImageByUrl(url);
         }
 
+        Set<TagEntity> tags = tagService.findOrCreateTags(request.tags());
+
         fundraiser.setTitle(request.title());
         fundraiser.setSlug(request.slug());
         fundraiser.setDescription(request.description());
         fundraiser.setGoal(request.goal());
         fundraiser.setImageUrls(newImagesUrls);
+        fundraiser.setTags(tags);
 
         fundraiserRepository.save(fundraiser);
     }

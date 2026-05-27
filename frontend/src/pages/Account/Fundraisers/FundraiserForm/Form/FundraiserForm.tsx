@@ -11,6 +11,8 @@ import type {
   INITIAL_FORM,
   NewImageEntry,
 } from "@/pages/Account/Fundraisers/FundraiserForm/Form/useFundraiserForm.ts";
+import { useTags } from "@/pages/Home/useTags.ts";
+import { Tag } from "@/components/Tag/Tag.tsx";
 
 interface FundraiserFormProps {
   title: string;
@@ -26,6 +28,9 @@ interface FundraiserFormProps {
   onRemoveRetainedImage?: (url: string) => void;
   onRemoveNewImage: (index: number) => void;
   onAddFiles: (files: FileList | null) => void;
+  tags: string[];
+  onAddTag: (name: string) => void;
+  onRemoveTag: (name: string) => void;
   onSubmit: (e: SubmitEvent) => void;
   submitLabel: string;
 }
@@ -44,11 +49,27 @@ export const FundraiserForm = ({
   onDescriptionChange,
   onRemoveRetainedImage,
   onRemoveNewImage,
+  tags,
+  onAddTag,
+  onRemoveTag,
   onAddFiles,
   onSubmit,
 }: FundraiserFormProps) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [tagInput, setTagInput] = useState("");
+  const { data: popularTags = [] } = useTags();
+
+  const availablePopularTags = popularTags.filter(
+    (popularTag) => !tags.includes(popularTag.name),
+  );
+
+  const handleTagSubmit = () => {
+    if (!tagInput.trim()) return;
+    onAddTag(tagInput);
+    setTagInput("");
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -96,6 +117,61 @@ export const FundraiserForm = ({
               </div>
             )}
             {errors.slug && <p className={styles.errorText}>{errors.slug}</p>}
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label}>Теги</label>
+
+            {availablePopularTags.length > 0 && (
+              <div className={styles.tagsRow}>
+                {availablePopularTags.map((tag) => (
+                  <Tag
+                    key={tag.name}
+                    name={tag.name}
+                    isActive={false}
+                    onClick={() => onAddTag(tag.name)}
+                  />
+                ))}
+              </div>
+            )}
+
+            {tags.length > 0 && (
+              <div className={styles.tagsRow}>
+                {tags.map((tag) => (
+                  <Tag
+                    key={tag}
+                    name={tag}
+                    isActive={true}
+                    onClick={() => onRemoveTag(tag)}
+                  />
+                ))}
+              </div>
+            )}
+
+            <div className={styles.tagInputRow}>
+              <input
+                type="text"
+                className={styles.formInput}
+                value={tagInput}
+                placeholder="Додати свій тег..."
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleTagSubmit();
+                  }
+                }}
+              />
+              <button
+                type="button"
+                className={styles.addTagButton}
+                onClick={handleTagSubmit}
+              >
+                Додати
+              </button>
+            </div>
+
+            {errors.tags && <p className={styles.errorText}>{errors.tags}</p>}
           </div>
 
           <div className={styles.field}>
@@ -193,7 +269,6 @@ export const FundraiserForm = ({
                     className={styles.previewImage}
                     alt="Нове фото"
                   />
-                  <div className={styles.newBadge}>Нове</div>
                   <button
                     type="button"
                     className={styles.removeButton}
@@ -211,7 +286,7 @@ export const FundraiserForm = ({
             className={styles.submitButton}
             disabled={isPending}
           >
-            {isPending ? "Збереження..." : submitLabel}
+            {isPending ? "Збереження" : submitLabel}
           </button>
         </div>
       </form>

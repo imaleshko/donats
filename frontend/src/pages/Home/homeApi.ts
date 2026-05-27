@@ -1,6 +1,10 @@
 import { api } from "@/app/api.ts";
 import type { FundraiserStatus } from "@/pages/Account/accountApi.ts";
 
+export interface Tag {
+  name: string;
+}
+
 interface FundraiserCard {
   id: number;
   title: string;
@@ -8,6 +12,12 @@ interface FundraiserCard {
   balance: number;
   goal: number;
   slug: string;
+  tags: string[];
+}
+
+export interface FundraisersPage {
+  fundraisers: FundraiserCard[];
+  hasMore: boolean;
 }
 
 export interface Fundraiser {
@@ -26,8 +36,18 @@ export interface Fundraiser {
 }
 
 export const homeApi = {
-  getNewest: async (): Promise<FundraiserCard[]> => {
-    const response = await api.get<FundraiserCard[]>("/fundraisers/newest");
+  getFundraisers: async (
+    page: number,
+    tag: string | null,
+  ): Promise<FundraisersPage> => {
+    const response = await api.get<FundraisersPage>("/fundraisers/list", {
+      params: { page, tag: tag || undefined },
+    });
+    return response.data;
+  },
+
+  getTags: async (): Promise<Tag[]> => {
+    const response = await api.get<Tag[]>("/fundraisers/tags");
     return response.data;
   },
 

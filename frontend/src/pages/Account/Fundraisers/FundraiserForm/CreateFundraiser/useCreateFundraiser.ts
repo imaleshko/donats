@@ -12,6 +12,7 @@ interface CreateFundraiserFormData {
   description: string;
   goal?: number;
   images: File[];
+  tags: string[];
 }
 
 export const useCreateFundraiser = () => {
@@ -31,6 +32,7 @@ export const useCreateFundraiser = () => {
         description: data.description,
         goal: data.goal,
         imageUrls: imageUrls,
+        tags: data.tags,
       };
 
       return accountApi.createFundraiser(requestData);

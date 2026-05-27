@@ -1,6 +1,7 @@
 package com.donats.backend.fundraiser;
 
 import com.donats.backend.donation.DonationEntity;
+import com.donats.backend.fundraiser.tag.TagEntity;
 import com.donats.backend.fundraiser.update.UpdateEntity;
 import com.donats.backend.user.UserEntity;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "fundraisers", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "slug"})})
@@ -57,6 +59,12 @@ public class FundraiserEntity {
 
     @OneToMany(mappedBy = "fundraiser")
     private List<UpdateEntity> updates;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "fundraiser_tags",
+            joinColumns = @JoinColumn(name = "fundraiser_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<TagEntity> tags;
 
     public FundraiserEntity() {
     }
@@ -163,5 +171,13 @@ public class FundraiserEntity {
 
     public void setUpdates(List<UpdateEntity> updates) {
         this.updates = updates;
+    }
+
+    public Set<TagEntity> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<TagEntity> tags) {
+        this.tags = tags;
     }
 }

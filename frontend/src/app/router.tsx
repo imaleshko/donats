@@ -36,12 +36,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: async () => {
-          return await queryClient.ensureQueryData({
-            queryKey: ["newest"],
-            queryFn: homeApi.getNewest,
-          });
-        },
       },
       {
         path: "fundraiser/:username/:slug",

@@ -150,16 +150,30 @@
   margin-top: 20px;
 }
 
-.loadingWrapper {
+.tagsRow {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 50vh;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+  margin-bottom: 10px;
 }
 
-.loadingText {
-  color: var(--text-grey-color);
-  font-size: 20px;
-  font-weight: 500;
+.tagInputRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.addTagButton {
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--orange-color);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tagInputRow .formInput {
+  flex: 1;
 }

@@ -25,6 +25,7 @@ const CreateFundraiser = () => {
         description: data.description,
         goal: data.goal ? Number(data.goal) : undefined,
         images: formLogic.newImages.map((img) => img.file),
+        tags: formLogic.tags,
       },
       { onSuccess: () => navigate("/account/fundraisers") },
     );

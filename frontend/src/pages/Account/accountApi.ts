@@ -54,6 +54,7 @@ export interface CreateFundraiserRequest {
   description: string;
   goal?: number;
   imageUrls: string[];
+  tags: string[];
 }
 
 export interface EditFundraiserResponse {
@@ -63,6 +64,7 @@ export interface EditFundraiserResponse {
   description: string;
   goal?: number;
   existingImagesUrls: string[];
+  tags: string[];
 }
 
 export interface EditFundraiserRequest {
@@ -71,6 +73,7 @@ export interface EditFundraiserRequest {
   description: string;
   goal?: number;
   imageUrls: string[];
+  tags: string[];
 }
 
 export interface CreateUpdateRequest {
