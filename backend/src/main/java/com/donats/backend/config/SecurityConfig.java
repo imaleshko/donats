@@ -42,6 +42,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/fundraisers/newest").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/fundraisers/*/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/fundraisers/*/donations").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/fundraisers/list").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/fundraisers/tags").permitAll()
                         .requestMatchers(
                                 "/api/auth/**",
                                 "/api/donations/liqpay/server",

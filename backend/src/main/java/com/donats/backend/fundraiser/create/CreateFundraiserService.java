@@ -6,7 +6,7 @@ import com.donats.backend.fundraiser.FundraiserEntity;
 import com.donats.backend.fundraiser.FundraiserRepository;
 import com.donats.backend.fundraiser.FundraiserStatus;
 import com.donats.backend.fundraiser.tag.TagEntity;
-import com.donats.backend.fundraiser.tag.TagRepository;
+import com.donats.backend.fundraiser.tag.TagService;
 import com.donats.backend.user.UserEntity;
 import com.donats.backend.user.UserRepository;
 import org.jspecify.annotations.NonNull;
@@ -15,19 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class CreateFundraiserService {
 
     private final FundraiserRepository fundraiserRepository;
     private final UserRepository userRepository;
-    private final TagRepository tagRepository;
+    private final TagService tagService;
 
-    public CreateFundraiserService(FundraiserRepository fundraiserRepository, UserRepository userRepository, TagRepository tagRepository) {
+    public CreateFundraiserService(FundraiserRepository fundraiserRepository, UserRepository userRepository, TagService tagService) {
         this.fundraiserRepository = fundraiserRepository;
         this.userRepository = userRepository;
-        this.tagRepository = tagRepository;
+        this.tagService = tagService;
     }
 
     @Transactional
@@ -39,20 +38,10 @@ public class CreateFundraiserService {
             throw new SlugAlreadyInUseException("Slug '" + request.slug() + "' вже використовується у ваших зборах");
         }
 
-        Set<TagEntity> tags = request.tags().stream()
-                .map(tagName -> tagName.trim().toLowerCase())
-                .map(tagName -> tagRepository.findByName(tagName).orElseGet(() -> tagRepository.save(createTag(tagName))))
-                .collect(Collectors.toSet());
-
+        Set<TagEntity> tags = tagService.findOrCreateTags(request.tags());
         FundraiserEntity fundraiser = createFundraiserEntity(request, user, tags);
 
         fundraiserRepository.save(fundraiser);
-    }
-
-    private static @NonNull TagEntity createTag(String name) {
-        TagEntity tag = new TagEntity();
-        tag.setName(name);
-        return tag;
     }
 
     private static @NonNull FundraiserEntity createFundraiserEntity(CreateFundraiserRequest request, UserEntity user, Set<TagEntity> tags) {

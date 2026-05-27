@@ -1,0 +1,13 @@
+.tag {
+  background-color: var(--background-secondary);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.active {
+  background-color: var(--orange-color);
+}

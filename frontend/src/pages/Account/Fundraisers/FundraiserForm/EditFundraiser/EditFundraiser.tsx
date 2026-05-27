@@ -19,7 +19,7 @@ const EditFundraiser = () => {
   } = useEditFundraiser(fundraiserId);
   const formLogic = useFundraiserForm();
 
-  const { setFormData, setRetainedImages, validateForm } = formLogic;
+  const { setFormData, setRetainedImages, setTags, validateForm } = formLogic;
 
   useEffect(() => {
     if (fundraiserData) {
@@ -30,8 +30,9 @@ const EditFundraiser = () => {
         goal: fundraiserData.goal ? String(fundraiserData.goal) : "",
       });
       setRetainedImages(fundraiserData.existingImagesUrls);
+      setTags(fundraiserData.tags);
     }
-  }, [fundraiserData, setFormData, setRetainedImages]);
+  }, [fundraiserData, setFormData, setRetainedImages, setTags]);
 
   const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault();
@@ -47,6 +48,7 @@ const EditFundraiser = () => {
         goal: data.goal ? Number(data.goal) : undefined,
         retainedImages: formLogic.retainedImages,
         newImages: formLogic.newImages.map((img) => img.file),
+        tags: formLogic.tags,
       },
       { onSuccess: () => navigate("/account/fundraisers") },
     );

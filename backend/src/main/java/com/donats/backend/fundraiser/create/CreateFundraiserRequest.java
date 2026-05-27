@@ -26,6 +26,8 @@ public record CreateFundraiserRequest(
 
         @NotEmpty(message = "Додайте тег")
         @Size(max = 5, message = "Максимум 5 тегів")
-        Set<@Length(max = 25, message = "Максимум 25 символів") String> tags
+        Set<@NotBlank(message = "Тег не може бути порожнім")
+        @Length(min = 2, max = 25, message = "Тег має містити від 2 до 25 символів")
+                String> tags
 ) {
 }

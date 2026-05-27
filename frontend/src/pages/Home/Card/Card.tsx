@@ -7,6 +7,7 @@ interface CardProps {
   balance: number;
   goal: number;
   slug: string;
+  tags: string[];
 }
 
 export const Card = ({ title, author, balance, goal, slug }: CardProps) => {

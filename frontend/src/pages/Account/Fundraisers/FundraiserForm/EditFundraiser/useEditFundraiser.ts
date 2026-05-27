@@ -13,6 +13,7 @@ export interface EditFundraiserFormData {
   goal?: number;
   retainedImages: string[];
   newImages: File[];
+  tags: string[];
 }
 
 export const useEditFundraiser = (fundraiserId: number) => {
@@ -40,6 +41,7 @@ export const useEditFundraiser = (fundraiserId: number) => {
         description: data.description,
         goal: data.goal,
         imageUrls: finalImagesUrl,
+        tags: data.tags,
       };
 
       return accountApi.editFundraiser(fundraiserId, requestData);

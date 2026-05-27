@@ -1,9 +1,12 @@
 package com.donats.backend.fundraiser.edit.dto;
 
 import com.donats.backend.fundraiser.FundraiserEntity;
+import com.donats.backend.fundraiser.tag.TagEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record EditFundraiserResponse(
         Long id,
@@ -11,7 +14,9 @@ public record EditFundraiserResponse(
         String slug,
         String description,
         BigDecimal goal,
-        List<String> existingImagesUrls
+        List<String> existingImagesUrls,
+        Set<String> tags
+
 ) {
     public static EditFundraiserResponse from(FundraiserEntity entity) {
         return new EditFundraiserResponse(
@@ -20,7 +25,8 @@ public record EditFundraiserResponse(
                 entity.getSlug(),
                 entity.getDescription(),
                 entity.getGoal(),
-                entity.getImageUrls()
+                entity.getImageUrls(),
+                entity.getTags().stream().map(TagEntity::getName).collect(Collectors.toSet())
         );
     }
 }

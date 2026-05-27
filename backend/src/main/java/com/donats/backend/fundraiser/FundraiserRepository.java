@@ -22,7 +22,7 @@ public interface FundraiserRepository extends JpaRepository<FundraiserEntity, Lo
     @EntityGraph(attributePaths = {"user", "donations"})
     List<FundraiserEntity> findAllByUserIdOrderByStartedAtDesc(Long id);
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"tags", "user"})
     @NonNull
     Optional<FundraiserEntity> findById(@NonNull Long id);
 

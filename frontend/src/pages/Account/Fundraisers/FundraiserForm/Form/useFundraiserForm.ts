@@ -13,6 +13,7 @@ export const useFundraiserForm = () => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [retainedImages, setRetainedImages] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<NewImageEntry[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -52,6 +53,31 @@ export const useFundraiserForm = () => {
     });
   };
 
+  const onAddTag = (inputName: string) => {
+    const name = inputName.trim().toLowerCase();
+
+    if (!name) return;
+    if (tags.includes(name)) return;
+    if (tags.length >= 5) {
+      setErrors((prev) => ({ ...prev, tags: "Максимум 5 тегів" }));
+      return;
+    }
+    if (name.length < 2 || name.length > 25) {
+      setErrors((prev) => ({
+        ...prev,
+        tags: "Тег має містити від 2 до 25 символів",
+      }));
+      return;
+    }
+
+    setTags((prev) => [...prev, name]);
+    setErrors((prev) => ({ ...prev, tags: "" }));
+  };
+
+  const onRemoveTag = (tagToRemove: string) => {
+    setTags((prev) => prev.filter((tag) => tag !== tagToRemove));
+  };
+
   const getTrimmedFormData = () => ({
     ...formData,
     title: formData.title.trim(),
@@ -79,6 +105,10 @@ export const useFundraiserForm = () => {
       validationErrors.images = "Хоча б одне зображення обов'язкове";
     }
 
+    if (tags.length === 0) {
+      validationErrors.tags = "Додайте хоча б один тег";
+    }
+
     if (Object.keys(validationErrors).length) {
       setErrors(validationErrors);
       return null;
@@ -91,13 +121,17 @@ export const useFundraiserForm = () => {
     errors,
     retainedImages,
     newImages,
+    tags,
     onFieldChange,
     onDescriptionChange,
     onAddFiles,
     onRemoveRetainedImage,
     onRemoveNewImage,
+    onAddTag,
+    onRemoveTag,
     setFormData,
     setRetainedImages,
+    setTags,
     validateForm,
   };
 };

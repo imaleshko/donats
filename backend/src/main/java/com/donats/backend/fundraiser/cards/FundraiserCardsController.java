@@ -16,7 +16,7 @@ public class FundraiserCardsController {
         this.fundraiserCardsService = fundraiserCardsService;
     }
 
-    @GetMapping("/list}")
+    @GetMapping("/list")
     public ResponseEntity<FundraiserCardsPage> getCards(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(required = false) String tag
