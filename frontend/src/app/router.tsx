@@ -15,6 +15,8 @@ import { Fundraiser } from "@/pages/Fundraiser/Fundraiser.tsx";
 import Fundraisers from "@/pages/Account/Fundraisers/Fundraisers.tsx";
 import { getUser } from "@/app/getUser.ts";
 import AccountLayout from "@/pages/Account/AccountLayout.tsx";
+import { Page404 } from "@/pages/Page404/Page404.tsx";
+import { accountApi } from "@/pages/Account/accountApi.ts";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +33,6 @@ export const router = createBrowserRouter([
         return null;
       }
     },
-
     children: [
       {
         index: true,
@@ -40,11 +41,7 @@ export const router = createBrowserRouter([
       {
         path: "fundraiser/:username/:slug",
         Component: Fundraiser,
-        errorElement: (
-          <div style={{ padding: "40px", color: "white", textAlign: "center" }}>
-            Збір не знайдено (404)
-          </div>
-        ),
+        errorElement: <Page404 />,
         loader: async ({ params }) => {
           const { username, slug } = params;
 
@@ -77,10 +74,20 @@ export const router = createBrowserRouter([
           {
             path: "profile",
             Component: Profile,
+            loader: () =>
+              queryClient.ensureQueryData({
+                queryKey: ["user-fundraisers"],
+                queryFn: accountApi.getUserFundraisers,
+              }),
           },
           {
             path: "donations",
             Component: Donations,
+            loader: () =>
+              queryClient.ensureQueryData({
+                queryKey: ["user-donations"],
+                queryFn: accountApi.getUserDonations,
+              }),
           },
           {
             path: "fundraisers",
@@ -104,6 +111,10 @@ export const router = createBrowserRouter([
             ],
           },
         ],
+      },
+      {
+        path: "*",
+        Component: Page404,
       },
     ],
   },

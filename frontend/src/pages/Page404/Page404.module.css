@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 12px;
+}
+
+.error {
+  font-size: 96px;
+  color: var(--text-grey-color);
+  line-height: 1;
+}
+
+.text {
+  font-size: 20px;
+  color: var(--text-grey-color);
+}

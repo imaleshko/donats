@@ -4,17 +4,13 @@ import { useDonations } from "@/pages/Account/Donations/useDonations.ts";
 import { Divider } from "@/components/Divider/Divider.tsx";
 
 const Donations = () => {
-  const { data: donations, isLoading } = useDonations();
+  const { data: donations } = useDonations();
 
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>Мої донати</h2>
-
       <Divider />
-
-      {isLoading ? (
-        <p className={styles.empty}>Завантаження...</p>
-      ) : !donations || donations.length === 0 ? (
+      {!donations || donations.length === 0 ? (
         <p className={styles.empty}>Ви ще не зробили жодного донату.</p>
       ) : (
         <div className={styles.list}>

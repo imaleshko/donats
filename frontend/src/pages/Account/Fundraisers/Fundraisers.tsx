@@ -10,7 +10,7 @@ import { Divider } from "@/components/Divider/Divider.tsx";
 const Fundraisers = () => {
   const navigate = useNavigate();
 
-  const { data: fundraisers, isLoading } = useFundraisers();
+  const { data: fundraisers } = useFundraisers();
   const {
     closeFundraiser,
     isPending,
@@ -49,9 +49,7 @@ const Fundraisers = () => {
 
       {closeError && <p className={styles.errorText}>{closeError}</p>}
 
-      {isLoading ? (
-        <p className={styles.empty}>Завантаження...</p>
-      ) : isEmpty ? (
+      {isEmpty ? (
         <p className={styles.empty}>Ви ще не створили жодного збору</p>
       ) : (
         <div className={styles.cardsList}>
