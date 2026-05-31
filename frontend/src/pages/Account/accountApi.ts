@@ -147,6 +147,6 @@ export const accountApi = {
   },
 
   closeFundraiser: async (fundraiserId: number): Promise<void> => {
-    await api.put(`/fundraisers/${fundraiserId}/close`);
+    await api.patch(`/fundraisers/${fundraiserId}/close`);
   },
 };

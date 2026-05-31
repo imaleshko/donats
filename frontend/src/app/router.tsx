@@ -48,6 +48,7 @@ export const router = createBrowserRouter([
           if (!username || !slug) {
             throw redirect("/");
           }
+
           return await queryClient.ensureQueryData({
             queryKey: ["fundraiser", username, slug],
             queryFn: () => homeApi.getByUsernameAndSlug(username, slug),

@@ -20,7 +20,6 @@ const DonationForm = ({ fundraiserId, status }: DonationFormProps) => {
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({});
-  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const queryClient = useQueryClient();
   const { username, slug } = useParams<{ username: string; slug: string }>();
@@ -38,9 +37,6 @@ const DonationForm = ({ fundraiserId, status }: DonationFormProps) => {
       void queryClient.invalidateQueries({
         queryKey: ["fundraiser-donations", fundraiserId],
       });
-    },
-    onFailedPayment: () => {
-      setPaymentError("Оплата не пройшла");
     },
   });
 
@@ -147,9 +143,6 @@ const DonationForm = ({ fundraiserId, status }: DonationFormProps) => {
         </div>
 
         {serverError && <div className={styles.serverError}>{serverError}</div>}
-        {paymentError && (
-          <div className={styles.serverError}>{paymentError}</div>
-        )}
 
         <button
           type="submit"

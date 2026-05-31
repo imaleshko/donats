@@ -63,7 +63,7 @@ public class AuthController {
     private ResponseCookie createCookie(String token, long maxAge) {
         return ResponseCookie.from("refreshToken", token)
                 .httpOnly(true)
-                .path("/")
+                .path("/api/auth")
                 .maxAge(maxAge)
                 .build();
     }

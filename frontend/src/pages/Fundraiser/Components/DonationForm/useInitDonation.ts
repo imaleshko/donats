@@ -28,13 +28,9 @@ declare global {
 
 interface UseInitDonationProps {
   onSuccessPayment?: () => void;
-  onFailedPayment?: () => void;
 }
 
-export const useInitDonation = ({
-  onSuccessPayment,
-  onFailedPayment,
-}: UseInitDonationProps) => {
+export const useInitDonation = ({ onSuccessPayment }: UseInitDonationProps) => {
   const mutation = useMutation({
     mutationFn: (data: DonationInitRequest) => donationApi.initDonation(data),
     onSuccess: (response) => {
@@ -47,13 +43,8 @@ export const useInitDonation = ({
           mode: "popup",
         }).on("liqpay.callback", (data) => {
           if (data.status === "success") {
+            console.log("успіх");
             if (onSuccessPayment) onSuccessPayment();
-          } else if (
-            data.status === "failure" ||
-            data.status === "error" ||
-            data.status === "reversed"
-          ) {
-            onFailedPayment?.();
           }
         });
       } else {
